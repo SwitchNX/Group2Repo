@@ -1,4 +1,7 @@
-﻿namespace GroupVersionControl
+﻿
+// Kai Gidwani
+
+namespace GroupVersionControl
 {
     internal class Program
     {
