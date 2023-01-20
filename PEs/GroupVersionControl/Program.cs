@@ -1,4 +1,5 @@
-﻿namespace GroupVersionControl
+﻿//Hudson Ward
+namespace GroupVersionControl
 {
     internal class Program
     {
