@@ -43,6 +43,11 @@ namespace GroupVersionControl
             Console.WriteLine("Hello, World!");
             
             Console.WriteLine(LastFirst("Wedge Antilles"));
+
+            int[] array1 = { 3, 8, 10, 1, 9, 14, -3, 0, 14, 207, 56, 98 };
+            int[] array2 = { 17, 42, 3, 5, 5, 5, 8, 2, 4, 6, 1, 19 };
+            Console.WriteLine($"The array {array1} has the longest sorted sequence of {LongestSortedSequence(array1)}");
+            Console.WriteLine($"The array {array1} has the longest sorted sequence of {LongestSortedSequence(array1)}");
         }
 
         /// <summary>
@@ -66,11 +71,6 @@ namespace GroupVersionControl
 
             // Returns finished output
             return output;
-
-            int[] array1 = { 3, 8, 10, 1, 9, 14, -3, 0, 14, 207, 56, 98 };
-            int[] array2 = { 17, 42, 3, 5, 5, 5, 8, 2, 4, 6, 1, 19 };
-            Console.WriteLine($"The array {array1} has the longest sorted sequence of { LongestSortedSequence(array1)}");
-            Console.WriteLine($"The array {array1} has the longest sorted sequence of {LongestSortedSequence(array1)}");
         }
 
         /// <summary>
