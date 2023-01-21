@@ -152,13 +152,8 @@ namespace GroupVersionControl
             return longestSequence;
             
         }
-    }
-}
-
-
-
-            //Palindrome Checker
-
+        static string PalindromeCheck()
+        {
             Console.WriteLine("Enter a word:");
             String checkPalindrome = Console.ReadLine();
             checkPalindrome = checkPalindrome.Trim().ToLower();
@@ -169,9 +164,9 @@ namespace GroupVersionControl
             if (wordLength != 0)
             {
                 halfLength = wordLength / 2;
-                for (int i = 0; i < halfLength; i++)
+                for (int i = 0; i<halfLength; i++)
                 {
-                    if (checkPalindrome.Substring(i, 1).Equals(checkPalindrome.Substring(wordLength - (i + 1))) == true)
+                    if (checkPalindrome.Substring(i, 1).Equals(checkPalindrome.Substring(wordLength - (i + 1),1)) == true)
                     {
                         palindromeResult = true;
                         wordLength--;
@@ -185,10 +180,11 @@ namespace GroupVersionControl
 
             if (palindromeResult == true)
             {
-                Console.WriteLine("That's a palindrome!");
-            } else
+                return "That's a palindrome!";
+            }
+            else
             {
-                Console.WriteLine("That's not a palindrome!");
+                return "That's not a palindrome!";
             }
         }
     }
