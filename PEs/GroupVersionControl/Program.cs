@@ -169,7 +169,6 @@ namespace GroupVersionControl
                     if (checkPalindrome.Substring(i, 1).Equals(checkPalindrome.Substring(wordLength - (i + 1),1)) == true)
                     {
                         palindromeResult = true;
-                        wordLength--;
                     } else
                     {
                         palindromeResult = false;
