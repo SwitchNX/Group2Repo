@@ -44,6 +44,7 @@ namespace GroupVersionControl
             
             Console.WriteLine(LastFirst("Wedge Antilles"));
             DiceSum();
+            Console.WriteLine(PalindromeCheck());
         }
 
         /// <summary>
