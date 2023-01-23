@@ -1,0 +1,3 @@
+John;Steve;Amelia;Michael;Kate;Anne
+waiter;receptionist;secretary;royal;veterinarian;technician
+has short hair;has long hair;has a small nose;has a big nose;always wears a clown nose;secretly works for the government
