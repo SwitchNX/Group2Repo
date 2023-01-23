@@ -44,6 +44,7 @@ namespace GroupVersionControl
             
             Console.WriteLine(LastFirst("Wedge Antilles"));
             DiceSum();
+            Console.WriteLine(PalindromeCheck());
         }
 
         /// <summary>
@@ -152,15 +153,8 @@ namespace GroupVersionControl
             return longestSequence;
             
         }
-
-        /// <summary>
-        /// Hudson Ward Palindrome Check
-        /// </summary>
-        /// <returns> Whether or not a user-input word is a palindrome </returns>
         static string PalindromeCheck()
         {
-            //Palindrome Checker
-
             Console.WriteLine("Enter a word:");
             String checkPalindrome = Console.ReadLine();
             checkPalindrome = checkPalindrome.Trim().ToLower();
@@ -171,14 +165,12 @@ namespace GroupVersionControl
             if (wordLength != 0)
             {
                 halfLength = wordLength / 2;
-                for (int i = 0; i < halfLength; i++)
+                for (int i = 0; i<halfLength; i++)
                 {
-                    if (checkPalindrome.Substring(i, 1).Equals(checkPalindrome.Substring(wordLength - (i + 1))) == true)
+                    if (checkPalindrome.Substring(i, 1).Equals(checkPalindrome.Substring(wordLength - (i + 1),1)) == true)
                     {
                         palindromeResult = true;
-                        wordLength--;
-                    }
-                    else
+                    } else
                     {
                         palindromeResult = false;
                         break;
