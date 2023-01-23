@@ -152,11 +152,13 @@ namespace GroupVersionControl
             return longestSequence;
             
         }
-    }
-}
 
-
-
+        /// <summary>
+        /// Hudson Ward Palindrome Check
+        /// </summary>
+        /// <returns> Whether or not a user-input word is a palindrome </returns>
+        static string PalindromeCheck()
+        {
             //Palindrome Checker
 
             Console.WriteLine("Enter a word:");
@@ -175,7 +177,8 @@ namespace GroupVersionControl
                     {
                         palindromeResult = true;
                         wordLength--;
-                    } else
+                    }
+                    else
                     {
                         palindromeResult = false;
                         break;
@@ -185,11 +188,14 @@ namespace GroupVersionControl
 
             if (palindromeResult == true)
             {
-                Console.WriteLine("That's a palindrome!");
-            } else
+                return "That's a palindrome!";
+            }
+            else
             {
-                Console.WriteLine("That's not a palindrome!");
+                return "That's not a palindrome!";
             }
         }
+
+    
     }
 }
