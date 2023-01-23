@@ -8,16 +8,25 @@ namespace CollaborativeStoryGenerator_G2
         static void Main(string[] args)
         {
             string userChoice;
+            string newStory;
 
             // placeholder for when we add the endings from the conflicts file
-            Console.Write("Welcome to the story generator!\n\n" +
-                          "Please choose a type of ending to generate a story:\n" +
+            Console.WriteLine("Welcome to the story generator!\n");
+
+            // loop of story creation
+            do
+            {
+                Console.Write("Please choose a type of ending to generate a story:\n" +
                           /*$*/"'{}'   '{}'   '{}'\n" +
                           /*$*/"'{}'   '{}'   '{}'\n\n" +
                           "Your choice >> ");
-            userChoice = Console.ReadLine()!;
+                userChoice = Console.ReadLine()!;
 
+                // story shennaniganary goes here
 
+                Console.Write("Would you like another story? Choose ‘yes’ or ‘no’ >> ");
+                newStory = Console.ReadLine()!;
+            } while (newStory.ToLower() != "no");
         }
     }
 }
