@@ -44,6 +44,7 @@ namespace GroupVersionControl
             
             Console.WriteLine(LastFirst("Wedge Antilles"));
             DiceSum();
+            Console.WriteLine(PalindromeCheck());
         }
 
         /// <summary>
@@ -152,7 +153,39 @@ namespace GroupVersionControl
             return longestSequence;
             
         }
+        static string PalindromeCheck()
+        {
+            Console.WriteLine("Enter a word:");
+            String checkPalindrome = Console.ReadLine();
+            checkPalindrome = checkPalindrome.Trim().ToLower();
+            Boolean palindromeResult = false;
+            int wordLength = checkPalindrome.Length;
+            int halfLength = 0;
+
+            if (wordLength != 0)
+            {
+                halfLength = wordLength / 2;
+                for (int i = 0; i<halfLength; i++)
+                {
+                    if (checkPalindrome.Substring(i, 1).Equals(checkPalindrome.Substring(wordLength - (i + 1),1)) == true)
+                    {
+                        palindromeResult = true;
+                    } else
+                    {
+                        palindromeResult = false;
+                        break;
+                    }
+                }
+            }
+
+            if (palindromeResult == true)
+            {
+                return "That's a palindrome!";
+            }
+            else
+            {
+                return "That's not a palindrome!";
+            }
+        }
     }
 }
-
-
