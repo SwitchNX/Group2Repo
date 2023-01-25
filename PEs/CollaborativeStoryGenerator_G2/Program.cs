@@ -10,6 +10,8 @@ namespace CollaborativeStoryGenerator_G2
             string userChoice;
             string newStory;
 
+            ReadTextFiles();
+
             // placeholder for when we add the endings from the conflicts file
             Console.WriteLine("Welcome to the story generator!");
 
@@ -27,6 +29,18 @@ namespace CollaborativeStoryGenerator_G2
                 Console.Write("Would you like another story? Choose ‘yes’ or ‘no’ >> ");
                 newStory = Console.ReadLine()!;
             } while (newStory.ToLower().Trim() != "no");
+        }
+
+        public static void ReadTextFiles()
+        {
+            StreamReader input = new StreamReader("Actor.txt");
+            string actorData;
+
+            do
+            {
+                actorData = input.ReadLine();
+            }
+            while (actorData != null);
         }
     }
 }
