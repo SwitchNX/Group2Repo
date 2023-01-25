@@ -35,9 +35,11 @@ namespace CollaborativeStoryGenerator_G2
         /// <summary>
         /// 
         /// </summary>
-        static List<List<string>> LoadActor()
+        static Actor LoadActor()
         {
-            List<List<string>> actors = new List<List<string>>();
+            List<string> actorNames = new List<string>();
+            List<string> actorJobs = new List<string>();
+            List<string> actorTraits = new List<string>();
 
             StreamReader input = null;
             try
@@ -51,19 +53,19 @@ namespace CollaborativeStoryGenerator_G2
                 // read each line of Actors.txt
                 while ((line = input.ReadLine()!) != null)
                 {
-                    int actorsIndex = 0;
                     String[] data = line.Split(';');
-
+                    actorNames.Add(data[0]);
+                    actorJobs.Add(data[1]);
+                    actorTraits.Add(data[2]);
+                    /*
                     // add each string to the individual bins of actors
                     for (int i = 0; i < 6; i++)
                     {
-                        actors[actorsIndex].Add(data[i]);
+                        
                         Console.WriteLine($"   Added {data[i]} to the list.");
                     }
-                    actorsIndex++;
+                    */
                 }
-
-                Console.WriteLine("   Loaded all data from file. Players created.");
 
             }
             catch (Exception e)
@@ -78,7 +80,7 @@ namespace CollaborativeStoryGenerator_G2
                 }
             }
 
-            return actors;
+            return new Actor(actorNames, actorJobs, actorTraits);
         }
 
 
