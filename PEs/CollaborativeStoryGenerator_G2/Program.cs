@@ -17,16 +17,16 @@ namespace CollaborativeStoryGenerator_G2
             do
             {
                 Console.Write("Please choose a type of ending to generate a story:\n" +
-                          /*$*/"'{}'   '{}'   '{}'\n" +
-                          /*$*/"'{}'   '{}'   '{}'\n\n" +
+                          /*$*/"'{happy}'   '{tragic}'   '{romantic}'\n" +
+                          /*$*/"'{destructive}'   '{twist}'   '{any}'\n\n" +
                           "Your choice >> ");
-                userChoice = Console.ReadLine()!;
+                userChoice = Console.ReadLine()!.ToLower().Trim();
 
                 // story shennaniganary goes here
 
                 Console.Write("Would you like another story? Choose ‘yes’ or ‘no’ >> ");
                 newStory = Console.ReadLine()!;
-            } while (newStory.ToLower() != "no");
+            } while (newStory.ToLower().Trim() != "no");
         }
     }
 }
