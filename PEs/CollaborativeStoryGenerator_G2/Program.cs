@@ -11,12 +11,12 @@ namespace CollaborativeStoryGenerator_G2
             string newStory;
 
             // placeholder for when we add the endings from the conflicts file
-            Console.WriteLine("Welcome to the story generator!\n");
+            Console.WriteLine("Welcome to the story generator!");
 
             // loop of story creation
             do
             {
-                Console.Write("Please choose a type of ending to generate a story:\n" +
+                Console.Write("\nPlease choose a type of ending to generate a story:\n" +
                           /*$*/"'{happy}'   '{tragic}'   '{romantic}'\n" +
                           /*$*/"'{destructive}'   '{twist}'   '{any}'\n\n" +
                           "Your choice >> ");
