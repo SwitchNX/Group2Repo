@@ -82,7 +82,6 @@ namespace CollaborativeStoryGenerator_G2
         }
 
 
-        public static void ReadTextFiles()
         public static Setting GenerateSettings()
         {
             StreamReader input;
