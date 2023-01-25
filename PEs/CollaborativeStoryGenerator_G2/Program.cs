@@ -79,18 +79,5 @@ namespace CollaborativeStoryGenerator_G2
 
             return actors;
         }
-
-
-        public static void ReadTextFiles()
-        {
-            StreamReader input = new StreamReader("Actor.txt");
-            string actorData;
-
-            do
-            {
-                actorData = input.ReadLine();
-            }
-            while (actorData != null);
-        }
     }
 }
