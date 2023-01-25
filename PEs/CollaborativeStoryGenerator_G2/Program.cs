@@ -10,7 +10,8 @@ namespace CollaborativeStoryGenerator_G2
             string userChoice;
             string newStory;
 
-            ReadTextFiles();
+            Setting setting;
+            GenerateSettings();
 
             // placeholder for when we add the endings from the conflicts file
             Console.WriteLine("Welcome to the story generator!");
@@ -31,16 +32,41 @@ namespace CollaborativeStoryGenerator_G2
             } while (newStory.ToLower().Trim() != "no");
         }
 
-        public static void ReadTextFiles()
+        public static Setting GenerateSettings()
         {
-            StreamReader input = new StreamReader("Actor.txt");
-            string actorData;
-
-            do
+            StreamReader input;
+            try 
             {
-                actorData = input.ReadLine();
+                input = new StreamReader("Settings.txt");
             }
-            while (actorData != null);
+            catch(Exception e)
+            {
+                Console.WriteLine("Error opening file: " + e.Message);
+                return null;
+            }
+
+            //Will be every individual line in the settings text file
+            string line;
+
+            List<string> settingsFirstAttributes = new List<string>();
+            List<string> settingsSecondAttributes = new List<string>();
+
+            try
+            {
+                while ((line = input.ReadLine()) != null)
+                {
+                    string[] splitLine = line.Split(';');
+                    settingsFirstAttributes.Add(splitLine[0]);
+                    settingsSecondAttributes.Add(splitLine[1]);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading file: " + e.Message);
+            }
+
+            return new Setting(settingsFirstAttributes, settingsSecondAttributes);
+                      
         }
     }
 }
