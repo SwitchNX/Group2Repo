@@ -42,7 +42,7 @@ namespace CollaborativeStoryGenerator_G2
             StreamReader input = null;
             try
             {
-                input = new StreamReader("Actor.txt");
+                input = new StreamReader("..\\..\\..\\Actor.txt");
                 string line = null;
 
 
@@ -87,7 +87,7 @@ namespace CollaborativeStoryGenerator_G2
             StreamReader input;
             try 
             {
-                input = new StreamReader("Settings.txt");
+                input = new StreamReader("..\\..\\..\\Settings.txt");
             }
             catch(Exception e)
             {
