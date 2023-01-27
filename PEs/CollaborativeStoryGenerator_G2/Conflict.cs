@@ -28,7 +28,7 @@ namespace CollaborativeStoryGenerator_G2
         /// <summary>
         /// Prints an ending randomly chosen based on the user-entered emotion.
         /// </summary>
-        /// <param name="conflict1">The first attribute of the setting</param>
+        /// <param name="conflict1">The text of the conflict</param>
         public Conflict(string conflict1)
         {
             this.conflict1 = conflict1;

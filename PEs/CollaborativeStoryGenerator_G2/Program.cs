@@ -10,8 +10,7 @@ namespace CollaborativeStoryGenerator_G2
             string userChoice;
             string newStory;
 
-            Setting setting;
-            GenerateSettings();
+            Setting settingList = GenerateSettings();
 
             // placeholder for when we add the endings from the conflicts file
             Console.WriteLine("Welcome to the story generator!");
