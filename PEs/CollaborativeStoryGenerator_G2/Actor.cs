@@ -14,9 +14,9 @@ namespace CollaborativeStoryGenerator_G2
     {
         // Fields
 
-        private string name;
-        private string occupation;
-        private string trait;
+        private List<string> name;
+        private List<string> occupation;
+        private List<string> trait;
 
 
         // Parameters
@@ -24,17 +24,17 @@ namespace CollaborativeStoryGenerator_G2
         /// <summary>
         /// Returns the name of the character
         /// </summary>
-        public string Name { get { return name; } }
+        public List<string> Name { get { return name; } }
 
         /// <summary>
         /// Returns the occupation of the character
         /// </summary>
-        public string Ocupation { get { return occupation; } }
+        public List<string> Ocupation { get { return occupation; } }
 
         /// <summary>
         /// Returns the trait of the character
         /// </summary>
-        public string Trait { get { return trait; } }
+        public List<string> Trait { get { return trait; } }
 
 
         // Constructor
@@ -45,7 +45,7 @@ namespace CollaborativeStoryGenerator_G2
         /// <param name="name">The name of the actor</param>
         /// <param name="occupation">The occupation of the actor</param>
         /// <param name="trait">The trait of the actor</param>
-        public Actor(string name, string occupation, string trait)
+        public Actor(List<string> name, List<string> occupation, List<string> trait)
         {
             this.name = name;
             this.occupation = occupation;
