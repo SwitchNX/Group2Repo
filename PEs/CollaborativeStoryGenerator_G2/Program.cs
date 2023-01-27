@@ -1,4 +1,4 @@
-﻿// Anthony Curtis, 
+﻿// Anthony Curtis, Kai Gidwani, Ryan Fogarty, Hudson Ward
 // 01/23/2023
 // Generate a random story
 namespace CollaborativeStoryGenerator_G2
@@ -15,6 +15,9 @@ namespace CollaborativeStoryGenerator_G2
             //Generates the conflics
             List<Conflict> conflictList = GenerateConflictList();
 
+            Actor actor;
+            LoadActor();
+
             // placeholder for when we add the endings from the conflicts file
             Console.WriteLine("Welcome to the story generator!");
 
@@ -28,6 +31,31 @@ namespace CollaborativeStoryGenerator_G2
                 userChoice = Console.ReadLine()!.ToLower().Trim();
 
                 // story shennaniganary goes here
+                // Console.WriteLine($"{actorName} is a {actorJob} from {settingPlace} who {actorTrait}. {*ending based on selection*}");
+                switch(userChoice.ToLower().Trim())
+                {
+                    case "happy":
+
+                        break;
+                    case "tragic":
+
+                        break;
+                    case "romantic":
+
+                        break;
+                    case "destructive":
+
+                        break;
+                    case "twist":
+
+                        break;
+                    case "any":
+
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input.\n");
+                        break;
+                }
 
                 Console.Write("Would you like another story? Choose ‘yes’ or ‘no’ >> ");
                 newStory = Console.ReadLine()!;
@@ -35,7 +63,7 @@ namespace CollaborativeStoryGenerator_G2
         }
 
         /// <summary>
-        /// 
+        /// Pulls actors' info from the text files into objects
         /// </summary>
         static Actor LoadActor()
         {
@@ -59,14 +87,6 @@ namespace CollaborativeStoryGenerator_G2
                     actorNames.Add(data[0]);
                     actorJobs.Add(data[1]);
                     actorTraits.Add(data[2]);
-                    /*
-                    // add each string to the individual bins of actors
-                    for (int i = 0; i < 6; i++)
-                    {
-                        
-                        Console.WriteLine($"   Added {data[i]} to the list.");
-                    }
-                    */
                 }
 
             }
