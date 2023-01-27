@@ -12,6 +12,9 @@ namespace CollaborativeStoryGenerator_G2
 
             Setting settingList = GenerateSettings();
 
+            //Generates the conflics
+            List<Conflict> conflictList = GenerateConflictList();
+
             // placeholder for when we add the endings from the conflicts file
             Console.WriteLine("Welcome to the story generator!");
 
@@ -118,6 +121,38 @@ namespace CollaborativeStoryGenerator_G2
 
             return new Setting(settingsFirstAttributes, settingsSecondAttributes);
                       
+        }
+
+        public static List<Conflict> GenerateConflictList()
+        {
+            StreamReader input;
+            try
+            {
+                input = new StreamReader("..\\..\\..\\Settings.txt");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error opening file: " + e.Message);
+                return null;
+            }
+
+            List<Conflict> conflictList = new List<Conflict>();
+            string line;
+
+            try
+            {
+                while ((line = input.ReadLine()) != null)
+                {
+                    string[] lineComponents = line.Split(';');
+                    //if lc.count == 2, set current conflict type to lc 0, 
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading file: " + e.Message);
+            }
+
+            return conflictList;
         }
     }
 }

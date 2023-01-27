@@ -1,1 +1,10 @@
-happy;Their boat breaks down and drift ashore in a paradise.;They are abducted by aliens and come back with tons of riches.;tragic;They are challenged to bet on a sports match and end up losing their life savings.;They get into a car crash and lose their limbs.;romantic;They get trapped in an elevator with one other person who becomes the love of their life.;They get lost in space and end up married to The Rock.;destructive;They steal a mysterious remote control and press a button that blows up the city.;They hack into the code and 01010011 01001111 01010011.;twist;They get a hit put on them and find out the assasin is their long lost sibling.;They find out the story doesn't have an ending and-
+happy;Their boat breaks down and drift ashore in a paradise.;
+They are abducted by aliens and come back with tons of riches.;
+tragic;They are challenged to bet on a sports match and end up losing their life savings.;
+They get into a car crash and lose their limbs.;
+romantic;They get trapped in an elevator with one other person who becomes the love of their life.;
+They get lost in space and end up married to The Rock.;
+destructive;They steal a mysterious remote control and press a button that blows up the city.;
+They hack into the code and 01010011 01001111 01010011.;
+twist;They get a hit put on them and find out the assasin is their long lost sibling.;
+They find out the story doesn't have an ending and-

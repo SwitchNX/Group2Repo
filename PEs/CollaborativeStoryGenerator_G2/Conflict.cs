@@ -12,16 +12,28 @@ namespace CollaborativeStoryGenerator_G2
 {
     internal class Conflict
     {
-        private string conflict1;
+        private string conflictText;
+        private string conflictType;
+
+        /// <summary>
+        /// The type of conflict it is (happy, tragic, etc)
+        /// </summary>
+        public string ConflictType
+        {
+            get
+            {
+                return conflictType;
+            }
+        }
 
         /// <summary>
         /// The selected conflict and ending
         /// </summary>
-        public string Conflict1
+        public string ConflictText
         {
             get
             {
-                return conflict1;
+                return conflictText;
             }
         }
 
@@ -31,7 +43,7 @@ namespace CollaborativeStoryGenerator_G2
         /// <param name="conflict1">The text of the conflict</param>
         public Conflict(string conflict1)
         {
-            this.conflict1 = conflict1;
+            this.conflictText = conflictText;
         }
     }
 }
