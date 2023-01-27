@@ -12,8 +12,8 @@ namespace CollaborativeStoryGenerator_G2
     internal class Setting
     {
         Random rng = new Random();
-        private string[] firstAttributes;
-        private string[] secondAttributes;
+        private List<string> firstAttributes;
+        private List<string> secondAttributes;
        
 
         /// <summary>
@@ -21,20 +21,28 @@ namespace CollaborativeStoryGenerator_G2
         /// </summary>
         /// <param name="attribute1">The first attribute of the setting</param>
         /// <param name="attribute2">The second attribute of the setting</param>
-        public Setting(string[] firstAttributes, string[] secondAttributes)
+        public Setting(List<string> firstAttributes, List<string> secondAttributes)
         {
             this.firstAttributes = firstAttributes;
             this.secondAttributes = secondAttributes;
         }
 
+        /// <summary>
+        /// Returns a random first attribute of a setting
+        /// </summary>
+        /// <returns>A random attribute of a setting</returns>
         public string GetRandomFirstAttribute()
         {
-            return firstAttributes[rng.Next(firstAttributes.Length)];
+            return firstAttributes[rng.Next(firstAttributes.Count)];
         }
 
+        /// <summary>
+        /// Returns a random second attribute of a setting
+        /// </summary>
+        /// <returns>A random attribute of a setting</returns>
         public string GetRandomSecondAttribute()
         {
-            return secondAttributes[rng.Next(secondAttributes.Length)];
+            return secondAttributes[rng.Next(secondAttributes.Count)];
         }
     }
 }

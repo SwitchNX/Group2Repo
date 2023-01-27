@@ -10,7 +10,8 @@ namespace CollaborativeStoryGenerator_G2
             string userChoice;
             string newStory;
 
-            // ReadTextFiles();
+            Setting setting;
+            GenerateSettings();
 
             // placeholder for when we add the endings from the conflicts file
             Console.WriteLine("Welcome to the story generator!");
@@ -34,14 +35,16 @@ namespace CollaborativeStoryGenerator_G2
         /// <summary>
         /// 
         /// </summary>
-        static List<List<string>> LoadActor()
+        static Actor LoadActor()
         {
-            List<List<string>> actors = new List<List<string>>();
+            List<string> actorNames = new List<string>();
+            List<string> actorJobs = new List<string>();
+            List<string> actorTraits = new List<string>();
 
             StreamReader input = null;
             try
             {
-                input = new StreamReader("Actor.txt");
+                input = new StreamReader("..\\..\\..\\Actor.txt");
                 string line = null;
 
 
@@ -50,19 +53,19 @@ namespace CollaborativeStoryGenerator_G2
                 // read each line of Actors.txt
                 while ((line = input.ReadLine()!) != null)
                 {
-                    int actorsIndex = 0;
                     String[] data = line.Split(';');
-
+                    actorNames.Add(data[0]);
+                    actorJobs.Add(data[1]);
+                    actorTraits.Add(data[2]);
+                    /*
                     // add each string to the individual bins of actors
                     for (int i = 0; i < 6; i++)
                     {
-                        actors[actorsIndex].Add(data[i]);
+                        
                         Console.WriteLine($"   Added {data[i]} to the list.");
                     }
-                    actorsIndex++;
+                    */
                 }
-
-                Console.WriteLine("   Loaded all data from file. Players created.");
 
             }
             catch (Exception e)
@@ -77,7 +80,45 @@ namespace CollaborativeStoryGenerator_G2
                 }
             }
 
-            return actors;
+            return new Actor(actorNames, actorJobs, actorTraits);
+        }
+
+
+        public static Setting GenerateSettings()
+        {
+            StreamReader input;
+            try 
+            {
+                input = new StreamReader("..\\..\\..\\Settings.txt");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error opening file: " + e.Message);
+                return null;
+            }
+
+            //Will be every individual line in the settings text file
+            string line;
+
+            List<string> settingsFirstAttributes = new List<string>();
+            List<string> settingsSecondAttributes = new List<string>();
+
+            try
+            {
+                while ((line = input.ReadLine()) != null)
+                {
+                    string[] splitLine = line.Split(';');
+                    settingsFirstAttributes.Add(splitLine[0]);
+                    settingsSecondAttributes.Add(splitLine[1]);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading file: " + e.Message);
+            }
+
+            return new Setting(settingsFirstAttributes, settingsSecondAttributes);
+                      
         }
     }
 }
