@@ -1,4 +1,4 @@
-﻿// Anthony Curtis, 
+﻿// Anthony Curtis, Kai Gidwani, Ryan Fogarty, Hudson Ward
 // 01/23/2023
 // Generate a random story
 namespace CollaborativeStoryGenerator_G2
