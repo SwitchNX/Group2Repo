@@ -56,7 +56,7 @@ namespace CollaborativeStoryGenerator_G2
                         Console.WriteLine("Invalid input.\n");
                         break;
                 }
-
+                Console.WriteLine();
                 Console.Write("Would you like another story? Choose ‘yes’ or ‘no’ >> ");
                 newStory = Console.ReadLine()!;
             } while (newStory.ToLower().Trim() != "no");
@@ -148,7 +148,7 @@ namespace CollaborativeStoryGenerator_G2
             StreamReader input;
             try
             {
-                input = new StreamReader("..\\..\\..\\Settings.txt");
+                input = new StreamReader("..\\..\\..\\Conflicts.txt");
             }
             catch (Exception e)
             {

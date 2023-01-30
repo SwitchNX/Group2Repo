@@ -12,8 +12,9 @@ namespace CollaborativeStoryGenerator_G2
 {
     internal class Conflict
     {
-        private string conflictText;
+        private List<string> conflictText;
         private string conflictType;
+        private Random conflictRng = new Random();
 
         /// <summary>
         /// The type of conflict it is (happy, tragic, etc)
@@ -27,23 +28,53 @@ namespace CollaborativeStoryGenerator_G2
         }
 
         /// <summary>
-        /// The selected conflict and ending
+        /// The constructor for the conflict sentence
         /// </summary>
-        public string ConflictText
+        /// <param name="conflictType"> What type of conflict is present </param>
+        /// <param name="conflictText"> The list of all possible conflicts </param>
+        public Conflict(string conflictType, List<string> conflictText)
         {
-            get
-            {
-                return conflictText;
-            }
+            this.conflictType = conflictType;
+            this.conflictText = conflictText;
         }
 
         /// <summary>
-        /// Prints an ending randomly chosen based on the user-entered emotion.
+        /// Returns a conflict and ending that varies depending on the
+        /// user-input ending type
         /// </summary>
-        /// <param name="conflict1">The text of the conflict</param>
-        public Conflict(string conflict1)
+        /// <returns> A random conflict and ending </returns>
+        public string GetConflict()
         {
-            this.conflictText = conflictText;
+            if (conflictType.Equals("happy"))
+            {
+                return conflictText[conflictRng.Next(1, 3)];
+            } else if (conflictType.Equals("tragic"))
+            {
+                return conflictText[conflictRng.Next(4, 6)];
+            } else if (conflictType.Equals("romantic"))
+            {
+                return conflictText[conflictRng.Next(7, 9)];
+            } else if (conflictType.Equals("destructive"))
+            {
+                return conflictText[conflictRng.Next(10, 12)];
+            } else if (conflictType.Equals("twist"))
+            {
+                return conflictText[conflictRng.Next(13, 15)];
+            } else
+            {
+                bool viableOption = false;
+                int option = 0;
+                while (viableOption = false)
+                {
+                    option = conflictRng.Next(conflictText.Count);
+                    if (option != 0 && option != 3 && option != 6 && option != 9 && option != 12)
+                    {
+                        viableOption= true;
+                    }
+                }
+                return conflictText[option];
+            }
+            
         }
     }
 }
