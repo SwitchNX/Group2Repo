@@ -7,67 +7,67 @@ namespace CollaborativeStoryGenerator_G2
     {
         static void Main(string[] args)
         {
+            // String for user choice
             string userChoice;
+
+            // String for whether or not to continue generating stories
             string newStory;
 
+
+            // ----- Generation -----
+
+            // Generates the setting
             Setting settingList = GenerateSettings();
 
-            //Generates the conflics
+            //Generates the conflic
             Conflict conflictList = GenerateConflictList();
 
-            Actor actor;
-            LoadActor();
+            // Generate the first actor
+            Actor firstActor = LoadActor();
 
-            // placeholder for when we add the endings from the conflicts file
+            // Generate the second actor
+            Actor secondActor = LoadActor();
+
+
+            // Starting the story generation
+
             Console.WriteLine("\nWelcome to the story generator!");
 
-            // loop of story creation
+            // loop until the user doesn't want to generate a new story
             do
             {
-                Console.Write("\nPlease choose a type of ending to generate a story:\n" +
-                          /*$*/"'{happy}'   '{tragic}'   '{romantic}'\n" +
-                          /*$*/"'{destructive}'   '{twist}'   '{any}'\n\n" +
-                          "Your choice >> ");
-                userChoice = Console.ReadLine()!.ToLower().Trim();
+                //do
+                //{
+                    // Prompt input
+                    Console.Write("\nPlease choose a type of ending to generate a story:\n" +
+                              /*$*/"'happy' \t'tragic'\t'romantic'\n" +
+                              /*$*/"'destructive'\t'twist'\t\t'any ending'\n\n" +
+                              "Your choice >> ");
 
-                // story shennaniganary goes here
-                // Console.WriteLine($"{actorName} is a {actorJob} who {actorTrait} {settingAttribute (includes from, during, etc)} (x2).
-                // {*ending based on selection*}");
+                    // Read input
+                    userChoice = Console.ReadLine()!.ToLower().Trim();
+
+                //} // verify that the input is valid
+                //while (userChoice != "happy" || userChoice != "tragic" || userChoice != "romantic" ||
+                //       userChoice != "destructive" || userChoice != "twist" || userChoice != "any ending");
+                
 
 
+                // Story print
+                Console.WriteLine($"{firstActor.Name} is a {firstActor.Ocupation} who {firstActor.Trait}. " +
+                    $"{secondActor.Name} is a {secondActor.Ocupation} who {secondActor.Trait}. " +
+                    $"The story takes place {settingList.GetRandomFirstAttribute()} {settingList.GetRandomSecondAttribute()}. " +
+                    $"Then, {conflictList.GetConflict(userChoice)}");
 
-                //Generate this with the GetConflict(userChoice) instead
-                /*switch(userChoice.ToLower().Trim())
-                {
-                    case "happy":
 
-                        break;
-                    case "tragic":
+                Console.WriteLine(); // Newline for spacing
 
-                        break;
-                    case "romantic":
-
-                        break;
-                    case "destructive":
-
-                        break;
-                    case "twist":
-
-                        break;
-                    case "any":
-
-                        break;
-                    default:
-                        Console.WriteLine("Invalid input.\n");
-                        break;
-
-                    
-
-                }*/
-                Console.WriteLine();
+                // Prompt for if the user wants to make another story
                 Console.Write("Would you like another story? Choose ‘yes’ or ‘no’ >> ");
-                newStory = Console.ReadLine()!;
-            } while (newStory.ToLower().Trim() != "no");
+
+                // Get input
+                newStory = Console.ReadLine().ToLower().Trim();
+            } while (newStory != "no");
         }
 
         /// <summary>
