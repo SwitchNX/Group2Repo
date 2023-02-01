@@ -1,10 +1,10 @@
-happy;Their boat breaks down and drifts ashore in a paradise.;
-They are abducted by aliens and come back with tons of riches.;
-tragic;They are challenged to bet on a sports match and end up losing their life savings.;
-They get into a car crash and lose their limbs.;
-romantic;They get trapped in an elevator together and fall in love.;
-They get lost in space and get married on a distant planet.;
-destructive;They steal a mysterious remote control and press a button that blows up the city.;
-They hack into the code and 01010011 01001111 01010011.;
-twist;They get a hit put on them and find out the assasin is their long lost sibling.;
-They find out the story doesn't have an ending and-
+happy;their boat breaks down and drifts ashore in a paradise.;
+they are abducted by aliens and come back with tons of riches.;
+tragic;they are challenged to bet on a sports match and end up losing their life savings.;
+they get into a car crash and lose their limbs.;
+romantic;they get trapped in an elevator together and fall in love.;
+they get lost in space and get married on a distant planet.;
+destructive;they steal a mysterious remote control and press a button that blows up the city.;
+they hack into the code and 01010011 01001111 01010011.;
+twist;they get a hit put on them and find out the assasin is their long lost sibling.;
+they find out the story doesn't have an ending and-
