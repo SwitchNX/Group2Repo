@@ -36,8 +36,8 @@ namespace CollaborativeStoryGenerator_G2
             // loop until the user doesn't want to generate a new story
             do
             {
-                //do
-                //{
+                do
+                {
                     // Prompt input
                     Console.Write("\nPlease choose a type of ending to generate a story:\n" +
                               /*$*/"'happy' \t'tragic'\t'romantic'\n" +
@@ -47,9 +47,10 @@ namespace CollaborativeStoryGenerator_G2
                     // Read input
                     userChoice = Console.ReadLine()!.ToLower().Trim();
 
-                //} // verify that the input is valid
-                //while (userChoice != "happy" || userChoice != "tragic" || userChoice != "romantic" ||
-                //       userChoice != "destructive" || userChoice != "twist" || userChoice != "any ending");
+
+                } // verify that the input is valid
+                while (userChoice != "happy" && userChoice != "tragic" && userChoice != "romantic" &&
+                       userChoice != "destructive" && userChoice != "twist" && userChoice != "any ending");
                 
 
 
