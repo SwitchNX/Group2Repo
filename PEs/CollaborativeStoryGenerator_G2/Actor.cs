@@ -48,6 +48,7 @@ namespace CollaborativeStoryGenerator_G2
         /// <param name="traitList">The list of possible traits of the actor</param>
         public Actor(List<string> nameList, List<string> occupationList, List<string> traitList)
         {
+            // Randomizes the choice for the name, occupation, and trait
             name = nameList[rand.Next(nameList.Count)];
             occupation = occupationList[rand.Next(occupationList.Count)];
             trait = traitList[rand.Next(traitList.Count)];

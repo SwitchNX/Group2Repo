@@ -12,30 +12,17 @@ namespace CollaborativeStoryGenerator_G2
 {
     internal class Conflict
     {
-        private List<string> conflictText;
-        private string conflictType;
+        private List<string> conflictList;
         private Random conflictRng = new Random();
-
-        /// <summary>
-        /// The type of conflict it is (happy, tragic, etc)
-        /// </summary>
-        public string ConflictType
-        {
-            get
-            {
-                return conflictType;
-            }
-        }
 
         /// <summary>
         /// The constructor for the conflict sentence
         /// </summary>
-        /// <param name="conflictType"> What type of conflict is present </param>
-        /// <param name="conflictText"> The list of all possible conflicts </param>
-        public Conflict(string conflictType, List<string> conflictText)
+        /// <param name="conflictList"> The list of all possible conflicts </param>
+        public Conflict(List<string> conflictList)
         {
-            this.conflictType = conflictType;
-            this.conflictText = conflictText;
+            //this.conflictType = conflictType;
+            this.conflictList = conflictList;
         }
 
         /// <summary>
@@ -43,25 +30,25 @@ namespace CollaborativeStoryGenerator_G2
         /// user-input ending type
         /// </summary>
         /// <returns> A random conflict and ending </returns>
-        public string GetConflict()
+        public string GetConflict(string conflictType)
         {
             //If statement determines which endings will be randomly chosen from
             //separated out based on type.
             if (conflictType.Equals("happy"))
             {
-                return conflictText[conflictRng.Next(1, 3)];
+                return conflictList[conflictRng.Next(1, 3)];
             } else if (conflictType.Equals("tragic"))
             {
-                return conflictText[conflictRng.Next(4, 6)];
+                return conflictList[conflictRng.Next(4, 6)];
             } else if (conflictType.Equals("romantic"))
             {
-                return conflictText[conflictRng.Next(7, 9)];
+                return conflictList[conflictRng.Next(7, 9)];
             } else if (conflictType.Equals("destructive"))
             {
-                return conflictText[conflictRng.Next(10, 12)];
+                return conflictList[conflictRng.Next(10, 12)];
             } else if (conflictType.Equals("twist"))
             {
-                return conflictText[conflictRng.Next(13, 15)];
+                return conflictList[conflictRng.Next(13, 15)];
             } else
             {
                 //The any option chooses from all possible endings, eliminating the
@@ -69,16 +56,15 @@ namespace CollaborativeStoryGenerator_G2
 
                 bool viableOption = false;
                 int option = 0;
-
-                while (viableOption = false)
+                while (viableOption == false)
                 {
-                    option = conflictRng.Next(conflictText.Count);
+                    option = conflictRng.Next(conflictList.Count);
                     if (option != 0 && option != 3 && option != 6 && option != 9 && option != 12)
                     {
-                        viableOption= true;
+                        viableOption = true;
                     }
                 }
-                return conflictText[option];
+                return conflictList[option];
             }
             
         }
