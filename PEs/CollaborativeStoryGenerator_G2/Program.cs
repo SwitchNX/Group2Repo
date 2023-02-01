@@ -125,6 +125,7 @@ namespace CollaborativeStoryGenerator_G2
         /// <returns>A new setting object with the settings from the text file</returns>
         public static Setting GenerateSettings()
         {
+            //Attemtps to load the setting file
             StreamReader input;
             try 
             {
@@ -139,8 +140,6 @@ namespace CollaborativeStoryGenerator_G2
             //Will be every individual line in the settings text file
             string line;
 
-            //Console.WriteLine(">> Loading data from Settings.txt...");
-
             List<string> settingsFirstAttributes = new List<string>();
             List<string> settingsSecondAttributes = new List<string>();
 
@@ -148,6 +147,7 @@ namespace CollaborativeStoryGenerator_G2
             {
                 while ((line = input.ReadLine()) != null)
                 {
+                    //Adds to the settings list of first and second attributes
                     string[] splitLine = line.Split(';');
                     settingsFirstAttributes.Add(splitLine[0]);
                     settingsSecondAttributes.Add(splitLine[1]);
@@ -158,6 +158,7 @@ namespace CollaborativeStoryGenerator_G2
                 Console.WriteLine("Error reading file: " + e.Message);
             }
 
+            //Creates and returns a new, complete, setting object
             return new Setting(settingsFirstAttributes, settingsSecondAttributes);
                       
         }
@@ -169,6 +170,7 @@ namespace CollaborativeStoryGenerator_G2
         /// <returns>A new conflicts object with the settings from the text file</returns>
         public static Conflict GenerateConflictList()
         {
+            //Attempts to load the conflict file
             StreamReader input;
             try
             {
@@ -187,10 +189,9 @@ namespace CollaborativeStoryGenerator_G2
 
             try
             {
+                //Splits the lines in the actor file and adds them all into the line components
                 while ((line = input.ReadLine()) != null)
                 {
-                    string conflictType = "";
-
                     string[] lineComponents = line.Split(';');
 
                     for (int i = 0; i < lineComponents.Length; i++)
@@ -206,6 +207,7 @@ namespace CollaborativeStoryGenerator_G2
                 return null;
             }
 
+            //Creates and returns a new and complete conflict object
             return new Conflict(conflictTexts);
         }
     }
