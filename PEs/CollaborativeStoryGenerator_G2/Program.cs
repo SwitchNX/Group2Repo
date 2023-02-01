@@ -13,7 +13,7 @@ namespace CollaborativeStoryGenerator_G2
             Setting settingList = GenerateSettings();
 
             //Generates the conflics
-            List<Conflict> conflictList = GenerateConflictList();
+            Conflict conflictList = GenerateConflictList();
 
             Actor actor;
             LoadActor();
@@ -32,7 +32,10 @@ namespace CollaborativeStoryGenerator_G2
 
                 // story shennaniganary goes here
                 // Console.WriteLine($"{actorName} is a {actorJob} from {settingPlace} who {actorTrait}. {*ending based on selection*}");
-                switch(userChoice.ToLower().Trim())
+
+
+
+                /*switch(userChoice.ToLower().Trim())
                 {
                     case "happy":
 
@@ -55,7 +58,10 @@ namespace CollaborativeStoryGenerator_G2
                     default:
                         Console.WriteLine("Invalid input.\n");
                         break;
-                }
+
+                    
+
+                }*/
                 Console.WriteLine();
                 Console.Write("Would you like another story? Choose ‘yes’ or ‘no’ >> ");
                 newStory = Console.ReadLine()!;
@@ -122,6 +128,8 @@ namespace CollaborativeStoryGenerator_G2
             //Will be every individual line in the settings text file
             string line;
 
+            Console.WriteLine(">> Loading data from Settings.txt...");
+
             List<string> settingsFirstAttributes = new List<string>();
             List<string> settingsSecondAttributes = new List<string>();
 
@@ -143,7 +151,7 @@ namespace CollaborativeStoryGenerator_G2
                       
         }
 
-        public static List<Conflict> GenerateConflictList()
+        public static Conflict GenerateConflictList()
         {
             StreamReader input;
             try
@@ -156,23 +164,33 @@ namespace CollaborativeStoryGenerator_G2
                 return null;
             }
 
-            List<Conflict> conflictList = new List<Conflict>();
+            Console.WriteLine(">> Loading data from Conflicts.txt...");
+
+            List<string> conflictTexts = new List<string>();
             string line;
 
             try
             {
                 while ((line = input.ReadLine()) != null)
                 {
+                    string conflictType = "";
+
                     string[] lineComponents = line.Split(';');
-                    //if lc.count == 2, set current conflict type to lc 0, 
+
+                    for (int i = 0; i < lineComponents.Length; i++)
+                    {
+                        conflictTexts.Add(lineComponents[i]);
+                    }
+
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error reading file: " + e.Message);
+                return null;
             }
 
-            return conflictList;
+            return new Conflict(conflictTexts);
         }
     }
 }
