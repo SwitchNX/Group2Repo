@@ -31,7 +31,10 @@ namespace CollaborativeStoryGenerator_G2
                 userChoice = Console.ReadLine()!.ToLower().Trim();
 
                 // story shennaniganary goes here
-                // Console.WriteLine($"{actorName} is a {actorJob} from {settingPlace} who {actorTrait} (x2). {*ending based on selection*}");
+                // Console.WriteLine($"{actorName} is a {actorJob} who {actorTrait} {settingAttribute (includes from, during, etc)} (x2).
+                // {*ending based on selection*}");
+
+
 
                 //Generate this with the GetConflict(userChoice) instead
                 /*switch(userChoice.ToLower().Trim())
