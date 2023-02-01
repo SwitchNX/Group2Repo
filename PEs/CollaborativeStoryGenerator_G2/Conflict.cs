@@ -45,6 +45,8 @@ namespace CollaborativeStoryGenerator_G2
         /// <returns> A random conflict and ending </returns>
         public string GetConflict()
         {
+            //If statement determines which endings will be randomly chosen from
+            //separated out based on type.
             if (conflictType.Equals("happy"))
             {
                 return conflictText[conflictRng.Next(1, 3)];
@@ -62,8 +64,12 @@ namespace CollaborativeStoryGenerator_G2
                 return conflictText[conflictRng.Next(13, 15)];
             } else
             {
+                //The any option chooses from all possible endings, eliminating the
+                //labels for ending types present in the txt file.
+
                 bool viableOption = false;
                 int option = 0;
+
                 while (viableOption = false)
                 {
                     option = conflictRng.Next(conflictText.Count);
