@@ -14,9 +14,10 @@ namespace CollaborativeStoryGenerator_G2
     {
         // Fields
 
-        private List<string> name;
-        private List<string> occupation;
-        private List<string> trait;
+        Random rand = new Random();
+        private string name;
+        private string occupation;
+        private string trait;
 
 
         // Parameters
@@ -24,17 +25,17 @@ namespace CollaborativeStoryGenerator_G2
         /// <summary>
         /// Returns the name of the character
         /// </summary>
-        public List<string> Name { get { return name; } }
+        public string Name { get { return name; } }
 
         /// <summary>
         /// Returns the occupation of the character
         /// </summary>
-        public List<string> Ocupation { get { return occupation; } }
+        public string Ocupation { get { return occupation; } }
 
         /// <summary>
         /// Returns the trait of the character
         /// </summary>
-        public List<string> Trait { get { return trait; } }
+        public string Trait { get { return trait; } }
 
 
         // Constructor
@@ -42,14 +43,14 @@ namespace CollaborativeStoryGenerator_G2
         /// <summary>
         /// Creates an actor object with an inputted name, an occupation, and a trait
         /// </summary>
-        /// <param name="name">The name of the actor</param>
-        /// <param name="occupation">The occupation of the actor</param>
-        /// <param name="trait">The trait of the actor</param>
-        public Actor(List<string> name, List<string> occupation, List<string> trait)
+        /// <param name="nameList">The list of potential names of the actor</param>
+        /// <param name="occupationList">The list of potential occupations of the actor</param>
+        /// <param name="traitList">The list of possible traits of the actor</param>
+        public Actor(List<string> nameList, List<string> occupationList, List<string> traitList)
         {
-            this.name = name;
-            this.occupation = occupation;
-            this.trait = trait;
+            name = nameList[rand.Next(nameList.Count)];
+            occupation = occupationList[rand.Next(occupationList.Count)];
+            trait = traitList[rand.Next(traitList.Count)];
         }
     }
 }
