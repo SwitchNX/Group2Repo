@@ -19,7 +19,7 @@ namespace CollaborativeStoryGenerator_G2
             LoadActor();
 
             // placeholder for when we add the endings from the conflicts file
-            Console.WriteLine("Welcome to the story generator!");
+            Console.WriteLine("\nWelcome to the story generator!");
 
             // loop of story creation
             do
@@ -31,10 +31,9 @@ namespace CollaborativeStoryGenerator_G2
                 userChoice = Console.ReadLine()!.ToLower().Trim();
 
                 // story shennaniganary goes here
-                // Console.WriteLine($"{actorName} is a {actorJob} from {settingPlace} who {actorTrait}. {*ending based on selection*}");
+                // Console.WriteLine($"{actorName} is a {actorJob} from {settingPlace} who {actorTrait} (x2). {*ending based on selection*}");
 
-
-
+                //Generate this with the GetConflict(userChoice) instead
                 /*switch(userChoice.ToLower().Trim())
                 {
                     case "happy":
