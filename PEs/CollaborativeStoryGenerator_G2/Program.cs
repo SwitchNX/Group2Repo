@@ -23,10 +23,10 @@ namespace CollaborativeStoryGenerator_G2
             Conflict conflictList = GenerateConflictList();
 
             // Generate the first actor
-            Actor firstActor = LoadActor();
+            Actor firstActor;
 
             // Generate the second actor
-            Actor secondActor = LoadActor();
+            Actor secondActor;
 
 
             // Starting the story generation
@@ -51,7 +51,10 @@ namespace CollaborativeStoryGenerator_G2
                 } // verify that the input is valid
                 while (userChoice != "happy" && userChoice != "tragic" && userChoice != "romantic" &&
                        userChoice != "destructive" && userChoice != "twist" && userChoice != "any ending");
-                
+
+                //Loads a new set of actors for every story
+                firstActor = LoadActor();
+                secondActor = LoadActor();
 
 
                 // Story print
@@ -89,7 +92,7 @@ namespace CollaborativeStoryGenerator_G2
                 string line = null;
 
 
-                Console.WriteLine(">> Loading data from Actor.txt...");
+                //Console.WriteLine(">> Loading data from Actor.txt...");
 
                 // read each line of Actors.txt
                 while ((line = input.ReadLine()!) != null)
@@ -116,7 +119,10 @@ namespace CollaborativeStoryGenerator_G2
             return new Actor(actorNames, actorJobs, actorTraits);
         }
 
-
+        /// <summary>
+        /// Loads settings from the text file and returns a new setting object with that data
+        /// </summary>
+        /// <returns>A new setting object with the settings from the text file</returns>
         public static Setting GenerateSettings()
         {
             StreamReader input;
@@ -133,7 +139,7 @@ namespace CollaborativeStoryGenerator_G2
             //Will be every individual line in the settings text file
             string line;
 
-            Console.WriteLine(">> Loading data from Settings.txt...");
+            //Console.WriteLine(">> Loading data from Settings.txt...");
 
             List<string> settingsFirstAttributes = new List<string>();
             List<string> settingsSecondAttributes = new List<string>();
@@ -156,6 +162,11 @@ namespace CollaborativeStoryGenerator_G2
                       
         }
 
+
+        /// <summary>
+        /// Loads conflicts from the text file and returns a new conlfict object with that data
+        /// </summary>
+        /// <returns>A new conflicts object with the settings from the text file</returns>
         public static Conflict GenerateConflictList()
         {
             StreamReader input;
@@ -169,7 +180,7 @@ namespace CollaborativeStoryGenerator_G2
                 return null;
             }
 
-            Console.WriteLine(">> Loading data from Conflicts.txt...");
+            //Console.WriteLine(">> Loading data from Conflicts.txt...");
 
             List<string> conflictTexts = new List<string>();
             string line;
