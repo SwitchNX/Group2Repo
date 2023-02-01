@@ -72,7 +72,8 @@ namespace CollaborativeStoryGenerator_G2
         }
 
         /// <summary>
-        /// Pulls actors' info from the text files into objects
+        /// Pulls actors' info from the text files into lists based
+        /// on descriptors of the actors
         /// </summary>
         static Actor LoadActor()
         {
@@ -80,6 +81,7 @@ namespace CollaborativeStoryGenerator_G2
             List<string> actorJobs = new List<string>();
             List<string> actorTraits = new List<string>();
 
+            // Add all names, jobs, and traits to their respective lists
             StreamReader input = null;
             try
             {
