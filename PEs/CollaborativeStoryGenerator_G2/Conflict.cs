@@ -51,12 +51,12 @@ namespace CollaborativeStoryGenerator_G2
             {
                 bool viableOption = false;
                 int option = 0;
-                while (viableOption = false)
+                while (viableOption == false)
                 {
                     option = conflictRng.Next(conflictList.Count);
                     if (option != 0 && option != 3 && option != 6 && option != 9 && option != 12)
                     {
-                        viableOption= true;
+                        viableOption = true;
                     }
                 }
                 return conflictList[option];
