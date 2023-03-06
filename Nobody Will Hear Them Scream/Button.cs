@@ -23,9 +23,9 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         //Incomplete
-        public Button():base()
+        public Button(Texture2D texture, Rectangle objectBounds, string text):base(texture, objectBounds)
         {
-
+            this.text = text;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <returns></returns>
         public bool IsClicked(MouseState ms)
         {
-            return this.objectBounds.contains(ms.Position) && ms.LeftButton = ButtonState.Pressed;
+            return this.rect.Contains(ms.Position) && ms.LeftButton == ButtonState.Pressed;
         }
     }
 }
