@@ -31,6 +31,11 @@ namespace Nobody_Will_Hear_Them_Scream
         private GameState gameState;
 
         private Button startGameButton;
+        private Button highScoresButton;
+        private Button backToMainMenuButton;
+        private Button closeGameButton;
+        private Button resumeGameButton;
+        private Button quitGameButton;
 
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
@@ -71,18 +76,48 @@ namespace Nobody_Will_Hear_Them_Scream
             switch (gameState)
             {
                 case GameState.mainMenu:
+                    if (startGameButton.IsClicked(ms))
+                    {
+                        gameState = GameState.gameplay;
+                    }
+                    else if (highScoresButton.IsClicked(ms))
+                    {
+                        gameState = GameState.highScores;
+                    }
+                    else if (closeGameButton.IsClicked(ms))
+                    {
+                        //Closes the application
+                        Exit();
+                    }
+
                     break;
+
                 case GameState.highScores:
+                    if (backToMainMenuButton.IsClicked(ms))
+                    {
+                        gameState = GameState.mainMenu;
+                    }
                     break;
+
                 case GameState.instructions:
                     break;
+
                 case GameState.gameplay:
                     if (kb.IsKeyDown(Keys.Escape))
                     {
                         gameState = GameState.pauseScreen;
                     }
                     break;
+
                 case GameState.pauseScreen:
+                    if (resumeGameButton.IsClicked(ms))
+                    {
+                        gameState = GameState.gameplay;
+                    }
+                    else if (quitGameButton.IsClicked(ms))
+                    {
+                        gameState = GameState.mainMenu;
+                    }
                     break;
             }
 
@@ -98,19 +133,27 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // TODO: Add your drawing code here
 
+            _spriteBatch.Begin();
+
             switch (gameState)
             {
                 case GameState.mainMenu:
                     break;
+
                 case GameState.highScores:
                     break;
+
                 case GameState.instructions:
                     break;
+
                 case GameState.gameplay:
                     break;
+
                 case GameState.pauseScreen:
                     break;
             }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
