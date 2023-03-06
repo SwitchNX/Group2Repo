@@ -14,7 +14,8 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class Enemy : Actor
     {
+
         //Constructor
-        public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) { }
+        public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds, new Vector2(0,0)) { }
     }
 }
