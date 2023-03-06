@@ -9,6 +9,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private Texture2D placeHolderSquare;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -26,6 +28,8 @@ namespace Nobody_Will_Hear_Them_Scream
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            placeHolderSquare = Content.Load<Texture2D>("square");
 
             // TODO: use this.Content to load your game content here
         }
