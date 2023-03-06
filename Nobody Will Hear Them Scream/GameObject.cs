@@ -41,6 +41,10 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             get { return objectBounds; }
         }
+        public Texture2D ObjectTexture
+        {
+            get { return objectTexture; }
+        }
 
         //Constructor
         public GameObject (Texture2D objectTexture, Rectangle objectBounds)

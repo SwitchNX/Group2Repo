@@ -39,6 +39,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
+        private Player astronaut;
 
         public Game1()
         {
@@ -59,7 +60,10 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Set up the placeholder astronaut
             placeHolderSquare = Content.Load<Texture2D>("square");
+            astronautBounds = new Rectangle(0, 0, 100, 100);
+            astronaut = new Player(placeHolderSquare, astronautBounds, _graphics);
 
             // TODO: use this.Content to load your game content here
         }
@@ -147,6 +151,10 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameplay:
+
+                    //Draw the placeholder astronaut
+                    _spriteBatch.Draw(astronaut.ObjectTexture, astronaut.rect, Color.White);
+
                     break;
 
                 case GameState.pauseScreen:
