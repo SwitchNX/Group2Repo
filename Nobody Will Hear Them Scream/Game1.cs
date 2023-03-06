@@ -20,8 +20,12 @@ namespace Nobody_Will_Hear_Them_Scream
         private SpriteBatch _spriteBatch;
         private KeyboardState kb;
         private KeyboardState prevKB;
+        private MouseState ms;
+        private MouseState prevMS;
 
         private GameState gameState;
+
+        private Button startGameButton;
 
         private Texture2D placeHolderSquare;
 
@@ -56,6 +60,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // TODO: Add your update logic here
             kb = Keyboard.GetState();
+            ms = Mouse.GetState();
 
             switch (gameState)
             {
@@ -76,6 +81,7 @@ namespace Nobody_Will_Hear_Them_Scream
             }
 
             prevKB = kb;
+            prevMS = ms;
 
             base.Update(gameTime);
         }
