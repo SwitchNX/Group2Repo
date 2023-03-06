@@ -3,21 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Nobody_Will_Hear_Them_Scream
 {
     /// <summary>
-    /// player-controlled lil guy
+    /// Crates that the player can collide with to get points
     /// </summary>
-    internal class Player : Actor
+    internal class Crate : GameObject
     {
-
-
-
-
-
     }
 }
