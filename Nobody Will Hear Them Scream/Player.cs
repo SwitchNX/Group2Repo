@@ -18,8 +18,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private GraphicsDeviceManager _graphics;
 
         //Constructor
-        public Player (Texture2D objectTexture, Rectangle objectBounds, GraphicsDeviceManager _graphics) :
-            base (objectTexture, objectBounds)
+        public Player (Texture2D objectTexture, Rectangle objectBounds, Vector2 actorVelocity, GraphicsDeviceManager _graphics) :
+            base (objectTexture, objectBounds, actorVelocity)
         {
             this._graphics = _graphics;
         }

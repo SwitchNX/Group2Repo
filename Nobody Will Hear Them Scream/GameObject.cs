@@ -62,7 +62,5 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             sb.Draw(objectTexture, objectBounds, Color.White);
         }
-
-
     }
 }
