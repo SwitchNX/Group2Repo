@@ -43,6 +43,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
         private Player astronaut;
+        private Vector2 actorVelocity;
 
         public Game1()
         {
@@ -55,6 +56,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             // TODO: Add your initialization logic here
             gameState = GameState.mainMenu;
+            actorVelocity = Vector2.Zero;
 
             base.Initialize();
         }
@@ -66,7 +68,7 @@ namespace Nobody_Will_Hear_Them_Scream
             //Set up the placeholder astronaut
             placeHolderSquare = Content.Load<Texture2D>("square");
             astronautBounds = new Rectangle(0, 0, 100, 100);
-            astronaut = new Player(placeHolderSquare, astronautBounds, _graphics);
+            astronaut = new Player(placeHolderSquare, astronautBounds, actorVelocity, _graphics);
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
