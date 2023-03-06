@@ -41,12 +41,30 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             get { return objectBounds; }
         }
+        public Texture2D ObjectTexture
+        {
+            get { return objectTexture; }
+        }
 
         //Constructor
         public GameObject (Texture2D objectTexture, Rectangle objectBounds)
         {
             this.objectTexture = objectTexture;
             this.objectBounds = objectBounds;
+        }
+
+        /// <summary>
+        /// Updates GameObjects over time
+        /// </summary>
+        public virtual void Update(GameTime gameTime) { }
+
+        /// <summary>
+        /// Draws in objects from other classes
+        /// </summary>
+        /// <param name="sb">allows for the call of the Draw method</param>
+        public virtual void Draw(SpriteBatch sb)
+        {
+            sb.Draw(objectTexture, objectBounds, Color.White);
         }
     }
 }

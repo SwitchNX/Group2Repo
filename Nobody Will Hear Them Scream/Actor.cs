@@ -14,8 +14,23 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class Actor : GameObject
     {
-        //Constructor
-        public Actor(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) { }
+        private Vector2 actorVelocity;
 
+        //Constructor
+        public Actor(Texture2D objectTexture, Rectangle objectBounds, Vector2 actorVelocity) : base(objectTexture, objectBounds)
+        {
+            this.actorVelocity = actorVelocity;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            DampenVelocity();
+        }
+
+        public void DampenVelocity()
+        {
+            actorVelocity.X -= actorVelocity.X / 3;
+            actorVelocity.Y -= actorVelocity.Y / 3;
+        }
     }
 }

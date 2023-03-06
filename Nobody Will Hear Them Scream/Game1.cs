@@ -42,6 +42,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
+        private Player astronaut;
 
         public Game1()
         {
@@ -62,7 +63,10 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Set up the placeholder astronaut
             placeHolderSquare = Content.Load<Texture2D>("square");
+            astronautBounds = new Rectangle(0, 0, 100, 100);
+            astronaut = new Player(placeHolderSquare, astronautBounds, _graphics);
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
@@ -143,6 +147,8 @@ namespace Nobody_Will_Hear_Them_Scream
             // TODO: Add your drawing code here
             Vector2 stateTextPosition = new Vector2(30, 30);
 
+            _spriteBatch.Begin();
+
             switch (gameState)
             {
                 case GameState.mainMenu:
@@ -163,6 +169,10 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameplay:
+
+                    //Draw the placeholder astronaut
+                    _spriteBatch.Draw(astronaut.ObjectTexture, astronaut.rect, Color.White);
+
                     _spriteBatch.DrawString(Arial14, "State: Gameplay", stateTextPosition, Color.White);
                     break;
 
@@ -170,6 +180,8 @@ namespace Nobody_Will_Hear_Them_Scream
                     _spriteBatch.DrawString(Arial14, "State: Pause", stateTextPosition, Color.White);
                     break;
             }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
