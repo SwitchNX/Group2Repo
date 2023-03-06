@@ -14,5 +14,7 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class Projectile : GameObject
     {
+        //Constructor
+        public Projectile(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) { }
     }
 }
