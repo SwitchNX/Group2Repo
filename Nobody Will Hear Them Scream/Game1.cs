@@ -28,6 +28,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private MouseState ms;
         private MouseState prevMS;
 
+        private SpriteFont Arial14;
+        private SpriteFont Arial32;
+
         private GameState gameState;
 
         private Button startGameButton;
@@ -60,6 +63,12 @@ namespace Nobody_Will_Hear_Them_Scream
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             placeHolderSquare = Content.Load<Texture2D>("square");
+
+            Arial14 = Content.Load<SpriteFont>("Arial14");
+            Arial32 = Content.Load<SpriteFont>("Arial32");
+
+            startGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth/2 - Arial14.MeasureString("Start Game").X/2,
+                _graphics.PreferredBackBufferHeight/4 + 100), "Start Game", Arial14);
 
             // TODO: use this.Content to load your game content here
         }
@@ -129,25 +138,36 @@ namespace Nobody_Will_Hear_Them_Scream
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
+            Vector2 stateTextPosition = new Vector2(30, 30);
 
             switch (gameState)
             {
                 case GameState.mainMenu:
+                    _spriteBatch.DrawString(Arial14, "State: Main menu", stateTextPosition, Color.White);
+
+                    Vector2 titleSize = Arial32.MeasureString("SPACEWALK");
+                    _spriteBatch.DrawString(Arial32, "SPACEWALK", new Vector2(_graphics.PreferredBackBufferWidth / 2 - titleSize.X / 2,
+                        _graphics.PreferredBackBufferHeight / 4), Color.White);
+
+                    _spriteBatch.DrawString(startGameButton.Font, startGameButton.Text, startGameButton.Position, Color.White);
                     break;
 
                 case GameState.highScores:
+                    _spriteBatch.DrawString(Arial14, "State: High Scores", stateTextPosition, Color.White);
                     break;
 
                 case GameState.instructions:
                     break;
 
                 case GameState.gameplay:
+                    _spriteBatch.DrawString(Arial14, "State: Gameplay", stateTextPosition, Color.White);
                     break;
 
                 case GameState.pauseScreen:
+                    _spriteBatch.DrawString(Arial14, "State: Pause", stateTextPosition, Color.White);
                     break;
             }
 
