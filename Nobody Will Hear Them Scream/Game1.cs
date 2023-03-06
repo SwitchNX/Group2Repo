@@ -133,6 +133,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // TODO: Add your drawing code here
 
+            _spriteBatch.Begin();
+
             switch (gameState)
             {
                 case GameState.mainMenu:
@@ -150,6 +152,8 @@ namespace Nobody_Will_Hear_Them_Scream
                 case GameState.pauseScreen:
                     break;
             }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
