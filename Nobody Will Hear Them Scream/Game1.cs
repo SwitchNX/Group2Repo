@@ -2,12 +2,26 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+public enum GameState
+{
+    mainMenu,
+    highScores,
+    gameOver,
+    pauseScreen,
+    instructions,
+    gameplay
+}
+
 namespace Nobody_Will_Hear_Them_Scream
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private KeyboardState kb;
+        private KeyboardState prevKB;
+
+        private GameState gameState;
 
         private Texture2D placeHolderSquare;
 
@@ -21,6 +35,7 @@ namespace Nobody_Will_Hear_Them_Scream
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            gameState = GameState.mainMenu;
 
             base.Initialize();
         }
@@ -40,6 +55,27 @@ namespace Nobody_Will_Hear_Them_Scream
                 Exit();
 
             // TODO: Add your update logic here
+            kb = Keyboard.GetState();
+
+            switch (gameState)
+            {
+                case GameState.mainMenu:
+                    break;
+                case GameState.highScores:
+                    break;
+                case GameState.instructions:
+                    break;
+                case GameState.gameplay:
+                    if (kb.IsKeyDown(Keys.Escape))
+                    {
+                        gameState = GameState.pauseScreen;
+                    }
+                    break;
+                case GameState.pauseScreen:
+                    break;
+            }
+
+            prevKB = kb;
 
             base.Update(gameTime);
         }
@@ -49,6 +85,20 @@ namespace Nobody_Will_Hear_Them_Scream
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            switch (gameState)
+            {
+                case GameState.mainMenu:
+                    break;
+                case GameState.highScores:
+                    break;
+                case GameState.instructions:
+                    break;
+                case GameState.gameplay:
+                    break;
+                case GameState.pauseScreen:
+                    break;
+            }
 
             base.Draw(gameTime);
         }
