@@ -28,6 +28,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button startGameButton;
 
         private Texture2D placeHolderSquare;
+        private Rectangle astronautBounds;
 
         public Game1()
         {
