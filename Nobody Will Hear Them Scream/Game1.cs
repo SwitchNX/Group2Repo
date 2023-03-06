@@ -24,6 +24,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private GameState gameState;
 
         private Texture2D placeHolderSquare;
+        private Rectangle astronautBounds;
 
         public Game1()
         {
