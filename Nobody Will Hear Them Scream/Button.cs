@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 //Ryan Fogarty
-//A button that will be clicked by the player
+//A string of text that will be clicked by the player
 
 namespace Nobody_Will_Hear_Them_Scream
 {
@@ -65,7 +65,7 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         /// <summary>
-        /// Checks the
+        /// 
         /// </summary>
         /// <param name="ms"></param>
         /// <returns></returns>
@@ -73,6 +73,16 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             Rectangle rect = new Rectangle(X, Y, Width, Height);
             return rect.Contains(ms.Position) && ms.LeftButton == ButtonState.Pressed;
+        }
+
+        /// <summary>
+        /// Draws the text of the with the spritebatch and the color
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="c">The color of the buttons text</param>
+        public void Draw(SpriteBatch sb, Color c)
+        {
+            sb.DrawString(font, text, position, c);
         }
     }
 }

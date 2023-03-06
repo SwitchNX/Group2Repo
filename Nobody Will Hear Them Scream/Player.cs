@@ -16,12 +16,21 @@ namespace Nobody_Will_Hear_Them_Scream
     {
         //Fields
         private GraphicsDeviceManager _graphics;
+        int lives;
+
+        //Properties
+        public int Lives
+        {
+            get { return lives; }
+            set { lives = value; }
+        }
 
         //Constructor
         public Player (Texture2D objectTexture, Rectangle objectBounds, Vector2 actorVelocity, GraphicsDeviceManager _graphics) :
             base (objectTexture, objectBounds, actorVelocity)
         {
             this._graphics = _graphics;
+            this.lives = 3;
         }
 
     }
