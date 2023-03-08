@@ -45,6 +45,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private Player astronaut;
         private Vector2 actorVelocity;
 
+        private Texture2D placeHolderPurpleSquare;
+        private Enemy enemy;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -67,8 +70,11 @@ namespace Nobody_Will_Hear_Them_Scream
 
             //Set up the placeholder astronaut
             placeHolderSquare = Content.Load<Texture2D>("square");
+            placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
             astronaut = new Player(placeHolderSquare, astronautBounds, actorVelocity, _graphics);
+
+            enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(100, 100, 40, 40));
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
@@ -87,7 +93,7 @@ namespace Nobody_Will_Hear_Them_Scream
             //Initializes the button used to get from high scores to title
 
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
-                _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
+                _graphics.PreferredBackBufferHeight / 4 * 3), "Back", Arial14);
 
             // TODO: use this.Content to load your game content here
         }
@@ -131,6 +137,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 case GameState.gameplay:
 
                     astronaut.Update(gameTime);
+                    enemy.Update(gameTime);
 
                     if (kb.IsKeyDown(Keys.Escape))
                     {
@@ -224,8 +231,9 @@ namespace Nobody_Will_Hear_Them_Scream
 
                 case GameState.gameplay:
 
-                    //Draw the placeholder astronaut
+                    //Draw the placeholder astronaut & placeholder enemy
                     astronaut.Draw(_spriteBatch);
+                    enemy.Draw(_spriteBatch);
 
                     // Draw debug stuff:
 
