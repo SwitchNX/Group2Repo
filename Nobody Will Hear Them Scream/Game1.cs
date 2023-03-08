@@ -128,6 +128,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameplay:
+
+                    astronaut.Update(gameTime);
+
                     if (kb.IsKeyDown(Keys.Escape))
                     {
                         gameState = GameState.pauseScreen;
@@ -208,7 +211,10 @@ namespace Nobody_Will_Hear_Them_Scream
                 case GameState.gameplay:
 
                     //Draw the placeholder astronaut
-                    _spriteBatch.Draw(astronaut.ObjectTexture, astronaut.rect, Color.White);
+                    astronaut.Draw(_spriteBatch);
+
+                    _spriteBatch.DrawString(Arial14, $"{ astronaut.X}\n{astronaut.Y}", new Vector2(_graphics.PreferredBackBufferWidth / 2 -  2,
+                        _graphics.PreferredBackBufferHeight / 4), Color.White);
                     break;
 
                 case GameState.pauseScreen:

@@ -16,7 +16,9 @@ namespace Nobody_Will_Hear_Them_Scream
     {
         //Fields
         private GraphicsDeviceManager _graphics;
-        int lives;
+        private int lives;
+        private MouseState ms;
+        private Vector2 mousePos;
 
         //Properties
         public int Lives
@@ -36,11 +38,29 @@ namespace Nobody_Will_Hear_Them_Scream
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            MouseState ms = Mouse.GetState();
+            ms = Mouse.GetState();
+            mousePos = new Vector2(ms.X, ms.Y);
 
-            if (ms.LeftButton == ButtonState.Pressed) { ; }
+            if (ms.LeftButton == ButtonState.Pressed)
+            {
+                if (X - ms.X > 0)
+                {
+                    X += 5;
+                }
+                if(X - ms.X < 0)
+                {
+                    X -= 5;
+                }
+
+                if (Y - ms.Y > 0)
+                {
+                    Y += 5;
+                }
+                if (Y - ms.Y < 0)
+                {
+                    Y -= 5;
+                }
+            }
         }
-
-        //public void 
     }
 }
