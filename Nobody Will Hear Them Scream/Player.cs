@@ -16,7 +16,7 @@ namespace Nobody_Will_Hear_Them_Scream
     {
         // Fields
         private int lives;
-        public Vector2 mouseDirFromPlayer; // TEMPORARILY PUBLIC FOR DEBUGGING
+        private Vector2 mouseDirFromPlayer;
         private Vector2 playerMoving;
 
         // Properties

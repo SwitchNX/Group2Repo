@@ -20,6 +20,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private Rectangle objectBounds;
 
         //Properties
+        public Texture2D Texture { get { return objectTexture; } set { objectTexture = value; } }
+
         public int Width { get { return objectBounds.Width; } set { objectBounds.Width = value; } }
 
         public int Height { get { return objectBounds.Height; } set { objectBounds.Height = value; } }
