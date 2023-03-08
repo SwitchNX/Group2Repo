@@ -15,35 +15,57 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class GameObject
     {
-        //Fields
+        // Fields
+
         private Texture2D objectTexture;
         private Rectangle objectBounds;
 
+
         //Properties
+
+        /// <summary>
+        /// Get or set the texture
+        /// </summary>
         public Texture2D Texture { get { return objectTexture; } set { objectTexture = value; } }
 
+        /// <summary>
+        /// Get or set the width
+        /// </summary>
         public int Width { get { return objectBounds.Width; } set { objectBounds.Width = value; } }
 
+        /// <summary>
+        /// Get or set the height
+        /// </summary>
         public int Height { get { return objectBounds.Height; } set { objectBounds.Height = value; } }
 
+        /// <summary>
+        /// Get or set the TOP LEFT x
+        /// </summary>
         public int X { get { return objectBounds.X; } set { objectBounds.X = value; } }
 
+        /// <summary>
+        /// Get or set the TOP LEFT y
+        /// </summary>
         public int Y { get { return objectBounds.Y; } set { objectBounds.Y = value; } }
 
+        /// <summary>
+        /// Get the CENTER x
+        /// </summary>
         public int CenterX { get { return X + Width / 2; } }
 
+        /// <summary>
+        /// Get the CENTER y
+        /// </summary>
         public int CenterY { get { return Y + Height / 2; } }
 
-        public Rectangle rect
-        {
-            get { return objectBounds; }
-        }
-        public Texture2D ObjectTexture
-        {
-            get { return objectTexture; }
-        }
+        /// <summary>
+        /// Get the rectangle
+        /// </summary>
+        public Rectangle rect { get { return objectBounds; } }
+
 
         // Constructor
+
         public GameObject (Texture2D objectTexture, Rectangle objectBounds)
         {
             this.objectTexture = objectTexture;
