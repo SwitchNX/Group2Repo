@@ -47,7 +47,6 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
         private Player astronaut;
-        private Vector2 actorVelocity;
 
         //Fields to set up HUD
         private int gameScore;
@@ -75,7 +74,6 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             // TODO: Add your initialization logic here
             gameState = GameState.mainMenu;
-            actorVelocity = Vector2.Zero;
 
             _graphics.PreferredBackBufferWidth = 1600;
             _graphics.PreferredBackBufferHeight = 1600;
@@ -130,8 +128,11 @@ namespace Nobody_Will_Hear_Them_Scream
             levelNum++;
         }
 
-        //A method that checks for a single mouse click to move the astronaut
-        private bool SingleClick()
+        /// <summary>
+        /// Checks if the leftmouse button has been clicked this frame and not last frame
+        /// </summary>
+        /// <returns></returns>
+        private bool SingleLeftClick()
         {
             if (ms.LeftButton == ButtonState.Pressed && prevMS.LeftButton != ButtonState.Pressed)
             {
@@ -143,19 +144,11 @@ namespace Nobody_Will_Hear_Them_Scream
             }
         }
 
-        //A method that checks for a single mouse click on the screen buttons
-        private bool SingleClick(Button pressedButton)
-        {
-            if (pressedButton.IsClicked(ms) && !pressedButton.IsClicked(prevMS))
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
-        }
-
-        //A method that checks for a single key press
+        /// <summary>
+        /// Checks if a key was pressed this frame and not last frame
+        /// </summary>
+        /// <param name="key">The key to check for</param>
+        /// <returns></returns>
         private bool SinglePress(Keys key)
         {
             if (kb.IsKeyDown(key) && !prevKB.IsKeyDown(key))
@@ -178,15 +171,15 @@ namespace Nobody_Will_Hear_Them_Scream
             switch (gameState)
             {
                 case GameState.mainMenu:
-                    if (SingleClick(startGameButton))
+                    if (SingleLeftClick() && startGameButton.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.gameplay;
                     }
-                    else if (SingleClick(highScoresButton))
+                    else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.highScores;
                     }
-                    else if (SingleClick(closeGameButton))
+                    else if (SingleLeftClick() && closeGameButton.Rect.Contains(ms.Position))
                     {
                         //Closes the application
                         Exit();
@@ -195,7 +188,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.highScores:
-                    if (SingleClick(backToMainMenuButton))
+                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.mainMenu;
                     }
@@ -225,22 +218,22 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.pauseScreen:
-                    if (SingleClick(resumeGameButton))
+                    if (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.gameplay;
                     }
-                    else if (SingleClick(quitGameButton))
+                    else if (SingleLeftClick() && quitGameButton.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.mainMenu;
                     }
                     break;
 
                 case GameState.gameOver:
-                    if (SinglePress(Keys.Escape) || SingleClick(backToMainMenuButton))
+                    if (SinglePress(Keys.Escape) || (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position)) )
                     {
                         gameState = GameState.mainMenu;
                     }
-                    else if (SingleClick(highScoresButton))
+                    else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.highScores;
                     }
