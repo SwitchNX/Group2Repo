@@ -12,10 +12,10 @@ namespace Nobody_Will_Hear_Them_Scream
     /// <summary>
     /// Aliens that chase the player
     /// </summary>
-    internal class Enemy : Actor
+    internal class Enemy : GameObject
     {
 
         //Constructor
-        public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds, new Vector2(0,0)) { }
+        public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) { }
     }
 }
