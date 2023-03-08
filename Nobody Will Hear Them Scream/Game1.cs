@@ -67,14 +67,27 @@ namespace Nobody_Will_Hear_Them_Scream
 
             //Set up the placeholder astronaut
             placeHolderSquare = Content.Load<Texture2D>("square");
-            astronautBounds = new Rectangle(0, 0, 100, 100);
+            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
             astronaut = new Player(placeHolderSquare, astronautBounds, actorVelocity, _graphics);
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
 
+            //Initializes the buttons present on the start screen.
+
             startGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth/2 - Arial14.MeasureString("Start Game").X/2,
                 _graphics.PreferredBackBufferHeight/4 + 100), "Start Game", Arial14);
+
+            highScoresButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("High Scores").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 150), "High Scores", Arial14);
+
+            closeGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Close").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 200), "Close", Arial14);
+
+            //Initializes the button used to get from high scores to title
+
+            backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
 
             // TODO: use this.Content to load your game content here
         }
@@ -169,14 +182,24 @@ namespace Nobody_Will_Hear_Them_Scream
             switch (gameState)
             {
                 case GameState.mainMenu:
+                    //Draw the title and buttons
+
                     Vector2 titleSize = Arial32.MeasureString("SPACEWALK");
                     _spriteBatch.DrawString(Arial32, "SPACEWALK", new Vector2(_graphics.PreferredBackBufferWidth / 2 - titleSize.X / 2,
                         _graphics.PreferredBackBufferHeight / 4), Color.White);
 
                     startGameButton.Draw(_spriteBatch, Color.White);
+
+                    highScoresButton.Draw(_spriteBatch, Color.White);
+
+                    closeGameButton.Draw(_spriteBatch, Color.White);
                     break;
 
                 case GameState.highScores:
+                    //Add the back button to return to the start screen
+
+                    backToMainMenuButton.Draw(_spriteBatch, Color.White);
+
                     break;
 
                 case GameState.instructions:
