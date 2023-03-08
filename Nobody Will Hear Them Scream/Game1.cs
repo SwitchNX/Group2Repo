@@ -21,6 +21,7 @@ namespace Nobody_Will_Hear_Them_Scream
 {
     public class Game1 : Game
     {
+        //Fields to set up player interaction
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardState kb;
@@ -28,9 +29,11 @@ namespace Nobody_Will_Hear_Them_Scream
         private MouseState ms;
         private MouseState prevMS;
 
+        //Fields to set up text fonts
         private SpriteFont Arial14;
         private SpriteFont Arial32;
 
+        //Fields to set up FSM and buttons
         private GameState gameState;
 
         private Button startGameButton;
@@ -40,10 +43,23 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button resumeGameButton;
         private Button quitGameButton;
 
+        //Fields to set up astronaut character
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
         private Player astronaut;
         private Vector2 actorVelocity;
+
+        //Fields to set up HUD
+        private int gameScore;
+        private int levelScore;
+        private int time;
+        private int enemyNum;
+        private int crateNum;
+        private int levelNum;
+
+        //Lists to hold crates and enemies for levels
+        private List<Enemy> enemyList = new List<Enemy>();
+        private List<Crate> crateList = new List<Crate>();
 
         private Texture2D placeHolderPurpleSquare;
         private Enemy enemy;
@@ -60,6 +76,10 @@ namespace Nobody_Will_Hear_Them_Scream
             // TODO: Add your initialization logic here
             gameState = GameState.mainMenu;
             actorVelocity = Vector2.Zero;
+
+            _graphics.PreferredBackBufferWidth = 1600;
+            _graphics.PreferredBackBufferHeight = 1600;
+            _graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -261,7 +281,7 @@ namespace Nobody_Will_Hear_Them_Scream
             }
 
             _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), stateTextPosition, Color.White);
-
+            _spriteBatch.DrawString(Arial14, $"Screen size: {_graphics.PreferredBackBufferWidth}, {_graphics.PreferredBackBufferHeight}", new Vector2(30,10), Color.White);
             // End the sprite batch
             _spriteBatch.End();
 

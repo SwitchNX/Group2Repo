@@ -12,13 +12,14 @@ namespace Nobody_Will_Hear_Them_Scream
     /// <summary>
     /// player-controlled lil guy
     /// </summary>
-    internal class Player : Actor
+    internal class Player : GameObject
     {
         //Fields
         private GraphicsDeviceManager _graphics;
         private int lives;
         private MouseState ms;
         public Vector2 mouseDirFromPlayer; // TEMPORARILY PUBLIC FOR DEBUGGING
+        private Vector2 playerMoving;
 
         //Properties
         public int Lives
@@ -27,9 +28,9 @@ namespace Nobody_Will_Hear_Them_Scream
             set { lives = value; }
         }
 
-        //Constructor
-        public Player (Texture2D objectTexture, Rectangle objectBounds, Vector2 actorVelocity, GraphicsDeviceManager _graphics) :
-            base (objectTexture, objectBounds, actorVelocity)
+        // Constructor
+        public Player (Texture2D objectTexture, Rectangle objectBounds, GraphicsDeviceManager _graphics) :
+            base (objectTexture, objectBounds)
         {
             this._graphics = _graphics;
             this.lives = 3;
@@ -48,9 +49,17 @@ namespace Nobody_Will_Hear_Them_Scream
             // If mouse is clicked, move player in opposite direction from mouse
             if (ms.LeftButton == ButtonState.Pressed)
             {
-                X -= (int)(5 * mouseDirFromPlayer.X);
-                Y -= (int)(5 * mouseDirFromPlayer.Y);
+                playerMoving.X -= (int)(5 * mouseDirFromPlayer.X);
+                playerMoving.Y -= (int)(5 * mouseDirFromPlayer.Y);
             }
+
+            // Add the new speeds
+            X += (int)playerMoving.X;
+            Y += (int)playerMoving.Y;
+
+            // Dampen them. Change the number to change how fast the player slows down.
+            playerMoving.X /= 1.2f;
+            playerMoving.Y /= 1.2f;
         }
     }
 }
