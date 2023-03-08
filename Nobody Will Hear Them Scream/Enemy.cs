@@ -23,6 +23,16 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private float velocityDampener;
 
+        private static Rectangle screenBounds;
+
+        //Properties
+        public Vector2 Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; }
+        }
+
+
         //Constructor
         public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
         {
@@ -48,6 +58,32 @@ namespace Nobody_Will_Hear_Them_Scream
             playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - X, playerPosition.Y - Y));
 
             acceleration = 0.35f * playerDirFromEnemy;
+        }
+
+        public void HandleScreenCollisions(int screenWidth, int screenHeight)
+        {
+            //Handles collisions with the boundaries of the screen
+            if (X < 0)
+            {
+                X = 0;
+                velocity.X *= -1;
+            }
+            else if (X + Width > screenWidth)
+            {
+                X = screenWidth - Width;
+                velocity.X *= -1;
+            }
+
+            if (Y < 0)
+            {
+                Y = 0;
+                velocity.Y *= -1;
+            }
+            else if (Y + Height > screenHeight)
+            {
+                Y = screenHeight - Height;
+                velocity.Y *= -1;
+            }
         }
     }
 }
