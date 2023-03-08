@@ -112,17 +112,19 @@ namespace Nobody_Will_Hear_Them_Scream
 
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
-
-            // TODO: use this.Content to load your game content here
         }
 
-        //A method that resets game values at the start of a new game
+        /// <summary>
+        /// A method that resets game values at the start of a new game
+        /// </summary>
         public void Reset()
         {
             levelNum = 0;
         }
 
-        //A method that sets the proper values for game elements when a game starts
+        /// <summary>
+        /// A method that sets the proper values for game elements when a game starts
+        /// </summary>
         public void NewLevel()
         {
             levelNum++;
@@ -299,6 +301,15 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     // Draw debug stuff:
 
+                    // Center of astronaut
+                    _spriteBatch.DrawString(Arial14, $"Center of astronaut: {astronaut.CenterX}, {astronaut.CenterY}",
+                        new Vector2(30, 50),
+                        Color.White);
+
+                    // Mouse position
+                    _spriteBatch.DrawString(Arial14, $"Mouse pos: {ms.X}, {ms.Y}",
+                        new Vector2(30, 70),
+                        Color.White);
                     break;
 
                 case GameState.pauseScreen:
