@@ -33,5 +33,14 @@ namespace Nobody_Will_Hear_Them_Scream
             this.lives = 3;
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            MouseState ms = Mouse.GetState();
+
+            if (ms.LeftButton == ButtonState.Pressed) { ; }
+        }
+
+        //public void 
     }
 }

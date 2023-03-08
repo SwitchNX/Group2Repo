@@ -20,22 +20,13 @@ namespace Nobody_Will_Hear_Them_Scream
         private Rectangle objectBounds;
 
         //Properties
-        public int Width
-        {
-            get { return objectBounds.Width; }
-        }
-        public int Height
-        {
-            get { return objectBounds.Height; }
-        }
-        public int X
-        {
-            get { return objectBounds.X; }
-        }
-        public int Y
-        {
-            get { return objectBounds.Y; }
-        }
+        public int Width { get { return objectBounds.Width; } set { objectBounds.Width = value; } }
+
+        public int Height { get { return objectBounds.Height; } set { objectBounds.Height = value; } }
+
+        public int X { get { return objectBounds.X; } set { objectBounds.X = value; } }
+
+        public int Y { get { return objectBounds.Y; } set { objectBounds.Y = value; } }
 
         public Rectangle rect
         {
