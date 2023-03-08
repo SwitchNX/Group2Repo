@@ -18,7 +18,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private int lives;
         private Vector2 mouseDirFromPlayer;
-        private Vector2 playerMoving;
+        private Vector2 playerVelocity;
         private float dampenAmount;
         private float boostAmount;
 
@@ -51,6 +51,14 @@ namespace Nobody_Will_Hear_Them_Scream
             set { boostAmount = value; }
         }
 
+        /// <summary>
+        /// Gets the player's current velocity
+        /// </summary>
+        public Vector2 PlayerVelocity
+        {
+            get { return playerVelocity; }
+        }
+
 
         // Constructor
 
@@ -69,17 +77,24 @@ namespace Nobody_Will_Hear_Them_Scream
             boostAmount = 15f;
         }
 
+
+        // Methods
+
+        /// <summary>
+        /// Update the player
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             
             // Add the new speeds
-            X += (int)playerMoving.X;
-            Y += (int)playerMoving.Y;
+            X += (int)playerVelocity.X;
+            Y += (int)playerVelocity.Y;
 
-            // Dampen them. Change the number to change how fast the player slows down.
-            playerMoving.X /= dampenAmount;
-            playerMoving.Y /= dampenAmount;
+            // Dampen the player's velocity
+            playerVelocity.X /= dampenAmount;
+            playerVelocity.Y /= dampenAmount;
         }
 
         /// <summary>
@@ -91,8 +106,9 @@ namespace Nobody_Will_Hear_Them_Scream
             // Get mouse position from the player and normalize it
             mouseDirFromPlayer = Vector2.Normalize(new Vector2(ms.X - CenterX, ms.Y - CenterY));
 
-            playerMoving.X -= (int)(boostAmount * mouseDirFromPlayer.X);
-            playerMoving.Y -= (int)(boostAmount * mouseDirFromPlayer.Y);
+            // Increase the players velocity
+            playerVelocity.X -= (int)(boostAmount * mouseDirFromPlayer.X);
+            playerVelocity.Y -= (int)(boostAmount * mouseDirFromPlayer.Y);
         }
     }
 }
