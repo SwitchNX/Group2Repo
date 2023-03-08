@@ -33,7 +33,7 @@ namespace Nobody_Will_Hear_Them_Scream
             this.playerPosition = new Vector2(playerRectangle.X + playerRectangle.Width / 2, playerRectangle.Y + playerRectangle.Height / 2);
         }
 
-        public void Update(GameTime gameTime, Vector2 playerPosition)
+        public void Update(GameTime gameTime)
         {
             X += (int)velocity.X;
             Y += (int)velocity.Y;
@@ -41,10 +41,9 @@ namespace Nobody_Will_Hear_Them_Scream
             velocity += acceleration;
 
             //Vector2 playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - CenterX, playerPosition.Y - CenterY));
-            //playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - X, playerPosition.Y - Y));
-            //playerDirFromEnemy = new Vector2(100, 100);
+            playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - X, playerPosition.Y - Y));
 
-            acceleration = 3 * playerDirFromEnemy;
+            acceleration = 0.15f * playerDirFromEnemy;
         }
     }
 }

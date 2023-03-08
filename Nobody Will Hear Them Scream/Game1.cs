@@ -316,19 +316,14 @@ namespace Nobody_Will_Hear_Them_Scream
                         new Vector2(30, 70),
                         Color.White);
 
-                    // Mouse direction from player
-                    _spriteBatch.DrawString(Arial14, $"Mouse direction from player: {astronaut.mouseDirFromPlayer.X}, {astronaut.mouseDirFromPlayer.Y}",
-                        new Vector2(30, 90),
-                        Color.White);
-
                     // Alien velocity
                     _spriteBatch.DrawString(Arial14, $"Alien velocity: {enemy.velocity.X}, {enemy.velocity.Y}",
-                        new Vector2(30, 110),
+                        new Vector2(30, 900),
                         Color.White);
 
                     // Alien acceleration
                     _spriteBatch.DrawString(Arial14, $"Alien acceleration: {enemy.acceleration.X}, {enemy.acceleration.Y}",
-                        new Vector2(30, 130),
+                        new Vector2(30, 110),
                         Color.White);
 
 
