@@ -12,7 +12,7 @@ namespace Nobody_Will_Hear_Them_Scream
     /// <summary>
     /// player-controlled lil guy
     /// </summary>
-    internal class Player : Actor
+    internal class Player : GameObject
     {
         //Fields
         private GraphicsDeviceManager _graphics;
@@ -29,8 +29,8 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         // Constructor
-        public Player (Texture2D objectTexture, Rectangle objectBounds, Vector2 actorVelocity, GraphicsDeviceManager _graphics) :
-            base (objectTexture, objectBounds, actorVelocity)
+        public Player (Texture2D objectTexture, Rectangle objectBounds, GraphicsDeviceManager _graphics) :
+            base (objectTexture, objectBounds)
         {
             this._graphics = _graphics;
             this.lives = 3;
