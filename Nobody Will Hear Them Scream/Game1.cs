@@ -74,6 +74,10 @@ namespace Nobody_Will_Hear_Them_Scream
             gameState = GameState.mainMenu;
             actorVelocity = Vector2.Zero;
 
+            _graphics.PreferredBackBufferWidth = 1600;
+            _graphics.PreferredBackBufferHeight = 1600;
+            _graphics.ApplyChanges();
+
             base.Initialize();
         }
 
