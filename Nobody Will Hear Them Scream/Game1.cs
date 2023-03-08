@@ -60,6 +60,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private List<Enemy> enemyList = new List<Enemy>();
         private List<Crate> crateList = new List<Crate>();
 
+        private Texture2D placeHolderPurpleSquare;
+        private Enemy enemy;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -85,8 +88,11 @@ namespace Nobody_Will_Hear_Them_Scream
 
             //Set up the placeholder astronaut
             placeHolderSquare = Content.Load<Texture2D>("square");
+            placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
             astronaut = new Player(placeHolderSquare, astronautBounds);
+
+            enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(500, 500, 40, 40));
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
@@ -194,6 +200,12 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameplay:
+
+                    astronaut.Update(gameTime);
+
+                    enemy.GetPlayerPosition(astronaut.rect);
+                    enemy.Update(gameTime);
+
                     if (SinglePress(Keys.Escape))
                     {
                         gameState = GameState.pauseScreen;
@@ -289,8 +301,9 @@ namespace Nobody_Will_Hear_Them_Scream
 
                 case GameState.gameplay:
 
-                    //Draw the placeholder astronaut
+                    //Draw the placeholder astronaut & placeholder enemy
                     astronaut.Draw(_spriteBatch);
+                    enemy.Draw(_spriteBatch);
 
                     // Draw debug stuff:
 
