@@ -15,11 +15,11 @@ namespace Nobody_Will_Hear_Them_Scream
     internal class Enemy : GameObject
     {
         //Temporarily public
-        public Vector2 velocity;
-        public Vector2 acceleration;
-        public Vector2 playerDirFromEnemy;
+        private Vector2 velocity;
+        private Vector2 acceleration;
+        private Vector2 playerDirFromEnemy;
 
-        public Vector2 playerPosition;
+        private Vector2 playerPosition;
 
         //Constructor
         public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 

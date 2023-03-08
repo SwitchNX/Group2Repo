@@ -92,7 +92,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
             astronaut = new Player(placeHolderSquare, astronautBounds);
 
-            enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(250, 100, 40, 40));
+            enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(500, 500, 40, 40));
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
@@ -111,7 +111,7 @@ namespace Nobody_Will_Hear_Them_Scream
             //Initializes the button used to get from high scores to title
 
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
-                _graphics.PreferredBackBufferHeight / 4 * 3), "Back", Arial14);
+                _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
 
             // TODO: use this.Content to load your game content here
         }
@@ -298,27 +298,6 @@ namespace Nobody_Will_Hear_Them_Scream
                     enemy.Draw(_spriteBatch);
 
                     // Draw debug stuff:
-
-                    // Alien direction from enemy
-                    _spriteBatch.DrawString(Arial14, $"Player Direction from enemy: {enemy.playerDirFromEnemy.X}, {enemy.playerDirFromEnemy.Y}",
-                        new Vector2(30, 50),
-                        Color.White);
-
-                    // Player position
-                    _spriteBatch.DrawString(Arial14, $"Alien's player position: {enemy.playerPosition.X}, {enemy.playerPosition.Y}",
-                        new Vector2(30, 70),
-                        Color.White);
-
-                    // Alien velocity
-                    _spriteBatch.DrawString(Arial14, $"Alien velocity: {enemy.velocity.X}, {enemy.velocity.Y}",
-                        new Vector2(30, 900),
-                        Color.White);
-
-                    // Alien acceleration
-                    _spriteBatch.DrawString(Arial14, $"Alien acceleration: {enemy.acceleration.X}, {enemy.acceleration.Y}",
-                        new Vector2(30, 110),
-                        Color.White);
-
 
                     break;
 
