@@ -74,6 +74,10 @@ namespace Nobody_Will_Hear_Them_Scream
             gameState = GameState.mainMenu;
             actorVelocity = Vector2.Zero;
 
+            _graphics.PreferredBackBufferWidth = 1600;
+            _graphics.PreferredBackBufferHeight = 1600;
+            _graphics.ApplyChanges();
+
             base.Initialize();
         }
 
@@ -247,9 +251,6 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw black background
             GraphicsDevice.Clear(Color.Black);
 
-            // Temporary position for printing the current state for debug purposes
-            Vector2 stateTextPosition = new Vector2(30, 30);
-
             // Start the sprite batch
             _spriteBatch.Begin();
 
@@ -318,8 +319,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
             }
 
-            _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), stateTextPosition, Color.White);
-
+            // Draw the state
+            _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), new Vector2(30, 30), Color.White);
+            _spriteBatch.DrawString(Arial14, $"Screen size: {_graphics.PreferredBackBufferWidth}, {_graphics.PreferredBackBufferHeight}", new Vector2(30,10), Color.White);
             // End the sprite batch
             _spriteBatch.End();
 
