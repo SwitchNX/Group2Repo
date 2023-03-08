@@ -21,6 +21,7 @@ namespace Nobody_Will_Hear_Them_Scream
 {
     public class Game1 : Game
     {
+        //Fields to set up player interaction
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardState kb;
@@ -28,9 +29,11 @@ namespace Nobody_Will_Hear_Them_Scream
         private MouseState ms;
         private MouseState prevMS;
 
+        //Fields to set up text fonts
         private SpriteFont Arial14;
         private SpriteFont Arial32;
 
+        //Fields to set up FSM and buttons
         private GameState gameState;
 
         private Button startGameButton;
@@ -40,10 +43,23 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button resumeGameButton;
         private Button quitGameButton;
 
+        //Fields to set up astronaut character
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
         private Player astronaut;
         private Vector2 actorVelocity;
+
+        //Fields to set up HUD
+        private int gameScore;
+        private int levelScore;
+        private int time;
+        private int enemyNum;
+        private int crateNum;
+        private int levelNum;
+
+        //Lists to hold crates and enemies for levels
+        private List<Enemy> enemyList = new List<Enemy>();
+        private List<Crate> crateList = new List<Crate>();
 
         public Game1()
         {
