@@ -22,6 +22,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private float dampenAmount;
         private float boostAmount;
 
+
         // Properties
 
         /// <summary>

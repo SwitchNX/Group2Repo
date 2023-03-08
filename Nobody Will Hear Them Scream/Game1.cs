@@ -21,7 +21,7 @@ namespace Nobody_Will_Hear_Them_Scream
 {
     public class Game1 : Game
     {
-        //Fields to set up player interaction
+        // Fields to set up player interaction
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardState kb;
@@ -29,11 +29,11 @@ namespace Nobody_Will_Hear_Them_Scream
         private MouseState ms;
         private MouseState prevMS;
 
-        //Fields to set up text fonts
+        // Fields to set up text fonts
         private SpriteFont Arial14;
         private SpriteFont Arial32;
 
-        //Fields to set up FSM and buttons
+        // Fields to set up FSM and buttons
         private GameState gameState;
 
         private Button startGameButton;
@@ -43,12 +43,12 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button resumeGameButton;
         private Button quitGameButton;
 
-        //Fields to set up astronaut character
+        // Fields to set up astronaut character
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
         private Player astronaut;
 
-        //Fields to set up HUD
+        // Fields to set up HUD
         private int gameScore;
         private int levelScore;
         private int time;
@@ -56,7 +56,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private int crateNum;
         private int levelNum;
 
-        //Lists to hold crates and enemies for levels
+        // Lists to hold crates and enemies for levels
         private List<Enemy> enemyList = new List<Enemy>();
         private List<Crate> crateList = new List<Crate>();
 
@@ -72,11 +72,10 @@ namespace Nobody_Will_Hear_Them_Scream
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             gameState = GameState.mainMenu;
 
             _graphics.PreferredBackBufferWidth = 1600;
-            _graphics.PreferredBackBufferHeight = 1600;
+            _graphics.PreferredBackBufferHeight = 900;
             _graphics.ApplyChanges();
 
             base.Initialize();
@@ -86,7 +85,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //Set up the placeholder astronaut
+            // Set up the placeholder astronaut
             placeHolderSquare = Content.Load<Texture2D>("square");
             placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
@@ -97,7 +96,7 @@ namespace Nobody_Will_Hear_Them_Scream
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
 
-            //Initializes the buttons present on the start screen.
+            // Initializes the buttons present on the start screen.
 
             startGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth/2 - Arial14.MeasureString("Start Game").X/2,
                 _graphics.PreferredBackBufferHeight/4 + 100), "Start Game", Arial14);
@@ -108,7 +107,7 @@ namespace Nobody_Will_Hear_Them_Scream
             closeGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Close").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 200), "Close", Arial14);
 
-            //Initializes the button used to get from high scores to title
+            // Initializes the button used to get from high scores to title
 
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
@@ -219,9 +218,12 @@ namespace Nobody_Will_Hear_Them_Scream
                     // If there was a left click on this frame, move the player
                     if (SingleLeftClick())
                     {
+                        // Move the player
                         astronaut.MovePlayer(ms);
+
+                        // Create a projectile here
+                        // Use astronaut.PlayerVelocity for the projectiles velocity
                     }
-                    astronaut.Update(gameTime);
 
                     break;
 
@@ -290,7 +292,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.highScores:
-                    //Add the back button to return to the start screen
+                    // Add the back button to return to the start screen
 
                     backToMainMenuButton.Draw(_spriteBatch, Color.White);
 
@@ -301,7 +303,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
                 case GameState.gameplay:
 
-                    //Draw the placeholder astronaut & placeholder enemy
+                    // Draw the placeholder astronaut & placeholder enemy
                     astronaut.Draw(_spriteBatch);
                     enemy.Draw(_spriteBatch);
 

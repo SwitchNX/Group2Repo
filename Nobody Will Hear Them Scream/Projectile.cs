@@ -14,7 +14,27 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class Projectile : GameObject
     {
-        //Constructor
-        public Projectile(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) { }
+        // Fields
+
+        Vector2 velocity;
+
+
+        // Constructor
+
+        /// <summary>
+        /// Creates a new projectile object
+        /// </summary>
+        /// <param name="objectTexture"></param>
+        /// <param name="objectBounds"></param>
+        /// <param name="velocity"></param>
+        public Projectile(Texture2D objectTexture, Rectangle objectBounds, Vector2 velocity) : base(objectTexture, objectBounds)
+        {
+            this.velocity = velocity;
+        }
+
+
+        // Methods
+
+        // Add draw and update methods
     }
 }
