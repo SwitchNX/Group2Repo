@@ -18,13 +18,38 @@ namespace Nobody_Will_Hear_Them_Scream
         private int lives;
         private Vector2 mouseDirFromPlayer;
         private Vector2 playerMoving;
+        private float dampenAmount;
+        private float boostAmount;
 
         // Properties
+
+        /// <summary>
+        /// Gets or sets the amount of lives
+        /// </summary>
         public int Lives
         {
             get { return lives; }
             set { lives = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the amount to dampen
+        /// </summary>
+        public float DampenAmount
+        {
+            get { return dampenAmount; }
+            set { dampenAmount = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the amount to boost
+        /// </summary>
+        public float BoostAmount
+        {
+            get { return boostAmount; }
+            set { boostAmount = value; }
+        }
+
 
         // Constructor
 
@@ -37,6 +62,10 @@ namespace Nobody_Will_Hear_Them_Scream
             base (objectTexture, objectBounds)
         {
             this.lives = 3;
+
+            // For default weapon
+            dampenAmount = 1.05f;
+            boostAmount = 10f;
         }
 
         public override void Update(GameTime gameTime)
@@ -48,8 +77,8 @@ namespace Nobody_Will_Hear_Them_Scream
             Y += (int)playerMoving.Y;
 
             // Dampen them. Change the number to change how fast the player slows down.
-            playerMoving.X /= 1.2f;
-            playerMoving.Y /= 1.2f;
+            playerMoving.X /= dampenAmount;
+            playerMoving.Y /= dampenAmount;
         }
 
         /// <summary>
@@ -61,8 +90,8 @@ namespace Nobody_Will_Hear_Them_Scream
             // Get mouse position from the player and normalize it
             mouseDirFromPlayer = Vector2.Normalize(new Vector2(ms.X - CenterX, ms.Y - CenterY));
 
-            playerMoving.X -= (int)(5 * mouseDirFromPlayer.X);
-            playerMoving.Y -= (int)(5 * mouseDirFromPlayer.Y);
+            playerMoving.X -= (int)(boostAmount * mouseDirFromPlayer.X);
+            playerMoving.Y -= (int)(boostAmount * mouseDirFromPlayer.Y);
         }
     }
 }

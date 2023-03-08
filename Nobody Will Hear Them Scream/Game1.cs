@@ -194,19 +194,22 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameplay:
-
-                    astronaut.Update(gameTime);
-
                     if (SinglePress(Keys.Escape))
                     {
                         gameState = GameState.pauseScreen;
                     }
 
-
                     if (astronaut.Lives == 0)
                     {
                         gameState = GameState.gameOver;
                     }
+
+                    // If there was a left click on this frame, move the player
+                    if (SingleLeftClick())
+                    {
+                        astronaut.MovePlayer(ms);
+                    }
+                    astronaut.Update(gameTime);
 
                     break;
 
