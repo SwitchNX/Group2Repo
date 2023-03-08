@@ -14,10 +14,12 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class Enemy : GameObject
     {
-        Vector2 velocity;
-        Vector2 acceleration;
+        //Temporarily public
+        public Vector2 velocity;
+        public Vector2 acceleration;
+        public Vector2 playerDirFromEnemy;
 
-        Vector2 playerPosition;
+        public Vector2 playerPosition;
 
         //Constructor
         public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
@@ -26,18 +28,21 @@ namespace Nobody_Will_Hear_Them_Scream
             acceleration = new Vector2();
         }
 
-        public void GetPlayerPosition(Vector2 playerPosition)
+        public void GetPlayerPosition(Rectangle playerRectangle)
         {
-            this.playerPosition = playerPosition;
+            this.playerPosition = new Vector2(playerRectangle.X + playerRectangle.Width / 2, playerRectangle.Y + playerRectangle.Height / 2);
         }
 
         public void Update(GameTime gameTime, Vector2 playerPosition)
         {
             X += (int)velocity.X;
             Y += (int)velocity.Y;
+
             velocity += acceleration;
 
-            Vector2 playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - CenterX, playerPosition.Y - CenterY));
+            //Vector2 playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - CenterX, playerPosition.Y - CenterY));
+            playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - CenterX, playerPosition.Y - CenterY));
+
             acceleration = 3 * playerDirFromEnemy;
         }
     }

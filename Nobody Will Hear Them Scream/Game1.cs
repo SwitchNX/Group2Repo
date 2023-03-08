@@ -92,7 +92,7 @@ namespace Nobody_Will_Hear_Them_Scream
             placeHolderSquare = Content.Load<Texture2D>("square");
             placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
-            astronaut = new Player(placeHolderSquare, astronautBounds, actorVelocity, _graphics);
+            astronaut = new Player(placeHolderSquare, astronautBounds, _graphics);
 
             enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(100, 100, 40, 40));
 
@@ -157,6 +157,8 @@ namespace Nobody_Will_Hear_Them_Scream
                 case GameState.gameplay:
 
                     astronaut.Update(gameTime);
+
+                    enemy.GetPlayerPosition(astronaut.rect);
                     enemy.Update(gameTime);
 
                     if (kb.IsKeyDown(Keys.Escape))
@@ -257,20 +259,27 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     // Draw debug stuff:
 
-                    // Center of astronaut
-                    _spriteBatch.DrawString(Arial14, $"Center of astronaut: {astronaut.CenterX}, {astronaut.CenterY}",
+                    // Alien direction from enemy
+                    _spriteBatch.DrawString(Arial14, $"Player Direction from enemy: {enemy.playerDirFromEnemy.X}, {enemy.playerDirFromEnemy.Y}",
                         new Vector2(30, 50),
                         Color.White);
 
-                    // Mouse position
-                    _spriteBatch.DrawString(Arial14, $"Mouse pos: {ms.X}, {ms.Y}",
+                    // Alien position
+                    _spriteBatch.DrawString(Arial14, $"Alien's player position position: {enemy.playerPosition.X}, {enemy.playerPosition.Y}",
                         new Vector2(30, 70),
                         Color.White);
 
-                    // Mouse direction from player
-                    _spriteBatch.DrawString(Arial14, $"Mouse dir from player: {astronaut.mouseDirFromPlayer.X}, {astronaut.mouseDirFromPlayer.Y}",
+                    // Alien velocity
+                    _spriteBatch.DrawString(Arial14, $"Alien velocity: {enemy.velocity.X}, {enemy.velocity.Y}",
                         new Vector2(30, 90),
                         Color.White);
+
+                    // Alien acceleration
+                    _spriteBatch.DrawString(Arial14, $"Alien acceleration: {enemy.acceleration.X}, {enemy.acceleration.Y}",
+                        new Vector2(30, 110),
+                        Color.White);
+
+
                     break;
 
                 case GameState.pauseScreen:
