@@ -65,7 +65,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // For default weapon
             dampenAmount = 1.05f;
-            boostAmount = 10f;
+            boostAmount = 15f;
         }
 
         public override void Update(GameTime gameTime)
