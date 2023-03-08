@@ -230,7 +230,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.pauseScreen:
-                    if (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position))
+                    `ppif (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.gameplay;
                     }
