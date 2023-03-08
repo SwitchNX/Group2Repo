@@ -14,14 +14,12 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class Player : GameObject
     {
-        //Fields
-        private GraphicsDeviceManager _graphics;
+        // Fields
         private int lives;
-        private MouseState ms;
         public Vector2 mouseDirFromPlayer; // TEMPORARILY PUBLIC FOR DEBUGGING
         private Vector2 playerMoving;
 
-        //Properties
+        // Properties
         public int Lives
         {
             get { return lives; }
@@ -29,30 +27,22 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         // Constructor
-        public Player (Texture2D objectTexture, Rectangle objectBounds, GraphicsDeviceManager _graphics) :
+
+        /// <summary>
+        /// Creates a new Player object
+        /// </summary>
+        /// <param name="objectTexture">The texture of the player</param>
+        /// <param name="objectBounds">The rectangle of the player</param>
+        public Player (Texture2D objectTexture, Rectangle objectBounds) :
             base (objectTexture, objectBounds)
         {
-            this._graphics = _graphics;
             this.lives = 3;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            // Get mouse state
-            ms = Mouse.GetState();
-
-            // Get mouse position from the player and normalize it
-            mouseDirFromPlayer = Vector2.Normalize(new Vector2(ms.X - CenterX, ms.Y - CenterY));
-
-            // If mouse is clicked, move player in opposite direction from mouse
-            if (ms.LeftButton == ButtonState.Pressed)
-            {
-                playerMoving.X -= (int)(5 * mouseDirFromPlayer.X);
-                playerMoving.Y -= (int)(5 * mouseDirFromPlayer.Y);
-            }
-
+            
             // Add the new speeds
             X += (int)playerMoving.X;
             Y += (int)playerMoving.Y;
@@ -60,6 +50,19 @@ namespace Nobody_Will_Hear_Them_Scream
             // Dampen them. Change the number to change how fast the player slows down.
             playerMoving.X /= 1.2f;
             playerMoving.Y /= 1.2f;
+        }
+
+        /// <summary>
+        /// Move the player according to the mouse direction from the player
+        /// </summary>
+        /// <param name="ms">The current mouse state</param>
+        public void MovePlayer(MouseState ms)
+        {
+            // Get mouse position from the player and normalize it
+            mouseDirFromPlayer = Vector2.Normalize(new Vector2(ms.X - CenterX, ms.Y - CenterY));
+
+            playerMoving.X -= (int)(5 * mouseDirFromPlayer.X);
+            playerMoving.Y -= (int)(5 * mouseDirFromPlayer.Y);
         }
     }
 }
