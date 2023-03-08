@@ -41,7 +41,8 @@ namespace Nobody_Will_Hear_Them_Scream
             velocity += acceleration;
 
             //Vector2 playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - CenterX, playerPosition.Y - CenterY));
-            playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - CenterX, playerPosition.Y - CenterY));
+            //playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - X, playerPosition.Y - Y));
+            //playerDirFromEnemy = new Vector2(100, 100);
 
             acceleration = 3 * playerDirFromEnemy;
         }
