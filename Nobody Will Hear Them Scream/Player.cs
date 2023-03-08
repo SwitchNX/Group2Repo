@@ -18,7 +18,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private GraphicsDeviceManager _graphics;
         private int lives;
         private MouseState ms;
-        private Vector2 mousePos;
+        public Vector2 mouseDirFromPlayer; // TEMPORARILY PUBLIC FOR DEBUGGING
 
         //Properties
         public int Lives
@@ -38,28 +38,18 @@ namespace Nobody_Will_Hear_Them_Scream
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            ms = Mouse.GetState();
-            mousePos = new Vector2(ms.X, ms.Y);
 
+            // Get mouse state
+            ms = Mouse.GetState();
+
+            // Get mouse position from the player and normalize it
+            mouseDirFromPlayer = Vector2.Normalize(new Vector2(ms.X - CenterX, ms.Y - CenterY));
+
+            // If mouse is clicked, move player in opposite direction from mouse
             if (ms.LeftButton == ButtonState.Pressed)
             {
-                if (X - ms.X > 0)
-                {
-                    X += 5;
-                }
-                if(X - ms.X < 0)
-                {
-                    X -= 5;
-                }
-
-                if (Y - ms.Y > 0)
-                {
-                    Y += 5;
-                }
-                if (Y - ms.Y < 0)
-                {
-                    Y -= 5;
-                }
+                X -= (int)(5 * mouseDirFromPlayer.X);
+                Y -= (int)(5 * mouseDirFromPlayer.Y);
             }
         }
     }

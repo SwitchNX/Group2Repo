@@ -94,10 +94,11 @@ namespace Nobody_Will_Hear_Them_Scream
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+            // Get Keyboard and Mouse states
             kb = Keyboard.GetState();
             ms = Mouse.GetState();
 
+            // State machine
             switch (gameState)
             {
                 case GameState.mainMenu:
@@ -167,6 +168,8 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
             }
 
+            // Set current keyboard and mouse states to be
+            // used as previous ones for next cycle
             prevKB = kb;
             prevMS = ms;
 
@@ -175,21 +178,32 @@ namespace Nobody_Will_Hear_Them_Scream
 
         protected override void Draw(GameTime gameTime)
         {
+            // Draw black background
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            // Temporary position for printing the current state for debug purposes
             Vector2 stateTextPosition = new Vector2(30, 30);
 
+            // Start the sprite batch
             _spriteBatch.Begin();
 
+            // State machine
             switch (gameState)
             {
                 case GameState.mainMenu:
                     //Draw the title and buttons
 
+                    // Measures the size of the string
                     Vector2 titleSize = Arial32.MeasureString("SPACEWALK");
-                    _spriteBatch.DrawString(Arial32, "SPACEWALK", new Vector2(_graphics.PreferredBackBufferWidth / 2 - titleSize.X / 2,
-                        _graphics.PreferredBackBufferHeight / 4), Color.White);
+
+                    // Draws the title
+                    _spriteBatch.DrawString(Arial32, "SPACEWALK",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - titleSize.X / 2, // Puts it in the middle of the screen
+                        _graphics.PreferredBackBufferHeight / 4),
+                        Color.White);
+
+
+                    // Draws the buttons
 
                     startGameButton.Draw(_spriteBatch, Color.White);
 
@@ -213,8 +227,22 @@ namespace Nobody_Will_Hear_Them_Scream
                     //Draw the placeholder astronaut
                     astronaut.Draw(_spriteBatch);
 
-                    _spriteBatch.DrawString(Arial14, $"{ astronaut.X}\n{astronaut.Y}", new Vector2(_graphics.PreferredBackBufferWidth / 2 -  2,
-                        _graphics.PreferredBackBufferHeight / 4), Color.White);
+                    // Draw debug stuff:
+
+                    // Center of astronaut
+                    _spriteBatch.DrawString(Arial14, $"Center of astronaut: {astronaut.CenterX}, {astronaut.CenterY}",
+                        new Vector2(30, 50),
+                        Color.White);
+
+                    // Mouse position
+                    _spriteBatch.DrawString(Arial14, $"Mouse pos: {ms.X}, {ms.Y}",
+                        new Vector2(30, 70),
+                        Color.White);
+
+                    // Mouse direction from player
+                    _spriteBatch.DrawString(Arial14, $"Mouse dir from player: {astronaut.mouseDirFromPlayer.X}, {astronaut.mouseDirFromPlayer.Y}",
+                        new Vector2(30, 90),
+                        Color.White);
                     break;
 
                 case GameState.pauseScreen:
@@ -226,6 +254,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), stateTextPosition, Color.White);
 
+            // End the sprite batch
             _spriteBatch.End();
 
             base.Draw(gameTime);

@@ -28,6 +28,10 @@ namespace Nobody_Will_Hear_Them_Scream
 
         public int Y { get { return objectBounds.Y; } set { objectBounds.Y = value; } }
 
+        public int CenterX { get { return X + Width / 2; } }
+
+        public int CenterY { get { return Y + Height / 2; } }
+
         public Rectangle rect
         {
             get { return objectBounds; }
