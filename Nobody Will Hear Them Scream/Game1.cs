@@ -76,6 +76,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             _graphics.PreferredBackBufferWidth = 1600;
             _graphics.PreferredBackBufferHeight = 900;
+            //_graphics.ToggleFullScreen();
             _graphics.ApplyChanges();
 
             base.Initialize();
@@ -91,7 +92,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
             astronaut = new Player(placeHolderSquare, astronautBounds);
 
-            enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(500, 500, 40, 40));
+            enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(200, 200, 40, 40));
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
@@ -204,6 +205,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     enemy.GetPlayerPosition(astronaut.rect);
                     enemy.Update(gameTime);
+                    enemy.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
                     if (SinglePress(Keys.Escape))
                     {
