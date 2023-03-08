@@ -14,45 +14,80 @@ namespace Nobody_Will_Hear_Them_Scream
 {
     internal class Button
     {
+        // Fields
+
         private string text;
         private SpriteFont font;
         private Vector2 position;
         private Vector2 size;
-        
+        private Rectangle rect;
+
+
+        // Properties
+
+        /// <summary>
+        /// Gets and sets the text of a button
+        /// </summary>
         public string Text
         {
             get { return text; }
             set { text = value; }
         }
 
+        /// <summary>
+        /// Gets the font
+        /// </summary>
         public SpriteFont Font
         {
             get { return font; }
         }
 
+        /// <summary>
+        /// Gets the position of the button
+        /// </summary>
         public Vector2 Position
         {
             get { return position; }
         }
 
+        /// <summary>
+        /// Gets the X position of the button
+        /// </summary>
         public int X
         {
             get { return (int)position.X; }
         }
 
+        /// <summary>
+        /// Gets the Y position of the button
+        /// </summary>
         public int Y
         {
             get { return (int)position.Y; }
         }
 
+        /// <summary>
+        /// Gets the width of the button
+        /// </summary>
         public int Width
         {
             get { return (int)size.X; }
         }
 
+        /// <summary>
+        /// Gets the height of the button
+        /// </summary>
         public int Height   
         {
             get { return (int)size.Y; }
+        }
+
+        /// <summary>
+        /// Gets the rectangle of the button
+        /// </summary>
+        public Rectangle Rect
+        {
+            get { return rect; }
         }
 
         //Incomplete
@@ -62,17 +97,7 @@ namespace Nobody_Will_Hear_Them_Scream
             this.font = font;
             size = font.MeasureString(text);
             this.position = position;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ms"></param>
-        /// <returns></returns>
-        public bool IsClicked(MouseState ms)
-        {
-            Rectangle rect = new Rectangle(X, Y, Width, Height);
-            return rect.Contains(ms.Position) && ms.LeftButton == ButtonState.Pressed;
+            rect = new Rectangle(X, Y, Width, Height);
         }
 
         /// <summary>
