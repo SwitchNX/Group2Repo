@@ -15,6 +15,7 @@ namespace Nobody_Will_Hear_Them_Scream
     internal class Player : GameObject
     {
         // Fields
+
         private int lives;
         private Vector2 mouseDirFromPlayer;
         private Vector2 playerMoving;
