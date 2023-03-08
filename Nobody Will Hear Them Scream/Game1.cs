@@ -118,6 +118,56 @@ namespace Nobody_Will_Hear_Them_Scream
             // TODO: use this.Content to load your game content here
         }
 
+        //A method that resets game values at the start of a new game
+        public void Reset()
+        {
+            levelNum = 0;
+        }
+
+        //A method that sets the proper values for game elements when a game starts
+        public void NewLevel()
+        {
+            levelNum++;
+        }
+
+        //A method that checks for a single mouse click to move the astronaut
+        private bool SingleClick()
+        {
+            if (ms.LeftButton == ButtonState.Pressed && prevMS.LeftButton != ButtonState.Pressed)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //A method that checks for a single mouse click on the screen buttons
+        private bool SingleClick(Button pressedButton)
+        {
+            if (pressedButton.IsClicked(ms) && !pressedButton.IsClicked(prevMS))
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
+        //A method that checks for a single key press
+        private bool SinglePress(Keys key)
+        {
+            if (kb.IsKeyDown(key) && !prevKB.IsKeyDown(key))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         protected override void Update(GameTime gameTime)
         {
             // Get Keyboard and Mouse states
@@ -128,15 +178,15 @@ namespace Nobody_Will_Hear_Them_Scream
             switch (gameState)
             {
                 case GameState.mainMenu:
-                    if (startGameButton.IsClicked(ms))
+                    if (SingleClick(startGameButton))
                     {
                         gameState = GameState.gameplay;
                     }
-                    else if (highScoresButton.IsClicked(ms))
+                    else if (SingleClick(highScoresButton))
                     {
                         gameState = GameState.highScores;
                     }
-                    else if (closeGameButton.IsClicked(ms))
+                    else if (SingleClick(closeGameButton))
                     {
                         //Closes the application
                         Exit();
@@ -145,7 +195,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.highScores:
-                    if (backToMainMenuButton.IsClicked(ms))
+                    if (SingleClick(backToMainMenuButton))
                     {
                         gameState = GameState.mainMenu;
                     }
@@ -158,10 +208,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     astronaut.Update(gameTime);
 
-                    enemy.GetPlayerPosition(astronaut.rect);
-                    enemy.Update(gameTime);
-
-                    if (kb.IsKeyDown(Keys.Escape))
+                    if (SinglePress(Keys.Escape))
                     {
                         gameState = GameState.pauseScreen;
                     }
@@ -175,22 +222,22 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.pauseScreen:
-                    if (resumeGameButton.IsClicked(ms))
+                    if (SingleClick(resumeGameButton))
                     {
                         gameState = GameState.gameplay;
                     }
-                    else if (quitGameButton.IsClicked(ms))
+                    else if (SingleClick(quitGameButton))
                     {
                         gameState = GameState.mainMenu;
                     }
                     break;
 
                 case GameState.gameOver:
-                    if (kb.IsKeyDown(Keys.Escape) || backToMainMenuButton.IsClicked(ms))
+                    if (SinglePress(Keys.Escape) || SingleClick(backToMainMenuButton))
                     {
                         gameState = GameState.mainMenu;
                     }
-                    else if (highScoresButton.IsClicked(ms))
+                    else if (SingleClick(highScoresButton))
                     {
                         gameState = GameState.highScores;
                     }
