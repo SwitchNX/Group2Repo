@@ -111,5 +111,31 @@ namespace Nobody_Will_Hear_Them_Scream
             playerVelocity.X -= (int)(boostAmount * mouseDirFromPlayer.X);
             playerVelocity.Y -= (int)(boostAmount * mouseDirFromPlayer.Y);
         }
+
+        public void HandleScreenCollisions(int screenWidth, int screenHeight)
+        {
+            //Handles collisions with the boundaries of the screen
+            if (X < 0)
+            {
+                X = 0;
+                playerVelocity.X *= -1;
+            }
+            else if (X + Width > screenWidth)
+            {
+                X = screenWidth - Width;
+                playerVelocity.X *= -1;
+            }
+
+            if (Y < 0)
+            {
+                Y = 0;
+                playerVelocity.Y *= -1;
+            }
+            else if (Y + Height > screenHeight)
+            {
+                Y = screenHeight - Height;
+                playerVelocity.Y *= -1;
+            }
+        }
     }
 }
