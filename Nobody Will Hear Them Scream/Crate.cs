@@ -15,8 +15,10 @@ namespace Nobody_Will_Hear_Them_Scream
     internal class Crate : GameObject
     {
         private bool active;
+        private Rectangle playerPos;
+
         private Rectangle cratePos;
-        Rectangle playerPos;
+        private Texture2D crateTexutre;
 
         /// <summary>
         /// returns or changes the value of active

@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Nobody_Will_Hear_Them_Scream
 {
-    internal class CrateManager
+    internal class CrateManager : GameObject
     {
         private List<Crate> crateList;
 
-        public CrateManager(int crateNum)
+        public CrateManager(int crateNum, Texture2D objectTexture, Rectangle objectBounds) :
+            base(objectTexture, objectBounds)
         {
             crateList = new List<Crate>(crateNum);
 
@@ -20,9 +24,19 @@ namespace Nobody_Will_Hear_Them_Scream
             }
         }
 
-        // Update
+        /// <summary>
+        /// Updates GameObjects over time
+        /// </summary>
+        public override void Update(GameTime gameTime) { }
 
-        // Draw
+        /// <summary>
+        /// Draws in objects from other classes
+        /// </summary>
+        /// <param name="sb">allows for the call of the Draw method</param>
+        public override void Draw(SpriteBatch sb)
+        {
+            sb.Draw(Texture, rect, Color.White);
+        }
 
         // Remove
 
