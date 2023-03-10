@@ -55,6 +55,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private int enemyNum;
         private int crateNum;
         private int levelNum;
+        private int displayLevel;
         private int frames;
 
         // Lists to hold crates and enemies for levels
@@ -143,6 +144,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public void NewLevel()
         {
             levelNum++;
+            displayLevel++;
             levelScore = 0;
             time = 60;
         }
@@ -364,10 +366,11 @@ namespace Nobody_Will_Hear_Them_Scream
                         new Vector2(30, 70),
                         Color.White);
 
-                    // Time, lives, and score
+                    // Time, lives, level, and level score
                     _spriteBatch.DrawString(Arial14, $"Time: {time}", new Vector2(30, 90), Color.White);
                     _spriteBatch.DrawString(Arial14, $"Lives: {astronaut.Lives}", new Vector2(30, 110), Color.White);
-                    _spriteBatch.DrawString(Arial14, $"Score: {levelScore}", new Vector2(30, 130), Color.White);
+                    _spriteBatch.DrawString(Arial14, $"Level: {displayLevel}", new Vector2(30, 130), Color.White);
+                    _spriteBatch.DrawString(Arial14, $"Score: {levelScore}", new Vector2(30, 150), Color.White);
 
                     break;
 
