@@ -55,6 +55,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private int enemyNum;
         private int crateNum;
         private int levelNum;
+        private int frames;
 
         // Lists to hold crates and enemies for levels
         private List<Enemy> enemyList = new List<Enemy>();
@@ -131,6 +132,9 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Reset()
         {
             levelNum = 0;
+            astronaut.Lives = 3;
+            gameScore = 0;
+            levelScore = 0;
         }
 
         /// <summary>
@@ -139,6 +143,8 @@ namespace Nobody_Will_Hear_Them_Scream
         public void NewLevel()
         {
             levelNum++;
+            levelScore = 0;
+            time = 60;
         }
 
         /// <summary>
@@ -186,6 +192,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 case GameState.mainMenu:
                     if (SingleLeftClick() && startGameButton.Rect.Contains(ms.Position))
                     {
+                        Reset();
                         gameState = GameState.gameplay;
                     }
                     else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))
@@ -237,6 +244,26 @@ namespace Nobody_Will_Hear_Them_Scream
 
                         // Create a projectile here
                         // Use astronaut.PlayerVelocity for the projectiles velocity
+                    }
+
+                    // Works the timer
+                    frames++;
+                    if (frames % 60 == 0)
+                    {
+                        time--;
+                    }
+
+                    // Moves to the next level if time runs out
+                    if(time == 0)
+                    {
+                        if(levelNum != 4)
+                        {
+                            NewLevel();
+                        } else
+                        {
+                            levelNum = 0;
+                            NewLevel();
+                        }
                     }
 
                     break;
@@ -332,6 +359,12 @@ namespace Nobody_Will_Hear_Them_Scream
                     _spriteBatch.DrawString(Arial14, $"Mouse pos: {ms.X}, {ms.Y}",
                         new Vector2(30, 70),
                         Color.White);
+
+                    // Time, lives, and score
+                    _spriteBatch.DrawString(Arial14, $"Time: {time}", new Vector2(30, 90), Color.White);
+                    _spriteBatch.DrawString(Arial14, $"Lives: {astronaut.Lives}", new Vector2(30, 110), Color.White);
+                    _spriteBatch.DrawString(Arial14, $"Score: {levelScore}", new Vector2(30, 130), Color.White);
+
                     break;
 
                 case GameState.pauseScreen:
