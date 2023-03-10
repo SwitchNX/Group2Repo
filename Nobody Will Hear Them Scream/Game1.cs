@@ -147,6 +147,7 @@ namespace Nobody_Will_Hear_Them_Scream
             displayLevel++;
             levelScore = 0;
             time = 60;
+            astronaut.rect = astronautBounds;
         }
 
         /// <summary>
@@ -195,6 +196,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     if (SingleLeftClick() && startGameButton.Rect.Contains(ms.Position))
                     {
                         Reset();
+                        NewLevel();
                         gameState = GameState.gameplay;
                     }
                     else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))

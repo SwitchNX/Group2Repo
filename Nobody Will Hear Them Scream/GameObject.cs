@@ -59,9 +59,9 @@ namespace Nobody_Will_Hear_Them_Scream
         public int CenterY { get { return Y + Height / 2; } }
 
         /// <summary>
-        /// Get the rectangle
+        /// Get or set the rectangle
         /// </summary>
-        public Rectangle rect { get { return objectBounds; } }
+        public Rectangle rect { get { return objectBounds; } set { objectBounds = value; } }
 
 
         // Constructor
