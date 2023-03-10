@@ -25,6 +25,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private static Rectangle screenBounds;
 
+        private bool newIntersection;
+
         //Properties
         public Vector2 Velocity
         {
@@ -39,6 +41,7 @@ namespace Nobody_Will_Hear_Them_Scream
             velocity = new Vector2();
             acceleration = new Vector2();
             velocityDampener = .99f;
+            newIntersection = true;
         }
 
         public void GetPlayerPosition(Rectangle playerRectangle)
@@ -83,6 +86,22 @@ namespace Nobody_Will_Hear_Them_Scream
             {
                 Y = screenHeight - Height;
                 velocity.Y *= -1;
+            }
+        }
+
+        //Handles collisions with the player
+        public void EnemyIntersection(Player astronaut)
+        {
+            if (astronaut.rect.Intersects(rect))
+            {
+                if(newIntersection == true)
+                {
+                    astronaut.Lives--;
+                    newIntersection = false;
+                }
+            } else
+            {
+                newIntersection = true;
             }
         }
     }

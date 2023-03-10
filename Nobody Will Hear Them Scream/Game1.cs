@@ -246,6 +246,10 @@ namespace Nobody_Will_Hear_Them_Scream
                         // Use astronaut.PlayerVelocity for the projectiles velocity
                     }
 
+                    // Handles enemy collision with player
+                    // Enemies should be stored in a list
+                    enemy.EnemyIntersection(astronaut);
+
                     // Works the timer
                     frames++;
                     if (frames % 60 == 0)
@@ -376,6 +380,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameOver:
+
+                    highScoresButton.Draw(_spriteBatch, Color.White);
+
                     break;
             }
 
