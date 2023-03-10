@@ -56,9 +56,9 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws the Collectible to the screen
         /// if it is active
         /// </summary>
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, Color c)
         {
-            if (active) { sb.Draw(Texture, cratePos, Color.White); }
+            if (active) { sb.Draw(Texture, cratePos, c); }
         }
     }
 }
