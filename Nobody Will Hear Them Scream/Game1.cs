@@ -147,6 +147,7 @@ namespace Nobody_Will_Hear_Them_Scream
             displayLevel++;
             levelScore = 0;
             time = 60;
+            //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
 
