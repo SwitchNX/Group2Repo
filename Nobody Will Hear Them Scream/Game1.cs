@@ -115,6 +115,14 @@ namespace Nobody_Will_Hear_Them_Scream
 
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
+
+            //Initializes buttons to resume or quit game from the pause screen
+
+            resumeGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Resume").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 100), "Resume", Arial14);
+
+            quitGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Quit").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 150), "Quit", Arial14);
         }
 
         /// <summary>
@@ -327,6 +335,11 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.pauseScreen:
+
+                    // Draw resume and quit buttons
+                    resumeGameButton.Draw(_spriteBatch, Color.White);
+                    quitGameButton.Draw(_spriteBatch, Color.White);
+
                     break;
 
                 case GameState.gameOver:
