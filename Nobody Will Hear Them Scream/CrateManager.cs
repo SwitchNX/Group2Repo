@@ -33,9 +33,9 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws in objects from other classes
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, Color C)
         {
-            sb.Draw(Texture, rect, Color.White);
+            sb.Draw(Texture, rect, C);
         }
 
         // Remove
