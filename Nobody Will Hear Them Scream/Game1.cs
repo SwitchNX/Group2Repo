@@ -60,7 +60,9 @@ namespace Nobody_Will_Hear_Them_Scream
 
         // Lists to hold crates and enemies for levels
         private List<Enemy> enemyList = new List<Enemy>();
-        private List<Crate> crateList = new List<Crate>();
+        private CrateManager crateList;
+
+        private Texture2D placeHolderCrate;
 
         private Texture2D placeHolderPurpleSquare;
         private Enemy enemy;
@@ -93,11 +95,13 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // Set up the placeholder astronaut
             placeHolderSquare = Content.Load<Texture2D>("square");
+            placeHolderCrate = Content.Load<Texture2D>("square");
             placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
             astronaut = new Player(placeHolderSquare, astronautBounds);
 
             enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(200, 200, 40, 40));
+            crateList = new CrateManager(0, placeHolderCrate, new Rectangle(0, 0, 50, 50));
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
@@ -252,8 +256,14 @@ namespace Nobody_Will_Hear_Them_Scream
                     }
 
                     // Handles enemy collision with player
-                    // Enemies should be stored in a list
+                    // Enemies should be stored in an EnemyManager variable
                     enemy.EnemyIntersection(astronaut);
+
+                    // Update the score if there is a collision with a crate
+                    if(crateList.CheckCollision(astronaut))
+                    {
+                        levelScore += 10;
+                    }
 
                     // Works the timer
                     frames++;
