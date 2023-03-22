@@ -148,6 +148,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.Lives = 3;
             gameScore = 0;
             levelScore = 0;
+            crateList.ClearCrates();
         }
 
         /// <summary>
@@ -160,6 +161,7 @@ namespace Nobody_Will_Hear_Them_Scream
             levelScore = 0;
             time = 60;
             projectileList.Clear();
+            crateList.ClearCrates();
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
@@ -283,6 +285,10 @@ namespace Nobody_Will_Hear_Them_Scream
                     if(crateList.CheckCollision(astronaut))
                     {
                         levelScore += 10;
+                        // need to add something that makes the crate
+                        // collided with inactive
+                        // also checkcollision may not work because
+                        // I moved it to the manager
                     }
 
                     // Works the timer

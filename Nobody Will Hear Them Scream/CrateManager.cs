@@ -39,25 +39,33 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         /// <summary>
-        /// 
+        /// Removes the intended Crate from the list of Crates
         /// </summary>
-        /// <param name="toRemove"></param>
+        /// <param name="toRemove">the crate to be removed</param>
         public void RemoveCrate(Crate toRemove)
         {
             crateList.Remove(toRemove);
         }
 
         /// <summary>
-        /// 
+        /// Adds a crate ot the list at a random position on screen
         /// </summary>
-        /// <param name="objectTexture"></param>
-        /// <param name="objectBounds"></param>
+        /// <param name="objectTexture">crate's texture</param>
+        /// <param name="objectBounds">size and location of the crate</param>
         public void AddCrate(Texture2D objectTexture, Rectangle objectBounds)
         {
             Random rng = new Random();
 
             objectBounds = new Rectangle(rng.Next(40, 1560), rng.Next(40, 860), 50, 50);
             crateList.Add(new Crate(objectTexture, objectBounds));
+        }
+
+        /// <summary>
+        /// Clears the list of crates
+        /// </summary>
+        public void ClearCrates()
+        {
+            crateList.Clear();
         }
 
         /// <summary>
@@ -71,6 +79,8 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             PlayerPos = new Rectangle(check.X, check.Y, check.Width, check.Height);
 
+            // only checks for intersection if the crate is still
+            // visible on screen
             if (Active)
             {
                 return CratePos.Intersects(PlayerPos);
