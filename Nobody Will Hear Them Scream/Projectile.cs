@@ -35,6 +35,18 @@ namespace Nobody_Will_Hear_Them_Scream
 
         // Methods
 
-        // Add draw and update methods
+        /// <summary>
+        /// Update the projectlie
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            // Add the new speeds
+            X += (int)velocity.X;
+            Y += (int)velocity.Y;
+
+        }
     }
 }
