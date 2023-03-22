@@ -394,6 +394,12 @@ namespace Nobody_Will_Hear_Them_Scream
                 colorToDrawSprites = Color.DarkGray;
             }
 
+            //Makes sprites flash red when astronaut is damaged
+            if (!enemy.NewIntersection)
+            {
+                colorToDrawSprites = Color.Red;
+            }
+
             // Draw the placeholder astronaut & placeholder enemy
             astronaut.Draw(_spriteBatch, colorToDrawSprites);
             enemy.Draw(_spriteBatch, colorToDrawSprites);
