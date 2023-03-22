@@ -47,6 +47,11 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D placeHolderSquare;
         private Rectangle astronautBounds;
         private Player astronaut;
+        private Texture2D placeHolderCircle;
+
+        // Fields to manage projectiles
+        private int projectileSize;
+        private List<Projectile> projectileList = new List<Projectile>();
 
         // Fields to set up HUD
         private int gameScore;
@@ -86,6 +91,8 @@ namespace Nobody_Will_Hear_Them_Scream
             //_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
 
+            projectileSize = 20;
+
             base.Initialize();
         }
 
@@ -97,6 +104,7 @@ namespace Nobody_Will_Hear_Them_Scream
             placeHolderSquare = Content.Load<Texture2D>("square");
             placeHolderCrate = Content.Load<Texture2D>("square");
             placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
+            placeHolderCircle = Content.Load<Texture2D>("white-circle");
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
             astronaut = new Player(placeHolderSquare, astronautBounds);
 
@@ -151,6 +159,7 @@ namespace Nobody_Will_Hear_Them_Scream
             displayLevel++;
             levelScore = 0;
             time = 60;
+            projectileList.Clear();
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
@@ -235,6 +244,11 @@ namespace Nobody_Will_Hear_Them_Scream
                     enemy.Update(gameTime);
                     enemy.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
+                    foreach(Projectile p in projectileList)
+                    {
+                        p.Update(gameTime);
+                    }
+
                     if (SinglePress(Keys.Escape))
                     {
                         gameState = GameState.pauseScreen;
@@ -251,8 +265,14 @@ namespace Nobody_Will_Hear_Them_Scream
                         // Move the player
                         astronaut.MovePlayer(ms);
 
-                        // Create a projectile here
-                        // Use astronaut.PlayerVelocity for the projectiles velocity
+                        //Determine projectile's velocity
+                        Vector2 v = new Vector2(ms.X - astronaut.CenterX, ms.Y - astronaut.CenterY);
+                        v.Normalize();
+                        v *= 15;
+                        // Create a projectile
+                        Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
+                        projectileList.Add(p);
+
                     }
 
                     // Handles enemy collision with player
@@ -413,6 +433,12 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw the placeholder astronaut & placeholder enemy
             astronaut.Draw(_spriteBatch, colorToDrawSprites);
             enemy.Draw(_spriteBatch, colorToDrawSprites);
+
+            // Draw Projectiles
+            foreach (Projectile p in projectileList)
+            {
+                p.Draw(_spriteBatch, Color.White);
+            }
 
             // Draw debug stuff:
 
