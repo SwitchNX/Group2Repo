@@ -109,7 +109,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut = new Player(placeHolderSquare, astronautBounds);
 
             enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(200, 200, 40, 40));
-            crateList = new CrateManager(0, placeHolderCrate, new Rectangle(0, 0, 50, 50));
+            crateList = new CrateManager(1, placeHolderCrate, new Rectangle(0, 0, 50, 50));
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
@@ -149,6 +149,7 @@ namespace Nobody_Will_Hear_Them_Scream
             gameScore = 0;
             levelScore = 0;
             crateList.ClearCrates();
+            crateList = new CrateManager(5, placeHolderCrate, new Rectangle(0, 0, 50, 50));
         }
 
         /// <summary>
@@ -162,6 +163,7 @@ namespace Nobody_Will_Hear_Them_Scream
             time = 60;
             projectileList.Clear();
             crateList.ClearCrates();
+            crateList = new CrateManager(5, placeHolderCrate, new Rectangle(0, 0, 50, 50));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
@@ -279,16 +281,12 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     // Handles enemy collision with player
                     // Enemies should be stored in an EnemyManager variable
-                    enemy.EnemyIntersection(astronaut);
+                    //enemy.EnemyIntersection(astronaut);
 
                     // Update the score if there is a collision with a crate
                     if(crateList.CheckCollision(astronaut))
                     {
                         levelScore += 10;
-                        // need to add something that makes the crate
-                        // collided with inactive
-                        // also checkcollision may not work because
-                        // I moved it to the manager
                     }
 
                     // Works the timer
@@ -439,6 +437,7 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw the placeholder astronaut & placeholder enemy
             astronaut.Draw(_spriteBatch, colorToDrawSprites);
             enemy.Draw(_spriteBatch, colorToDrawSprites);
+            crateList.Draw(_spriteBatch, Color.Beige);
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)
