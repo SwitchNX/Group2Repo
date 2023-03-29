@@ -38,8 +38,13 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <param name="screenHeight"></param>
         public void Update(GameTime gametime, Player astronaut, List<Projectile> projectileList, int screenWidth, int screenHeight) 
         {
-            foreach(Enemy e in enemyList)
+            List<Enemy> enemiesToBeRemoved = new List<Enemy>();
+            List<Projectile> projectilesToBeRemoved = new List<Projectile>();
+
+
+            foreach (Enemy e in enemyList)
             {
+                e.GetPlayerPosition(astronaut.rect);
                 e.Update(gametime);
                 e.HandleScreenCollisions(screenWidth, screenHeight);
                 e.EnemyIntersection(astronaut);
@@ -47,10 +52,17 @@ namespace Nobody_Will_Hear_Them_Scream
                 {
                     if (e.rect.Intersects(p.rect))
                     {
-                        Remove(e);
-                        projectileList.Remove(p);
+                        enemiesToBeRemoved.Add(e);
+                        projectilesToBeRemoved.Add(p);
                     }
                 }
+            }
+
+            // Removes all of the enemies and projectiles that need to be removed
+            for (int i = 0; i < enemiesToBeRemoved.Count; i++)
+            {
+                Remove(enemiesToBeRemoved[i]);
+                projectileList.Remove(projectilesToBeRemoved[i]);
             }
         }
 

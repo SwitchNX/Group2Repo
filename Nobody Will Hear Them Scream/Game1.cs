@@ -108,7 +108,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
             astronaut = new Player(placeHolderSquare, astronautBounds);
 
-            //enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(200, 200, 40, 40));
+            //enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(800, 200, 40, 40));
 
             enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 40, 40));
             crateList = new CrateManager(0, placeHolderCrate, new Rectangle(0, 0, 50, 50));
@@ -165,7 +165,7 @@ namespace Nobody_Will_Hear_Them_Scream
             time = 60;
             projectileList.Clear();
             crateList.ClearCrates();
-            crateList = new CrateManager(5, placeHolderCrate, new Rectangle(0, 0, 50, 50));
+            crateList = new CrateManager(5, placeHolderCrate, new Rectangle(300, 300, 50, 50));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
