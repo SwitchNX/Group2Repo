@@ -33,15 +33,16 @@ namespace Nobody_Will_Hear_Them_Scream
         public Crate(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
         {
             cratePos = new Rectangle(X, Y, Width, Height);
+            active = true;
         }
 
-        /// <summary>
-        /// Draws the Collectible to the screen
-        /// if it is active
-        /// </summary>
-        public override void Draw(SpriteBatch sb, Color c)
-        {
-            if (active) { sb.Draw(Texture, cratePos, c); }
-        }
+        ///// <summary>
+        ///// Draws the Collectible to the screen
+        ///// if it is active
+        ///// </summary>
+        //public override void Draw(SpriteBatch sb, Color c)
+        //{
+        //    if (active) { sb.Draw(Texture, cratePos, c); }
+        //}
     }
 }

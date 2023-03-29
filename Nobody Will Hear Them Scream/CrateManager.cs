@@ -30,12 +30,12 @@ namespace Nobody_Will_Hear_Them_Scream
         public override void Update(GameTime gameTime) { }
 
         /// <summary>
-        /// Draws in objects from other classes
+        /// Draws a Crate to the screen if it is active
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
         public override void Draw(SpriteBatch sb, Color C)
         {
-            sb.Draw(Texture, rect, C);
+            if (Active) sb.Draw(Texture, rect, C);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             Random rng = new Random();
 
-            objectBounds = new Rectangle(rng.Next(40, 1560), rng.Next(40, 860), 50, 50);
+            objectBounds = new Rectangle(100/*rng.Next(40, 1560)*/, 100/*rng.Next(40, 860)*/, 50, 50);
             crateList.Add(new Crate(objectTexture, objectBounds));
         }
 
@@ -83,7 +83,11 @@ namespace Nobody_Will_Hear_Them_Scream
             // visible on screen
             if (Active)
             {
-                return CratePos.Intersects(PlayerPos);
+                if(CratePos.Intersects(PlayerPos))
+                {
+                    Active = false;
+                    return true;
+                }
             }
 
             return false;

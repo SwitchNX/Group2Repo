@@ -151,6 +151,7 @@ namespace Nobody_Will_Hear_Them_Scream
             gameScore = 0;
             levelScore = 0;
             crateList.ClearCrates();
+            crateList = new CrateManager(5, placeHolderCrate, new Rectangle(0, 0, 50, 50));
         }
 
         /// <summary>
@@ -164,6 +165,7 @@ namespace Nobody_Will_Hear_Them_Scream
             time = 60;
             projectileList.Clear();
             crateList.ClearCrates();
+            crateList = new CrateManager(5, placeHolderCrate, new Rectangle(0, 0, 50, 50));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
@@ -284,10 +286,6 @@ namespace Nobody_Will_Hear_Them_Scream
                     if(crateList.CheckCollision(astronaut))
                     {
                         levelScore += 10;
-                        // need to add something that makes the crate
-                        // collided with inactive
-                        // also checkcollision may not work because
-                        // I moved it to the manager
                     }
 
                     // Works the timer
@@ -440,6 +438,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             //Draw Enemies
             enemyManager.Draw(_spriteBatch, colorToDrawSprites);
+            crateList.Draw(_spriteBatch, Color.Beige);
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)
