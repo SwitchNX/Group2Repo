@@ -59,9 +59,9 @@ namespace Nobody_Will_Hear_Them_Scream
         public int CenterY { get { return Y + Height / 2; } }
 
         /// <summary>
-        /// Get the rectangle
+        /// Get or set the rectangle
         /// </summary>
-        public Rectangle rect { get { return objectBounds; } }
+        public Rectangle rect { get { return objectBounds; } set { objectBounds = value; } }
 
 
         // Constructor
@@ -81,9 +81,9 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws in objects from other classes
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public virtual void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb, Color c)
         {
-            sb.Draw(objectTexture, objectBounds, Color.White);
+            sb.Draw(objectTexture, objectBounds, c);
         }
     }
 }
