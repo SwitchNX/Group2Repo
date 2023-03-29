@@ -14,6 +14,9 @@ namespace Nobody_Will_Hear_Them_Scream
     {
         private List<Enemy> enemyList;
 
+        //TEMP
+        public int enemyListCount;
+
         public EnemyManager(int enemyNum, Texture2D objectTexture, Rectangle objectBounds) :
             base(objectTexture, objectBounds)
         {
@@ -26,9 +29,30 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         /// <summary>
-        /// Updates GameObjects over time
+        /// Updates all of the enemies postions, handles screen, player, and projectile collisions
         /// </summary>
-        public override void Update(GameTime gameTime) { }
+        /// <param name="gametime"></param>
+        /// <param name="astronaut"></param>
+        /// <param name="projectileList"></param>
+        /// <param name="screenWidth"></param>
+        /// <param name="screenHeight"></param>
+        public void Update(GameTime gametime, Player astronaut, List<Projectile> projectileList, int screenWidth, int screenHeight) 
+        {
+            foreach(Enemy e in enemyList)
+            {
+                e.Update(gametime);
+                e.HandleScreenCollisions(screenWidth, screenHeight);
+                e.EnemyIntersection(astronaut);
+                foreach (Projectile p in projectileList)
+                {
+                    if (e.rect.Intersects(p.rect))
+                    {
+                        Remove(e);
+                        projectileList.Remove(p);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Draws in objects from other classes
@@ -38,7 +62,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             foreach(Enemy enemy in enemyList)
             {
-                sb.Draw(Texture, rect, C);
+                sb.Draw(Texture, enemy.rect, C);
             }
         }
 
@@ -48,13 +72,22 @@ namespace Nobody_Will_Hear_Them_Scream
             enemyList.Remove(enemy);
         }
 
-        //Check Intersections
-        public void Check(Player astronaut)
+        /// <summary>
+        /// Checks whether any of the enemies intersect with the astronaut
+        /// </summary>
+        /// <param name="astronaut">The player</param>
+        /// <returns>True if any intersection is found, false if otherwise</returns>
+        public bool DetectPlayerIntersection(Player astronaut)
         {
-            foreach (Enemy enemy in enemyList)
+            foreach(Enemy e in enemyList)
             {
-                enemy.EnemyIntersection(astronaut);
+                if (e.rect.Intersects(astronaut.rect))
+                {
+                    return true;
+                }
             }
+
+            return false;
         }
     }
 }
