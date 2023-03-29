@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D placeHolderPurpleSquare;
         private Enemy enemy;
 
+        private List<int> scoreList = new List<int>();
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -82,6 +85,17 @@ namespace Nobody_Will_Hear_Them_Scream
             //_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             //_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
+
+            try
+            {
+                StreamWriter scoreWriter = new StreamWriter("C:\\HighScores.txt");
+            } catch
+            {
+                for(int i = 0; i < 5; i++)
+                {
+                    scoreList.Add(0);
+                }
+            }
 
             base.Initialize();
         }
@@ -233,6 +247,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     if (astronaut.Lives == 0)
                     {
+                        //Brings the player to the game over screen
                         gameState = GameState.gameOver;
                     }
 
@@ -286,10 +301,12 @@ namespace Nobody_Will_Hear_Them_Scream
                 case GameState.gameOver:
                     if (SinglePress(Keys.Escape) || (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position)) )
                     {
+                        //Brings the player back to the Main Menu
                         gameState = GameState.mainMenu;
                     }
                     else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))
                     {
+                        //Brings the player to the High Scores Screen
                         gameState = GameState.highScores;
                     }
                     break;
