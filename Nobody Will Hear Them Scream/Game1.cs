@@ -146,6 +146,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         public void Reset()
         {
+            displayLevel = 0;
             levelNum = 0;
             astronaut.Lives = 3;
             gameScore = 0;
