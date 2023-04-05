@@ -58,8 +58,6 @@ namespace Nobody_Will_Hear_Them_Scream
         private int gameScore;
         private int levelScore;
         private int time;
-        private int enemyNum;
-        private int crateNum;
         private int levelNum;
         private int displayLevel;
         private int frames;
@@ -278,6 +276,17 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     if (astronaut.Lives == 0)
                     {
+                        //Updates the high scores if necessary
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (gameScore >= scoreList[i])
+                            {
+                                scoreList.Insert(i, gameScore);
+                                scoreList.RemoveAt(5);
+                                break;
+                            }
+                        }
+
                         //Brings the player to the game over screen
                         gameState = GameState.gameOver;
                     }
@@ -302,6 +311,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     if(crateList.CheckCollision(astronaut))
                     {
                         levelScore += 10;
+                        gameScore += 10;
                     }
 
                     // Works the timer
@@ -338,6 +348,8 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameOver:
+
+                    //Handles Button Presses
                     if (SinglePress(Keys.Escape) || (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position)) )
                     {
                         //Brings the player back to the Main Menu
@@ -396,6 +408,18 @@ namespace Nobody_Will_Hear_Them_Scream
                     // Add the back button to return to the start screen
 
                     backToMainMenuButton.Draw(_spriteBatch, Color.White);
+
+                    //Draws in each high score in the list
+                    int height = 175;
+                    foreach(int score in scoreList)
+                    {
+                        _spriteBatch.DrawString(Arial14, $"{score}",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString($"Score").X / 2,
+                        // Puts it in the middle of the screen
+                        height),
+                        Color.White);
+                        height += 25;
+                    }
 
                     break;
 
