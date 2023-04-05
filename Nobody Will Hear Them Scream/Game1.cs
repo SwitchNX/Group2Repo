@@ -55,7 +55,6 @@ namespace Nobody_Will_Hear_Them_Scream
         private List<Projectile> projectileList = new List<Projectile>();
 
         // Fields to set up HUD
-        private int gameScore;
         private int time;
         private int levelNum;
         private int displayLevel;
@@ -160,7 +159,7 @@ namespace Nobody_Will_Hear_Them_Scream
             displayLevel = 0;
             levelNum = 0;
             astronaut.Lives = 3;
-            gameScore = 0;
+            astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(5, placeHolderCrate, new Rectangle(0, 0, 50, 50));
@@ -279,9 +278,9 @@ namespace Nobody_Will_Hear_Them_Scream
                         //Updates the high scores if necessary
                         for (int i = 0; i < 5; i++)
                         {
-                            if (gameScore >= scoreList[i])
+                            if (astronaut.GameScore >= scoreList[i])
                             {
-                                scoreList.Insert(i, gameScore);
+                                scoreList.Insert(i, astronaut.GameScore);
                                 scoreList.RemoveAt(5);
                                 break;
                             }
@@ -305,13 +304,6 @@ namespace Nobody_Will_Hear_Them_Scream
                         Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
                         projectileList.Add(p);
 
-                    }
-
-                    // Update the score if there is a collision with a crate
-                    if(crateList.CheckCollision(astronaut))
-                    {
-                        levelScore += 10;
-                        gameScore += 10;
                     }
 
                     // Works the timer

@@ -35,6 +35,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 if (crateList[i].CheckCollision(astronaut))
                 {
                     astronaut.LevelScore += 10;
+                    astronaut.GameScore += 10;
                 }
             }
         }
