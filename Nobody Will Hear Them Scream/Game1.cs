@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -286,6 +287,34 @@ namespace Nobody_Will_Hear_Them_Scream
                                 break;
                             }
                         }
+                        /*
+                        //Records the high scores to a text file, creating a new one if necessary
+                        try
+                        {
+                            string path = new string("C:\\HighScores.txt");
+                            if (!File.Exists(path))
+                            {
+                                using(StreamWriter scoreWriter = File().CreateText(path))
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        scoreWriter.WriteLine(scoreList[i]);
+                                    }
+                                }
+                            } else
+                            {
+                                StreamWriter scoreWriter = new StreamWriter(path);
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    scoreWriter.WriteLine(scoreList[i]);
+                                }
+                                scoreWriter.Close();
+                            }
+                        } catch
+                        {
+                            Console.WriteLine("Path creation unsuccessful");
+                        }
+                        */
 
                         //Brings the player to the game over screen
                         gameState = GameState.gameOver;
