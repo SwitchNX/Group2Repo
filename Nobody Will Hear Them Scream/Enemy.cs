@@ -34,6 +34,10 @@ namespace Nobody_Will_Hear_Them_Scream
             set { velocity = value; }
         }
 
+        public bool NewIntersection
+        {
+            get { return newIntersection; }
+        }
 
         //Constructor
         public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
