@@ -35,7 +35,13 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <param name="sb">allows for the call of the Draw method</param>
         public override void Draw(SpriteBatch sb, Color C)
         {
-            if (Active) sb.Draw(Texture, rect, C);
+            if (Active)
+            {
+                for (int i = 0; i < crateList.Count; i++)
+                {
+                    sb.Draw(Texture, rect, C);
+                }
+            }
         }
 
         /// <summary>
@@ -56,7 +62,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             Random rng = new Random();
 
-            objectBounds = new Rectangle(100/*rng.Next(40, 1560)*/, 100/*rng.Next(40, 860)*/, 50, 50);
+            objectBounds = new Rectangle(rng.Next(40, 1560), rng.Next(40, 860), 50, 50);
             crateList.Add(new Crate(objectTexture, objectBounds));
         }
 
