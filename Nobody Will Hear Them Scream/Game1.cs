@@ -119,12 +119,12 @@ namespace Nobody_Will_Hear_Them_Scream
             placeHolderCrate = Content.Load<Texture2D>("square");
             placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
             placeHolderCircle = Content.Load<Texture2D>("white-circle");
-            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
+            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 35, 50);
             astronaut = new Player(placeHolderSquare, astronautBounds);
 
             //enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(800, 200, 40, 40));
 
-            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 40, 40));
+            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 30, 30));
             crateList = new CrateManager(0, placeHolderCrate, new Rectangle(0, 0, 50, 50));
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
