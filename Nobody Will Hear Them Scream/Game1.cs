@@ -57,8 +57,6 @@ namespace Nobody_Will_Hear_Them_Scream
         // Fields to set up HUD
         private int gameScore;
         private int time;
-        private int enemyNum;
-        private int crateNum;
         private int levelNum;
         private int displayLevel;
         private int frames;
@@ -118,12 +116,12 @@ namespace Nobody_Will_Hear_Them_Scream
             placeHolderCrate = Content.Load<Texture2D>("square");
             placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
             placeHolderCircle = Content.Load<Texture2D>("white-circle");
-            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
+            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 35, 50);
             astronaut = new Player(placeHolderSquare, astronautBounds);
 
             //enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(800, 200, 40, 40));
 
-            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 40, 40));
+            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 30, 30));
             crateList = new CrateManager(0, placeHolderCrate, new Rectangle(0, 0, 50, 50));
 
             Arial14 = Content.Load<SpriteFont>("Arial14");
@@ -278,6 +276,17 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     if (astronaut.Lives == 0)
                     {
+                        //Updates the high scores if necessary
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (gameScore >= scoreList[i])
+                            {
+                                scoreList.Insert(i, gameScore);
+                                scoreList.RemoveAt(5);
+                                break;
+                            }
+                        }
+
                         //Brings the player to the game over screen
                         gameState = GameState.gameOver;
                     }
@@ -296,6 +305,13 @@ namespace Nobody_Will_Hear_Them_Scream
                         Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
                         projectileList.Add(p);
 
+                    }
+
+                    // Update the score if there is a collision with a crate
+                    if(crateList.CheckCollision(astronaut))
+                    {
+                        levelScore += 10;
+                        gameScore += 10;
                     }
 
                     // Works the timer
@@ -332,6 +348,8 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameOver:
+
+                    //Handles Button Presses
                     if (SinglePress(Keys.Escape) || (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position)) )
                     {
                         //Brings the player back to the Main Menu
@@ -390,6 +408,18 @@ namespace Nobody_Will_Hear_Them_Scream
                     // Add the back button to return to the start screen
 
                     backToMainMenuButton.Draw(_spriteBatch, Color.White);
+
+                    //Draws in each high score in the list
+                    int height = 175;
+                    foreach(int score in scoreList)
+                    {
+                        _spriteBatch.DrawString(Arial14, $"{score}",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString($"Score").X / 2,
+                        // Puts it in the middle of the screen
+                        height),
+                        Color.White);
+                        height += 25;
+                    }
 
                     break;
 
