@@ -17,6 +17,7 @@ namespace Nobody_Will_Hear_Them_Scream
         // Fields
 
         private int lives;
+        private int levelScore;
         private Vector2 mouseDirFromPlayer;
         private Vector2 playerVelocity;
         private float dampenAmount;
@@ -33,6 +34,11 @@ namespace Nobody_Will_Hear_Them_Scream
             get { return lives; }
             set { lives = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the score on the current level
+        /// </summary>
+        public int LevelScore { get { return levelScore; } set { levelScore = value; } }
 
         /// <summary>
         /// Gets or sets the amount to dampen

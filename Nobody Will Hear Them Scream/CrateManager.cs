@@ -27,7 +27,17 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <summary>
         /// Updates GameObjects over time
         /// </summary>
-        public override void Update(GameTime gameTime) { }
+        public void Update(GameTime gameTime, Player astronaut) 
+        {
+            // Update the score if there is a collision with a crate
+            for (int i = 0; i < crateList.Count; i++)
+            {
+                if (crateList[i].CheckCollision(astronaut))
+                {
+                    astronaut.LevelScore += 10;
+                }
+            }
+        }
 
         /// <summary>
         /// Draws a Crate to the screen if it is active
@@ -35,11 +45,11 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <param name="sb">allows for the call of the Draw method</param>
         public override void Draw(SpriteBatch sb, Color C)
         {
-            if (Active)
+            for (int i = 0; i < crateList.Count; i++)
             {
-                for (int i = 0; i < crateList.Count; i++)
+                if (crateList[i].Active)
                 {
-                    sb.Draw(Texture, rect, C);
+                    sb.Draw(Texture, crateList[i].CratePos, C);
                 }
             }
         }
@@ -73,30 +83,6 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             crateList.Clear();
         }
-
-        /// <summary>
-        /// Determines if there is a collision between the
-        /// GameObject and an active Crate
-        /// </summary>
-        /// <param name="check">the GameObject being checked</param>
-        /// <returns> whether or not the provided GameObject parameter 
-        /// is intersecting with this Crate</returns>
-        public bool CheckCollision(GameObject check)
-        {
-            PlayerPos = new Rectangle(check.X, check.Y, check.Width, check.Height);
-
-            // only checks for intersection if the crate is still
-            // visible on screen
-            if (Active)
-            {
-                if(CratePos.Intersects(PlayerPos))
-                {
-                    Active = false;
-                    return true;
-                }
-            }
-
-            return false;
-        }
+        
     }
 }
