@@ -103,11 +103,6 @@ namespace Nobody_Will_Hear_Them_Scream
                         scoreList.Add(score);
                     }
                 }
-
-                while(scoreList.Count < 5)
-                {
-                    scoreList.Add(0);
-                }
             } catch
             {
                 for(int i = 0; i < 5; i++)
@@ -460,6 +455,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     //Draws in each high score in the list
                     int height = 175;
+                    int i = 0;
                     foreach(int score in scoreList)
                     {
                         _spriteBatch.DrawString(Arial14, $"{score}",
@@ -468,6 +464,9 @@ namespace Nobody_Will_Hear_Them_Scream
                         height),
                         Color.White);
                         height += 25;
+                        i++;
+                        if (i == 5)
+                            break;
                     }
 
                     break;
