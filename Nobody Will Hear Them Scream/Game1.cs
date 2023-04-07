@@ -95,7 +95,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             try
             {
-                using(StreamReader scoreReader = new StreamReader("HighScores.txt"))
+                using(StreamReader scoreReader = new StreamReader("../../../HighScores.txt"))
                 {
                     int score;
                     while ((score = int.Parse(scoreReader.ReadLine())) != null)
@@ -299,7 +299,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         //Records the high scores to a text file, creating a new one if necessary
                         try
                         {
-                            string path = new string("HighScores.txt");
+                            string path = new string("../../../HighScores.txt");
                             //string path = @"c:\\HighScores.txt";
                             
                             if (!File.Exists(path))
