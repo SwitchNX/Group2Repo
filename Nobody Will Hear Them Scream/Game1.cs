@@ -95,7 +95,19 @@ namespace Nobody_Will_Hear_Them_Scream
 
             try
             {
-                StreamWriter scoreWriter = new StreamWriter("C:\\HighScores.txt");
+                using(StreamReader scoreReader = new StreamReader("HighScores.txt"))
+                {
+                    int score;
+                    while ((score = int.Parse(scoreReader.ReadLine())) != null)
+                    {
+                        scoreList.Add(score);
+                    }
+                }
+
+                while(scoreList.Count < 5)
+                {
+                    scoreList.Add(0);
+                }
             } catch
             {
                 for(int i = 0; i < 5; i++)
@@ -286,20 +298,34 @@ namespace Nobody_Will_Hear_Them_Scream
                                 break;
                             }
                         }
-                        /*
+                        
                         //Records the high scores to a text file, creating a new one if necessary
                         try
                         {
-                            string path = new string("C:\\HighScores.txt");
+                            string path = new string("HighScores.txt");
+                            //string path = @"c:\\HighScores.txt";
+                            
                             if (!File.Exists(path))
                             {
-                                using(StreamWriter scoreWriter = File().CreateText(path))
+                                /*
+                                using (var fs = File.Create(path)){
+                                    using(var scoreWriter = new StreamWriter(fs))
+                                    {
+                                        for (int i = 0; i < 5; i++)
+                                        {
+                                            scoreWriter.WriteLine(scoreList[i]);
+                                        }
+                                    }
+                                }
+                                */
+                                using (StreamWriter scoreWriter = File.CreateText(path))
                                 {
                                     for (int i = 0; i < 5; i++)
                                     {
                                         scoreWriter.WriteLine(scoreList[i]);
                                     }
                                 }
+                                
                             } else
                             {
                                 StreamWriter scoreWriter = new StreamWriter(path);
@@ -313,7 +339,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         {
                             Console.WriteLine("Path creation unsuccessful");
                         }
-                        */
+                        
 
                         //Brings the player to the game over screen
                         gameState = GameState.gameOver;
