@@ -23,7 +23,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public bool Active { get { return active; } set { active = value; } }
 
         /// <summary>
-        /// 
+        /// returns or changes the value of the crate's position
         /// </summary>
         public Rectangle CratePos { get { return cratePos; } set { cratePos = value; } }
 
