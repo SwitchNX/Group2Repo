@@ -164,6 +164,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(5, placeHolderCrate, new Rectangle(0, 0, 50, 50));
+            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 30, 30));
         }
 
         /// <summary>
@@ -178,6 +179,7 @@ namespace Nobody_Will_Hear_Them_Scream
             projectileList.Clear();
             crateList.ClearCrates();
             crateList = new CrateManager(5, placeHolderCrate, new Rectangle(300, 300, 50, 50));
+            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 30, 30));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }

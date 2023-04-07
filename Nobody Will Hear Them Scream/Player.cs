@@ -44,7 +44,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <summary>
         /// Gets or sets the total score
         /// </summary>
-        public int GameScore { get { return levelScore; } set { levelScore = value; } }
+        public int GameScore { get { return gameScore; } set { gameScore = value; } }
 
         /// <summary>
         /// Gets or sets the amount to dampen
