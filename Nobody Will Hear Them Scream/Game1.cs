@@ -46,10 +46,10 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button quitGameButton;
 
         // Fields to set up astronaut character
-        private Texture2D placeHolderSquare;
+        private Texture2D textureAstronautBody;
         private Rectangle astronautBounds;
         private Player astronaut;
-        private Texture2D placeHolderCircle;
+        private Texture2D texturePlayerProjectile;
 
         // Fields to manage projectiles
         private int projectileSize;
@@ -65,9 +65,16 @@ namespace Nobody_Will_Hear_Them_Scream
         private EnemyManager enemyManager;
         private CrateManager crateList;
 
-        private Texture2D placeHolderCrate;
+        // Textures for crates
+        private Texture2D textureSquareCrate;
+        private Texture2D textureWideCrate;
+        private Texture2D textureTallCrate;
 
-        private Texture2D placeHolderPurpleSquare;
+        // Texture for background
+        private Texture2D textureSpaceBackground;
+
+        // Texture for enemy
+        private Texture2D textureEnemySprite;
         private Enemy enemy;
 
         private List<int> scoreList = new List<int>();
@@ -129,19 +136,29 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Set up the placeholder astronaut
-            placeHolderSquare = Content.Load<Texture2D>("square");
-            placeHolderCrate = Content.Load<Texture2D>("square");
-            placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
-            placeHolderCircle = Content.Load<Texture2D>("white-circle");
+            // Set up the astronaut
+            textureAstronautBody = Content.Load<Texture2D>("astronaut body");
+            texturePlayerProjectile = Content.Load<Texture2D>("white-circle");
+
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 35, 50);
-            astronaut = new Player(placeHolderSquare, astronautBounds);
+            astronaut = new Player(textureAstronautBody, astronautBounds);
 
-            //enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(800, 200, 40, 40));
+            // Set up the enemy
+            textureEnemySprite = Content.Load<Texture2D>("enemy sprite");
 
-            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 30, 30));
-            crateList = new CrateManager(0, placeHolderCrate, new Rectangle(0, 0, 50, 50));
+            // Set up the boxes
+            textureSquareCrate = Content.Load<Texture2D>("square box");
+            textureWideCrate = Content.Load<Texture2D>("wide box");
+            textureTallCrate = Content.Load<Texture2D>("tall box");
 
+            // Set up space background
+            textureSpaceBackground = Content.Load<Texture2D>("SpaceWalk background");
+
+            // Default items for the enemy and crate managers
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            crateList = new CrateManager(0, textureSquareCrate, new Rectangle(0, 0, 50, 50));
+
+            // Set up fonts
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
 
@@ -161,7 +178,7 @@ namespace Nobody_Will_Hear_Them_Scream
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
 
-            //Initializes buttons to resume or quit game from the pause screen
+            // Initializes buttons to resume or quit game from the pause screen
 
             resumeGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Resume").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Resume", Arial14);
@@ -181,8 +198,8 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
-            crateList = new CrateManager(5, placeHolderCrate, new Rectangle(0, 0, 50, 50));
-            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 30, 30));
+            crateList = new CrateManager(5, textureSquareCrate, new Rectangle(0, 0, 50, 50));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
         }
 
         /// <summary>
@@ -196,8 +213,8 @@ namespace Nobody_Will_Hear_Them_Scream
             time = 30;
             projectileList.Clear();
             crateList.ClearCrates();
-            crateList = new CrateManager(5, placeHolderCrate, new Rectangle(300, 300, 50, 50));
-            enemyManager = new EnemyManager(1, placeHolderPurpleSquare, new Rectangle(200, 200, 30, 30));
+            crateList = new CrateManager(5, textureSquareCrate, new Rectangle(300, 300, 50, 50));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
@@ -352,7 +369,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         v.Normalize();
                         v *= 15;
                         // Create a projectile
-                        Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
+                        Projectile p = new Projectile(texturePlayerProjectile, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
                         projectileList.Add(p);
 
                     }
@@ -416,11 +433,13 @@ namespace Nobody_Will_Hear_Them_Scream
 
         protected override void Draw(GameTime gameTime)
         {
-            // Draw black background
-            GraphicsDevice.Clear(Color.Black);
-
             // Start the sprite batch
             _spriteBatch.Begin();
+
+            // Draw space background
+            _spriteBatch.Draw(textureSpaceBackground,
+                new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
+                Color.Gray);
 
             // State machine
             switch (gameState)
