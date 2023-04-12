@@ -72,7 +72,7 @@ namespace Homework_2
                 }
             }
 
-            blackColorButton.BackColor = mapGroupBox.BackColor;
+            backgroundColorButton.BackColor = mapGroupBox.BackColor;
             currentColorSelection.BackColor = Color.LightGray;
         }
 
@@ -190,6 +190,27 @@ namespace Homework_2
                              * 10 is enemy
                              * 20 is crate
                              */
+
+                            if (map[i,j].BackColor == playerColorButton.BackColor)
+                            {
+                                output.Write(1);
+                            }
+                            else if (map[i, j].BackColor == obstacleColorButton.BackColor)
+                            {
+                                output.Write(2);
+                            }
+                            else if (map[i, j].BackColor == enemyColorButton.BackColor)
+                            {
+                                output.Write(10);
+                            }
+                            else if (map[i, j].BackColor == crateColorButton.BackColor)
+                            {
+                                output.Write(20);
+                            }
+                            else
+                            {
+                                output.Write(0);
+                            }
                         }
                     }
 
@@ -243,6 +264,8 @@ namespace Homework_2
                 inputStream = File.OpenRead(filename);
                 input = new BinaryReader(inputStream);
 
+                timeTextBox.Text = input.ReadInt32().ToString();
+
                 //Makes map 
                 int w = input.ReadInt32();
                 int h = input.ReadInt32();
@@ -261,7 +284,27 @@ namespace Homework_2
                 {
                     for (int j = 0; j < h; j++)
                     {
-                        Color thisButtonColor = Color.FromArgb(input.ReadInt32());
+                        Color thisButtonColor;
+                        int id = input.ReadInt32();
+                        switch (id)
+                        {
+                            case 1:
+                                thisButtonColor = playerColorButton.BackColor;
+                                break;
+                            case 2:
+                                thisButtonColor = obstacleColorButton.BackColor;
+                                break;
+                            case 10:
+                                thisButtonColor = enemyColorButton.BackColor;
+                                break;
+                            case 20:
+                                thisButtonColor = crateColorButton.BackColor;
+                                break;
+                            default:
+                                thisButtonColor = backgroundColorButton.BackColor;
+                                break;
+                        }
+
                         map[i, j].BackColor = thisButtonColor;
                     }
                 }
