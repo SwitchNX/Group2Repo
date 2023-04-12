@@ -93,6 +93,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
             projectileSize = 20;
 
+            //Reads the top five scores from a text file if possible
+            //Fills the list with 0s if no text file exits
             try
             {
                 using(StreamReader scoreReader = new StreamReader("../../../HighScores.txt"))
@@ -108,6 +110,15 @@ namespace Nobody_Will_Hear_Them_Scream
                 for(int i = 0; i < 5; i++)
                 {
                     scoreList.Add(0);
+                }
+            }
+
+            //Makes sure no extra 0s are added to the score.
+            if(scoreList.Count > 5)
+            {
+                while (scoreList.Count > 5)
+                {
+                    scoreList.RemoveAt(scoreList.Count - 1);
                 }
             }
 
@@ -182,7 +193,7 @@ namespace Nobody_Will_Hear_Them_Scream
             levelNum++;
             displayLevel++;
             astronaut.LevelScore = 0;
-            time = 60;
+            time = 30;
             projectileList.Clear();
             crateList.ClearCrates();
             crateList = new CrateManager(5, placeHolderCrate, new Rectangle(300, 300, 50, 50));
@@ -300,21 +311,9 @@ namespace Nobody_Will_Hear_Them_Scream
                         try
                         {
                             string path = new string("../../../HighScores.txt");
-                            //string path = @"c:\\HighScores.txt";
                             
                             if (!File.Exists(path))
                             {
-                                /*
-                                using (var fs = File.Create(path)){
-                                    using(var scoreWriter = new StreamWriter(fs))
-                                    {
-                                        for (int i = 0; i < 5; i++)
-                                        {
-                                            scoreWriter.WriteLine(scoreList[i]);
-                                        }
-                                    }
-                                }
-                                */
                                 using (StreamWriter scoreWriter = File.CreateText(path))
                                 {
                                     for (int i = 0; i < 5; i++)
@@ -464,9 +463,6 @@ namespace Nobody_Will_Hear_Them_Scream
                         height),
                         Color.White);
                         height += 25;
-                        i++;
-                        if (i == 5)
-                            break;
                     }
 
                     break;
