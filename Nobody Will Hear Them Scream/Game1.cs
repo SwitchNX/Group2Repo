@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,28 +44,44 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button closeGameButton;
         private Button resumeGameButton;
         private Button quitGameButton;
+        private Button instructionsButton;
 
         // Fields to set up astronaut character
-        private Texture2D placeHolderSquare;
+        private Texture2D textureAstronautBody;
         private Rectangle astronautBounds;
         private Player astronaut;
+        private Texture2D texturePlayerProjectile;
+
+        // Fields to manage projectiles
+        private int projectileSize;
+        private List<Projectile> projectileList = new List<Projectile>();
 
         // Fields to set up HUD
-        private int gameScore;
-        private int levelScore;
         private int time;
-        private int enemyNum;
-        private int crateNum;
         private int levelNum;
         private int displayLevel;
         private int frames;
 
-        // Lists to hold crates and enemies for levels
-        private List<Enemy> enemyList = new List<Enemy>();
-        private List<Crate> crateList = new List<Crate>();
+        // Managers to hold crates and enemies for levels
+        private EnemyManager enemyManager;
+        private CrateManager crateList;
 
-        private Texture2D placeHolderPurpleSquare;
+        // Textures for crates
+        private Texture2D textureSquareCrate;
+        private Texture2D textureWideCrate;
+        private Texture2D textureTallCrate;
+
+        // Texture for hearts
+        private Texture2D textureHeart;
+
+        // Texture for background
+        private Texture2D textureSpaceBackground;
+
+        // Texture for enemy
+        private Texture2D textureEnemySprite;
         private Enemy enemy;
+
+        private List<int> scoreList = new List<int>();
 
         public Game1()
         {
@@ -80,9 +98,40 @@ namespace Nobody_Will_Hear_Them_Scream
             _graphics.PreferredBackBufferWidth = 1600;
             _graphics.PreferredBackBufferHeight = 900;
 
-            //_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            //_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             _graphics.ApplyChanges();
+
+            projectileSize = 20;
+
+            //Reads the top five scores from a text file if possible
+            //Fills the list with 0s if no text file exits
+            try
+            {
+                using(StreamReader scoreReader = new StreamReader("../../../HighScores.txt"))
+                {
+                    int score;
+                    while ((score = int.Parse(scoreReader.ReadLine())) != null)
+                    {
+                        scoreList.Add(score);
+                    }
+                }
+            } catch
+            {
+                for(int i = 0; i < 5; i++)
+                {
+                    scoreList.Add(0);
+                }
+            }
+
+            //Makes sure no extra 0s are added to the score.
+            if(scoreList.Count > 5)
+            {
+                while (scoreList.Count > 5)
+                {
+                    scoreList.RemoveAt(scoreList.Count - 1);
+                }
+            }
 
             base.Initialize();
         }
@@ -91,14 +140,32 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Set up the placeholder astronaut
-            placeHolderSquare = Content.Load<Texture2D>("square");
-            placeHolderPurpleSquare = Content.Load<Texture2D>("purple-square");
-            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 100, 100);
-            astronaut = new Player(placeHolderSquare, astronautBounds);
+            // Set up the astronaut
+            textureAstronautBody = Content.Load<Texture2D>("astronaut body");
+            texturePlayerProjectile = Content.Load<Texture2D>("projectile");
 
-            enemy = new Enemy(placeHolderPurpleSquare, new Rectangle(200, 200, 40, 40));
+            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 35, 50);
+            astronaut = new Player(textureAstronautBody, astronautBounds);
 
+            // Set up the enemy
+            textureEnemySprite = Content.Load<Texture2D>("enemy sprite");
+
+            // Set up the boxes
+            textureSquareCrate = Content.Load<Texture2D>("square box");
+            textureWideCrate = Content.Load<Texture2D>("wide box");
+            textureTallCrate = Content.Load<Texture2D>("tall box");
+
+            // Set up the heart
+            textureHeart = Content.Load<Texture2D>("heart");
+
+            // Set up space background
+            textureSpaceBackground = Content.Load<Texture2D>("SpaceWalk background");
+
+            // Default items for the enemy and crate managers
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            crateList = new CrateManager(0, textureSquareCrate, new Rectangle(0, 0, 50, 50));
+
+            // Set up fonts
             Arial14 = Content.Load<SpriteFont>("Arial14");
             Arial32 = Content.Load<SpriteFont>("Arial32");
 
@@ -110,15 +177,18 @@ namespace Nobody_Will_Hear_Them_Scream
             highScoresButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("High Scores").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 150), "High Scores", Arial14);
 
+            instructionsButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Instructions").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 200), "Instructions", Arial14);
+
             closeGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Close").X / 2,
-                _graphics.PreferredBackBufferHeight / 4 + 200), "Close", Arial14);
+                _graphics.PreferredBackBufferHeight / 4 + 250), "Close", Arial14);
 
             // Initializes the button used to get from high scores to title
 
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
 
-            //Initializes buttons to resume or quit game from the pause screen
+            // Initializes buttons to resume or quit game from the pause screen
 
             resumeGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Resume").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Resume", Arial14);
@@ -132,10 +202,14 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         public void Reset()
         {
+            displayLevel = 0;
             levelNum = 0;
             astronaut.Lives = 3;
-            gameScore = 0;
-            levelScore = 0;
+            astronaut.GameScore = 0;
+            astronaut.LevelScore = 0;
+            crateList.ClearCrates();
+            crateList = new CrateManager(5, textureSquareCrate, new Rectangle(0, 0, 50, 50));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
         }
 
         /// <summary>
@@ -145,8 +219,12 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             levelNum++;
             displayLevel++;
-            levelScore = 0;
-            time = 60;
+            astronaut.LevelScore = 0;
+            time = 30;
+            projectileList.Clear();
+            crateList.ClearCrates();
+            crateList = new CrateManager(5, textureSquareCrate, new Rectangle(300, 300, 50, 50));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
@@ -199,6 +277,9 @@ namespace Nobody_Will_Hear_Them_Scream
                         Reset();
                         NewLevel();
                         gameState = GameState.gameplay;
+
+                        //TEMPORARY adding an enemy
+                        
                     }
                     else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))
                     {
@@ -208,6 +289,10 @@ namespace Nobody_Will_Hear_Them_Scream
                     {
                         //Closes the application
                         Exit();
+                    }
+                    else if (SingleLeftClick() && instructionsButton.Rect.Contains(ms.Position))
+                    {
+                        gameState = GameState.instructions;
                     }
 
                     break;
@@ -220,6 +305,10 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.instructions:
+                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position))
+                    {
+                        gameState = GameState.mainMenu;
+                    }
                     break;
 
                 case GameState.gameplay:
@@ -227,9 +316,13 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.Update(gameTime);
                     astronaut.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-                    //enemy.GetPlayerPosition(astronaut.rect);
-                    //enemy.Update(gameTime);
-                    //enemy.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    enemyManager.Update(gameTime, astronaut, projectileList, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    crateList.Update(gameTime, astronaut);
+
+                    foreach(Projectile p in projectileList)
+                    {
+                        p.Update(gameTime);
+                    }
 
                     if (SinglePress(Keys.Escape))
                     {
@@ -238,6 +331,48 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     if (astronaut.Lives == 0)
                     {
+                        //Updates the high scores if necessary
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (astronaut.GameScore >= scoreList[i])
+                            {
+                                scoreList.Insert(i, astronaut.GameScore);
+                                scoreList.RemoveAt(5);
+                                break;
+                            }
+                        }
+                        
+                        //Records the high scores to a text file, creating a new one if necessary
+                        try
+                        {
+                            string path = new string("../../../HighScores.txt");
+                            
+                            if (!File.Exists(path))
+                            {
+                                using (StreamWriter scoreWriter = File.CreateText(path))
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        scoreWriter.WriteLine(scoreList[i]);
+                                    }
+                                }
+                                
+                            } else
+                            {
+                                StreamWriter scoreWriter = new StreamWriter(path);
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    scoreWriter.WriteLine(scoreList[i]);
+                                }
+                                scoreWriter.Close();
+                            }
+                        } catch
+                        {
+                            Console.WriteLine("Path creation unsuccessful");
+                        }
+                        
+
+                        //Brings the player to the game over screen
                         gameState = GameState.gameOver;
                     }
 
@@ -247,13 +382,15 @@ namespace Nobody_Will_Hear_Them_Scream
                         // Move the player
                         astronaut.MovePlayer(ms);
 
-                        // Create a projectile here
-                        // Use astronaut.PlayerVelocity for the projectiles velocity
-                    }
+                        //Determine projectile's velocity
+                        Vector2 v = new Vector2(ms.X - astronaut.CenterX, ms.Y - astronaut.CenterY);
+                        v.Normalize();
+                        v *= 15;
+                        // Create a projectile
+                        Projectile p = new Projectile(texturePlayerProjectile, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
+                        projectileList.Add(p);
 
-                    // Handles enemy collision with player
-                    // Enemies should be stored in a list
-                    enemy.EnemyIntersection(astronaut);
+                    }
 
                     // Works the timer
                     frames++;
@@ -289,12 +426,16 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameOver:
+
+                    //Handles Button Presses
                     if (SinglePress(Keys.Escape) || (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position)) )
                     {
+                        //Brings the player back to the Main Menu
                         gameState = GameState.mainMenu;
                     }
                     else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))
                     {
+                        //Brings the player to the High Scores Screen
                         gameState = GameState.highScores;
                     }
                     break;
@@ -310,11 +451,13 @@ namespace Nobody_Will_Hear_Them_Scream
 
         protected override void Draw(GameTime gameTime)
         {
-            // Draw black background
-            GraphicsDevice.Clear(Color.Black);
-
             // Start the sprite batch
             _spriteBatch.Begin();
+
+            // Draw space background
+            _spriteBatch.Draw(textureSpaceBackground,
+                new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
+                Color.Gray);
 
             // State machine
             switch (gameState)
@@ -338,6 +481,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     highScoresButton.Draw(_spriteBatch, Color.White);
 
+                    instructionsButton.Draw(_spriteBatch, Color.White);
+
                     closeGameButton.Draw(_spriteBatch, Color.White);
                     break;
 
@@ -346,9 +491,52 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     backToMainMenuButton.Draw(_spriteBatch, Color.White);
 
+                    //Draws in each high score in the list
+                    int height = 175;
+                    int i = 0;
+                    foreach(int score in scoreList)
+                    {
+                        _spriteBatch.DrawString(Arial14, $"{score}",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString($"{score}").X / 2,
+                        // Puts it in the middle of the screen
+                        height),
+                        Color.White);
+                        height += 25;
+                    }
+
                     break;
 
                 case GameState.instructions:
+                    //Write in the instructions
+                    string stringOne = "How to play:";
+                    string stringTwo = "Click the screen to blast the astronaut in the opposite direction.";
+                    string stringThree = "Avoid enemies, and blast them with projectiles.";
+                    string stringFour = "Run into crates to build up a high score.";
+                    string stringFive = "Each level has a set time, so act fast!";
+                    _spriteBatch.DrawString(Arial14, stringOne,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringOne).X / 2,
+                        175),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringTwo,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringTwo).X / 2,
+                        200),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringThree,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringThree).X / 2,
+                        225),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringFour,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringFour).X / 2,
+                        250),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringFive,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringFive).X / 2,
+                        275),
+                        Color.White);
+
+                    //Make sure the player can get back to the Title Screen
+                    backToMainMenuButton.Draw(_spriteBatch, Color.White);
+
                     break;
 
                 case GameState.gameplay:
@@ -394,9 +582,24 @@ namespace Nobody_Will_Hear_Them_Scream
                 colorToDrawSprites = Color.DarkGray;
             }
 
+            //Makes sprites flash red when astronaut is damaged
+            if (enemyManager.DetectPlayerIntersection(astronaut))
+            {
+                colorToDrawSprites = Color.Red;
+            }
+
             // Draw the placeholder astronaut & placeholder enemy
             astronaut.Draw(_spriteBatch, colorToDrawSprites);
-            enemy.Draw(_spriteBatch, colorToDrawSprites);
+
+            //Draw Enemies
+            enemyManager.Draw(_spriteBatch, colorToDrawSprites);
+            crateList.Draw(_spriteBatch, Color.Beige);
+
+            // Draw Projectiles
+            foreach (Projectile p in projectileList)
+            {
+                p.Draw(_spriteBatch, Color.White);
+            }
 
             // Draw debug stuff:
 
@@ -414,7 +617,7 @@ namespace Nobody_Will_Hear_Them_Scream
             _spriteBatch.DrawString(Arial14, $"Time: {time}", new Vector2(30, 90), Color.White);
             _spriteBatch.DrawString(Arial14, $"Lives: {astronaut.Lives}", new Vector2(30, 110), Color.White);
             _spriteBatch.DrawString(Arial14, $"Level: {displayLevel}", new Vector2(30, 130), Color.White);
-            _spriteBatch.DrawString(Arial14, $"Score: {levelScore}", new Vector2(30, 150), Color.White);
+            _spriteBatch.DrawString(Arial14, $"Score: {astronaut.LevelScore}", new Vector2(30, 150), Color.White);
         }
     }
 }

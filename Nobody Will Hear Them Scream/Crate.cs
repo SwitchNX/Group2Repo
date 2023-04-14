@@ -15,10 +15,7 @@ namespace Nobody_Will_Hear_Them_Scream
     internal class Crate : GameObject
     {
         private bool active;
-        private Rectangle playerPos;
-
         private Rectangle cratePos;
-        private Texture2D crateTexutre;
 
         /// <summary>
         /// returns or changes the value of active
@@ -26,11 +23,17 @@ namespace Nobody_Will_Hear_Them_Scream
         public bool Active { get { return active; } set { active = value; } }
 
         /// <summary>
+        /// returns or changes the value of the crate's position
+        /// </summary>
+        public Rectangle CratePos { get { return cratePos; } set { cratePos = value; } }
+
+        /// <summary>
         /// Initializes the fields of the Crate class
         /// </summary>
-        public Crate(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
+        public Crate(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds)
         {
             cratePos = new Rectangle(X, Y, Width, Height);
+            active = true;
         }
 
         /// <summary>
@@ -42,23 +45,20 @@ namespace Nobody_Will_Hear_Them_Scream
         /// is intersecting with this Crate</returns>
         public bool CheckCollision(GameObject check)
         {
-            playerPos = new Rectangle(check.X, check.Y, check.Width, check.Height);
+            Rectangle playerPos = new Rectangle(check.X, check.Y, check.Width, check.Height);
 
+            // only checks for intersection if the crate is still
+            // visible on screen
             if (active)
             {
-                return cratePos.Intersects(playerPos);
+                if (cratePos.Intersects(playerPos))
+                {
+                    active = false;
+                    return true;
+                }
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Draws the Collectible to the screen
-        /// if it is active
-        /// </summary>
-        public override void Draw(SpriteBatch sb, Color c)
-        {
-            if (active) { sb.Draw(Texture, cratePos, c); }
         }
     }
 }
