@@ -13,14 +13,34 @@ namespace Nobody_Will_Hear_Them_Scream
     {
         private List<Crate> crateList;
 
-        public CrateManager(int crateNum, Texture2D objectTexture, Rectangle objectBounds) :
-            base(objectTexture, objectBounds)
+        public CrateManager(int crateNum, Texture2D objectTexture1, Texture2D objectTexture2, Texture2D objectTexture3, Rectangle objectBounds) :
+            base(objectTexture1, objectBounds)
         {
             crateList = new List<Crate>(crateNum);
 
+            Random rng = new Random();
+            Random rand = new Random();
+
             for (int i = 0; i < crateNum; i++)
             {
-                AddCrate(objectTexture, objectBounds);
+                int randTextureNum = rng.Next(3);
+
+                switch (randTextureNum)
+                {
+                    case 0:
+                        objectBounds = new Rectangle(rand.Next(40, 1560), rand.Next(40, 860), 50, 50);
+                        crateList.Add(new Crate(objectTexture1, objectBounds));
+                        break;
+                    case 1:
+                        objectBounds = new Rectangle(rand.Next(40, 1560), rand.Next(40, 860), 50, 100);
+                        crateList.Add(new Crate(objectTexture2, objectBounds));
+                        break;
+                    case 2:
+                        objectBounds = new Rectangle(rand.Next(40, 1560), rand.Next(40, 860), 100, 50);
+                        crateList.Add(new Crate(objectTexture3, objectBounds));
+                        break;
+                }
+
             }
         }
 
@@ -62,19 +82,6 @@ namespace Nobody_Will_Hear_Them_Scream
         public void RemoveCrate(Crate toRemove)
         {
             crateList.Remove(toRemove);
-        }
-
-        /// <summary>
-        /// Adds a crate ot the list at a random position on screen
-        /// </summary>
-        /// <param name="objectTexture">crate's texture</param>
-        /// <param name="objectBounds">size and location of the crate</param>
-        public void AddCrate(Texture2D objectTexture, Rectangle objectBounds)
-        {
-            Random rng = new Random();
-
-            objectBounds = new Rectangle(rng.Next(40, 1560), rng.Next(40, 860), 50, 50);
-            crateList.Add(new Crate(objectTexture, objectBounds));
         }
 
         /// <summary>

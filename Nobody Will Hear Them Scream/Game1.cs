@@ -104,7 +104,7 @@ namespace Nobody_Will_Hear_Them_Scream
             //Fills the list with 0s if no text file exits
             try
             {
-                using(StreamReader scoreReader = new StreamReader("../../../HighScores.txt"))
+                using(StreamReader scoreReader = new StreamReader("HighScores.txt"))
                 {
                     int score;
                     while ((score = int.Parse(scoreReader.ReadLine())) != null)
@@ -159,7 +159,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // Default items for the enemy and crate managers
             enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 100, 100));
-            crateList = new CrateManager(0, textureSquareCrate, new Rectangle(0, 0, 50, 50));
+            crateList = new CrateManager(0, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(0, 0, 50, 50));
 
             // Set up fonts
             Arial14 = Content.Load<SpriteFont>("Arial14");
@@ -204,7 +204,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
-            crateList = new CrateManager(5, textureSquareCrate, new Rectangle(0, 0, 50, 50));
+            crateList = new CrateManager(5, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(0, 0, 50, 50));
             enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 50, 50));
         }
 
@@ -219,7 +219,7 @@ namespace Nobody_Will_Hear_Them_Scream
             time = 30;
             projectileList.Clear();
             crateList.ClearCrates();
-            crateList = new CrateManager(5, textureSquareCrate, new Rectangle(300, 300, 50, 50));
+            crateList = new CrateManager(5, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(300, 300, 50, 50));
             enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 50, 50));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
@@ -341,7 +341,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         //Records the high scores to a text file, creating a new one if necessary
                         try
                         {
-                            string path = new string("../../../HighScores.txt");
+                            string path = new string("HighScores.txt");
                             
                             if (!File.Exists(path))
                             {
