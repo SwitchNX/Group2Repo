@@ -158,7 +158,7 @@ namespace Nobody_Will_Hear_Them_Scream
             textureSpaceBackground = Content.Load<Texture2D>("SpaceWalk background");
 
             // Default items for the enemy and crate managers
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 100, 100));
             crateList = new CrateManager(0, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(0, 0, 50, 50));
 
             // Set up fonts
@@ -205,7 +205,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(5, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(0, 0, 50, 50));
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 50, 50));
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Nobody_Will_Hear_Them_Scream
             projectileList.Clear();
             crateList.ClearCrates();
             crateList = new CrateManager(5, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(300, 300, 50, 50));
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 50, 50));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
