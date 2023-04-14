@@ -227,9 +227,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.Update(gameTime);
                     astronaut.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-                    enemy.GetPlayerPosition(astronaut.rect);
-                    enemy.Update(gameTime);
-                    enemy.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    //enemy.GetPlayerPosition(astronaut.rect);
+                    //enemy.Update(gameTime);
+                    //enemy.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
                     if (SinglePress(Keys.Escape))
                     {

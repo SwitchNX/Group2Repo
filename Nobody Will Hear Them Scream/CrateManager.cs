@@ -18,10 +18,10 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             crateList = new List<Crate>(crateNum);
 
-            for (int i = 0; i < crateNum; i++)
-            {
+            //for (int i = 0; i < crateNum; i++)
+            //{
 
-            }
+            //}
         }
 
         /// <summary>
@@ -33,10 +33,10 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws in objects from other classes
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public override void Draw(SpriteBatch sb)
-        {
-            sb.Draw(Texture, rect, Color.White);
-        }
+        //public override void Draw(SpriteBatch sb)
+        //{
+        //    sb.Draw(Texture, rect, Color.White);
+        //}
 
         // Remove
 

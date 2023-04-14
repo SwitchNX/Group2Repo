@@ -74,7 +74,7 @@ namespace Nobody_Will_Hear_Them_Scream
             this.lives = 3;
 
             // For default weapon
-            dampenAmount = 1.05f;
+            dampenAmount = 1.03f;
             boostAmount = 15f;
         }
 
