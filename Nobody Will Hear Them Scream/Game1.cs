@@ -453,7 +453,7 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw space background
             _spriteBatch.Draw(textureSpaceBackground,
                 new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
-                Color.Gray);
+                Color.White);
 
             // State machine
             switch (gameState)
@@ -578,6 +578,11 @@ namespace Nobody_Will_Hear_Them_Scream
                 colorToDrawSprites = Color.DarkGray;
             }
 
+            // Draw space background
+            _spriteBatch.Draw(textureSpaceBackground,
+                new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
+                colorToDrawSprites);
+
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
             {
@@ -588,10 +593,11 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.Draw(_spriteBatch, colorToDrawSprites);
 
             // Draw the crates
-            crateList.Draw(_spriteBatch, Color.Beige);
+            crateList.Draw(_spriteBatch, colorToDrawSprites);
 
             //Draw Enemies
             enemyManager.Draw(_spriteBatch, colorToDrawSprites);
+
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)
