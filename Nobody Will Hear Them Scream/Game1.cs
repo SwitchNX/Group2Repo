@@ -557,9 +557,6 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
             }
 
-            // Draw the state
-            _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), new Vector2(30, 30), Color.White);
-            _spriteBatch.DrawString(Arial14, $"Screen size: {_graphics.PreferredBackBufferWidth}, {_graphics.PreferredBackBufferHeight}", new Vector2(30,10), Color.White);
             // End the sprite batch
             _spriteBatch.End();
 
@@ -582,15 +579,6 @@ namespace Nobody_Will_Hear_Them_Scream
             _spriteBatch.Draw(textureSpaceBackground,
                 new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
                 colorToDrawSprites);
-            
-            // Draw as many hearts as the player has lives
-            for (int i = 0; i < astronaut.Lives; i++)
-            {
-                _spriteBatch.Draw(textureHeart,
-                    new Rectangle(10 + i * (48 + 10), 10,
-                        48, 48),
-                    colorToDrawSprites);
-            }
 
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
@@ -614,23 +602,45 @@ namespace Nobody_Will_Hear_Them_Scream
                 p.Draw(_spriteBatch, Color.White);
             }
 
-            // Draw debug stuff:
+            // === PRINT UI ===
 
-            // Center of astronaut
-            _spriteBatch.DrawString(Arial14, $"Center of astronaut: {astronaut.CenterX}, {astronaut.CenterY}",
-                new Vector2(30, 50),
-                Color.White);
+            // Draw as many hearts as the player has lives
+            for (int i = 0; i < astronaut.Lives; i++)
+            {
+                _spriteBatch.Draw(textureHeart,
+                    new Rectangle(10 + i * (48 + 10), 10,
+                        48, 48),
+                    colorToDrawSprites);
+            }
 
-            // Mouse position
-            _spriteBatch.DrawString(Arial14, $"Mouse pos: {ms.X}, {ms.Y}",
-                new Vector2(30, 70),
-                Color.White);
+            // Print the time
+            _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(15, 70), Color.White);
 
-            // Time, lives, level, and level score
-            _spriteBatch.DrawString(Arial14, $"Time: {time}", new Vector2(30, 90), Color.White);
-            _spriteBatch.DrawString(Arial14, $"Lives: {astronaut.Lives}", new Vector2(30, 110), Color.White);
-            _spriteBatch.DrawString(Arial14, $"Level: {displayLevel}", new Vector2(30, 130), Color.White);
-            _spriteBatch.DrawString(Arial14, $"Score: {astronaut.LevelScore}", new Vector2(30, 150), Color.White);
+
+
+            // WHETHER TO PRINT DEBUG STUFF OR NOT
+            bool printDebugStuff = true;
+
+            if (printDebugStuff)
+            {// Draw debug stuff:
+
+                // Center of astronaut
+                _spriteBatch.DrawString(Arial14, $"Center of astronaut: {astronaut.CenterX}, {astronaut.CenterY}",
+                    new Vector2(30, 50),
+                    Color.White);
+
+                // Mouse position
+                _spriteBatch.DrawString(Arial14, $"Mouse pos: {ms.X}, {ms.Y}",
+                    new Vector2(30, 70),
+                    Color.White);
+
+                // State, Screen size, lives, level, and level score
+                _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), new Vector2(30, 30), Color.White);
+                _spriteBatch.DrawString(Arial14, $"Screen size: {_graphics.PreferredBackBufferWidth}, {_graphics.PreferredBackBufferHeight}", new Vector2(30, 10), Color.White);
+                _spriteBatch.DrawString(Arial14, $"Lives: {astronaut.Lives}", new Vector2(30, 110), Color.White);
+                _spriteBatch.DrawString(Arial14, $"Level: {displayLevel}", new Vector2(30, 130), Color.White);
+                _spriteBatch.DrawString(Arial14, $"Score: {astronaut.LevelScore}", new Vector2(30, 150), Color.White);
+            }
         }
     }
 }
