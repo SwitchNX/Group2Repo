@@ -44,7 +44,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             velocity = new Vector2();
             acceleration = new Vector2();
-            velocityDampener = .99f;
+            velocityDampener = .989f;
             newIntersection = true;
         }
 

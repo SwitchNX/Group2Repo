@@ -149,5 +149,20 @@ namespace Nobody_Will_Hear_Them_Scream
                 playerVelocity.Y *= -1;
             }
         }
+
+
+        /// <summary>
+        /// Gets the point on the astronaut where the projectile will spawn
+        /// </summary>
+        /// <returns></returns>
+        public Point GetProjectileSpawnPoint()
+        {
+            Point spawnpoint = new Point();
+
+            spawnpoint.X = CenterX;
+            spawnpoint.Y = CenterY;
+
+            return spawnpoint;
+        }
     }
 }

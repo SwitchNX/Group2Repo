@@ -53,7 +53,6 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D texturePlayerProjectile;
 
         // Fields to manage projectiles
-        private int projectileSize;
         private List<Projectile> projectileList = new List<Projectile>();
 
         // Fields to set up HUD
@@ -387,7 +386,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         v.Normalize();
                         v *= 15;
                         // Create a projectile
-                        Projectile p = new Projectile(texturePlayerProjectile, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
+                        Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
                         projectileList.Add(p);
 
                     }

@@ -214,6 +214,8 @@ namespace Homework_2
                         }
                     }
 
+                    output.Write(time);
+
                     //Updates whether changes are saved
                     if (changesAreUnsaved)
                     {
@@ -264,8 +266,6 @@ namespace Homework_2
                 inputStream = File.OpenRead(filename);
                 input = new BinaryReader(inputStream);
 
-                timeTextBox.Text = input.ReadInt32().ToString();
-
                 //Makes map 
                 int w = input.ReadInt32();
                 int h = input.ReadInt32();
@@ -308,6 +308,8 @@ namespace Homework_2
                         map[i, j].BackColor = thisButtonColor;
                     }
                 }
+
+                timeTextBox.Text = input.ReadInt32().ToString();
             }
             catch
             {
