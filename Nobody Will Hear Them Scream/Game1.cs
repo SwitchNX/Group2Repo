@@ -551,7 +551,13 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameOver:
+                    //Game Over Title
+                    _spriteBatch.DrawString(Arial32, "GAME OVER",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("GAME OVER").X / 2, // Puts it in the middle of the screen
+                        _graphics.PreferredBackBufferHeight / 4),
+                        Color.White);
 
+                    //Presents access to the High Scores
                     highScoresButton.Draw(_spriteBatch, Color.White);
 
                     break;
