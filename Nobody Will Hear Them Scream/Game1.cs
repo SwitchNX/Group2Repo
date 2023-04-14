@@ -144,7 +144,7 @@ namespace Nobody_Will_Hear_Them_Scream
             textureAstronautBody = Content.Load<Texture2D>("astronaut body");
             texturePlayerProjectile = Content.Load<Texture2D>("projectile");
 
-            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 35, 50);
+            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 42, 60);
             astronaut = new Player(textureAstronautBody, astronautBounds);
 
             // Set up the enemy
@@ -162,7 +162,7 @@ namespace Nobody_Will_Hear_Them_Scream
             textureSpaceBackground = Content.Load<Texture2D>("SpaceWalk background");
 
             // Default items for the enemy and crate managers
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 100, 100));
             crateList = new CrateManager(0, textureSquareCrate, new Rectangle(0, 0, 50, 50));
 
             // Set up fonts
@@ -209,7 +209,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(5, textureSquareCrate, new Rectangle(0, 0, 50, 50));
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 50, 50));
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace Nobody_Will_Hear_Them_Scream
             projectileList.Clear();
             crateList.ClearCrates();
             crateList = new CrateManager(5, textureSquareCrate, new Rectangle(300, 300, 50, 50));
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 50, 50));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
@@ -591,9 +591,11 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw the placeholder astronaut & placeholder enemy
             astronaut.Draw(_spriteBatch, colorToDrawSprites);
 
+            // Draw the crates
+            crateList.Draw(_spriteBatch, Color.Beige);
+
             //Draw Enemies
             enemyManager.Draw(_spriteBatch, colorToDrawSprites);
-            crateList.Draw(_spriteBatch, Color.Beige);
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)
