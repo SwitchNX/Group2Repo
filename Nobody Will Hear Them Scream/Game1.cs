@@ -70,6 +70,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D textureWideCrate;
         private Texture2D textureTallCrate;
 
+        // Texture for hearts
+        private Texture2D textureHeart;
+
         // Texture for background
         private Texture2D textureSpaceBackground;
 
@@ -138,7 +141,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // Set up the astronaut
             textureAstronautBody = Content.Load<Texture2D>("astronaut body");
-            texturePlayerProjectile = Content.Load<Texture2D>("white-circle");
+            texturePlayerProjectile = Content.Load<Texture2D>("projectile");
 
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 35, 50);
             astronaut = new Player(textureAstronautBody, astronautBounds);
@@ -150,6 +153,9 @@ namespace Nobody_Will_Hear_Them_Scream
             textureSquareCrate = Content.Load<Texture2D>("square box");
             textureWideCrate = Content.Load<Texture2D>("wide box");
             textureTallCrate = Content.Load<Texture2D>("tall box");
+
+            // Set up the heart
+            textureHeart = Content.Load<Texture2D>("heart");
 
             // Set up space background
             textureSpaceBackground = Content.Load<Texture2D>("SpaceWalk background");
