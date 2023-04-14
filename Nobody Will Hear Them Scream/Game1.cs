@@ -582,6 +582,15 @@ namespace Nobody_Will_Hear_Them_Scream
             _spriteBatch.Draw(textureSpaceBackground,
                 new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
                 colorToDrawSprites);
+            
+            // Draw as many hearts as the player has lives
+            for (int i = 0; i < astronaut.Lives; i++)
+            {
+                _spriteBatch.Draw(textureHeart,
+                    new Rectangle(10 + i * (48 + 10), 10,
+                        48, 48),
+                    colorToDrawSprites);
+            }
 
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
