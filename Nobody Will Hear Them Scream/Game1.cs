@@ -205,7 +205,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(5, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(0, 0, 50, 50));
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 50, 50));
+            enemyManager = new EnemyManager(3, textureEnemySprite, new Rectangle(200, 200, 50, 50));
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Nobody_Will_Hear_Them_Scream
             projectileList.Clear();
             crateList.ClearCrates();
             crateList = new CrateManager(5, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(300, 300, 50, 50));
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 50, 50));
+            enemyManager = new EnemyManager(3, textureEnemySprite, new Rectangle(200, 200, 50, 50));
             //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
@@ -453,7 +453,7 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw space background
             _spriteBatch.Draw(textureSpaceBackground,
                 new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
-                Color.Gray);
+                Color.White);
 
             // State machine
             switch (gameState)
@@ -579,25 +579,42 @@ namespace Nobody_Will_Hear_Them_Scream
         public void DrawGameplay(bool isPaused)
         {
             Color colorToDrawSprites = Color.White;
+            Color colorToDrawIntSprites = Color.White;
             if (isPaused)
             {
                 colorToDrawSprites = Color.DarkGray;
+                colorToDrawIntSprites = Color.DarkGray;
+            }
+
+            // Draw space background
+            _spriteBatch.Draw(textureSpaceBackground,
+                new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
+                colorToDrawSprites);
+            
+            // Draw as many hearts as the player has lives
+            for (int i = 0; i < astronaut.Lives; i++)
+            {
+                _spriteBatch.Draw(textureHeart,
+                    new Rectangle(10 + i * (48 + 10), 10,
+                        48, 48),
+                    colorToDrawSprites);
             }
 
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
             {
-                colorToDrawSprites = Color.Red;
+                colorToDrawIntSprites = Color.Red;
             }
 
             // Draw the placeholder astronaut & placeholder enemy
-            astronaut.Draw(_spriteBatch, colorToDrawSprites);
-
-            // Draw the crates
-            crateList.Draw(_spriteBatch, Color.Beige);
+            astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
 
             //Draw Enemies
-            enemyManager.Draw(_spriteBatch, colorToDrawSprites);
+            enemyManager.Draw(_spriteBatch, colorToDrawIntSprites);
+
+            // Draw the crates
+            crateList.Draw(_spriteBatch, colorToDrawSprites);
+
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)
