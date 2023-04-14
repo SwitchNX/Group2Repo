@@ -145,9 +145,10 @@ namespace Homework_2
         /// <param name="e"></param>
         private void saveButton_Click(object sender, EventArgs e)
         {
+            int time;
             try
             {
-                int time = int.Parse(timeTextBox.Text);
+                time = int.Parse(timeTextBox.Text);
                 if (time <= 0)
                 {
                     throw new Exception();

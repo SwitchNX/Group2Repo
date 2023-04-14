@@ -101,8 +101,6 @@ namespace Nobody_Will_Hear_Them_Scream
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             _graphics.ApplyChanges();
 
-            projectileSize = 20;
-
             //Reads the top five scores from a text file if possible
             //Fills the list with 0s if no text file exits
             try
@@ -161,8 +159,8 @@ namespace Nobody_Will_Hear_Them_Scream
             textureSpaceBackground = Content.Load<Texture2D>("SpaceWalk background");
 
             // Default items for the enemy and crate managers
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
-            crateList = new CrateManager(0, textureSquareCrate, new Rectangle(0, 0, 50, 50));
+            enemyManager = new EnemyManager(textureEnemySprite);
+            crateList = new CrateManager(textureSquareCrate);
 
             // Set up fonts
             Arial14 = Content.Load<SpriteFont>("Arial14");
@@ -207,8 +205,8 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
-            crateList = new CrateManager(5, textureSquareCrate, new Rectangle(0, 0, 50, 50));
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            crateList = new CrateManager(textureSquareCrate);
+            enemyManager = new EnemyManager(textureEnemySprite);
         }
 
         /// <summary>
@@ -219,13 +217,67 @@ namespace Nobody_Will_Hear_Them_Scream
             levelNum++;
             displayLevel++;
             astronaut.LevelScore = 0;
-            time = 30;
             projectileList.Clear();
             crateList.ClearCrates();
-            crateList = new CrateManager(5, textureSquareCrate, new Rectangle(300, 300, 50, 50));
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 30, 30));
+            LoadLevel();
             //Remember to change this in post
             astronaut.rect = astronautBounds;
+        }
+
+        /// <summary>
+        /// Loads the data from a .level file and sets up the new level
+        /// </summary>
+        /// <param name="level">Which level number is being loaded (level 1, etc)</param>
+        private void LoadLevel()
+        {
+            string filename = $"Content/level{levelNum}.level";
+            if (!File.Exists(filename))
+            {
+                //Do whatever happens when you run out of levels
+                return;
+            }
+
+            FileStream inputStream = File.OpenRead(filename);
+            BinaryReader input = new BinaryReader(inputStream);
+
+            int w = input.ReadInt32();
+            int h = input.ReadInt32();
+
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    int id = input.ReadInt32();
+
+                    if (id != 0)
+                    {
+                        int x = (int)((double)i / w * _graphics.PreferredBackBufferWidth);
+                        int y = (int)((double)j / h * _graphics.PreferredBackBufferHeight);
+                        Point spawnPoint = new Point(x, y);
+
+                        if (id == 1)
+                        {
+                            astronaut.X = x;
+                            astronaut.Y = y;
+                        }
+                        /* else if (id == 2)
+                         * {
+                         *      //Add obstacle
+                         * }
+                         */
+                        else if (id == 10)
+                        {
+                            enemyManager.CreateEnemy(spawnPoint);
+                        }
+                        else if (id == 20)
+                        {
+                            crateList.CreateNewCrate(spawnPoint);
+                        }
+                    }
+                }
+            }
+
+            time = input.ReadInt32();
         }
 
         /// <summary>
@@ -386,7 +438,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         v.Normalize();
                         v *= 15;
                         // Create a projectile
-                        Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
+                        Projectile p = new Projectile(texturePlayerProjectile, new Rectangle(astronaut.rect.Center, Projectile.ProjectileSize), v);
                         projectileList.Add(p);
 
                     }
@@ -399,7 +451,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     }
 
                     // Moves to the next level if time runs out
-                    if(time == 0)
+                    if(enemyManager.EnemyCount == 0)
                     {
                         if(levelNum != 4)
                         {
@@ -409,6 +461,10 @@ namespace Nobody_Will_Hear_Them_Scream
                             levelNum = 0;
                             NewLevel();
                         }
+                    }
+                    else if (time == 0)
+                    {
+                        gameState = GameState.gameOver;
                     }
 
                     break;

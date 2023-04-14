@@ -9,19 +9,21 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Nobody_Will_Hear_Them_Scream
 {
-    internal class CrateManager : Crate
+    internal class CrateManager
     {
         private List<Crate> crateList;
+        private Texture2D objectTexture;
+        private static Point crateSize = new Point(50, 50); 
 
-        public CrateManager(int crateNum, Texture2D objectTexture, Rectangle objectBounds) :
-            base(objectTexture, objectBounds)
+        public CrateManager(Texture2D objectTexture)
         {
-            crateList = new List<Crate>(crateNum);
+            crateList = new List<Crate>();
+            this.objectTexture = objectTexture;
+        }
 
-            for (int i = 0; i < crateNum; i++)
-            {
-                AddCrate(objectTexture, objectBounds);
-            }
+        public void CreateNewCrate(Point spawnPoint)
+        {
+            crateList.Add(new Crate(objectTexture, new Rectangle(spawnPoint, crateSize)));
         }
 
         /// <summary>
@@ -44,13 +46,13 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws a Crate to the screen if it is active
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public override void Draw(SpriteBatch sb, Color C)
+        public void Draw(SpriteBatch sb, Color C)
         {
             for (int i = 0; i < crateList.Count; i++)
             {
                 if (crateList[i].Active)
                 {
-                    sb.Draw(Texture, crateList[i].CratePos, C);
+                    sb.Draw(objectTexture, crateList[i].CratePos, C);
                 }
             }
         }
@@ -69,7 +71,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         /// <param name="objectTexture">crate's texture</param>
         /// <param name="objectBounds">size and location of the crate</param>
-        public void AddCrate(Texture2D objectTexture, Rectangle objectBounds)
+        public void AddCrateAtRandomPos(Texture2D objectTexture, Rectangle objectBounds)
         {
             Random rng = new Random();
 
