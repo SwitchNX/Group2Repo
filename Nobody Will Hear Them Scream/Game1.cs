@@ -616,10 +616,16 @@ namespace Nobody_Will_Hear_Them_Scream
             // Print the time
             _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(15, 70), Color.White);
 
+            // Print the current level
+            _spriteBatch.DrawString(Arial32, $"Level: {displayLevel}", new Vector2(15, 110), Color.White);
+
+            // Print the current score
+            _spriteBatch.DrawString(Arial32, $"Score: {astronaut.LevelScore}", new Vector2(15, 150), Color.White);
+
 
 
             // WHETHER TO PRINT DEBUG STUFF OR NOT
-            bool printDebugStuff = true;
+            bool printDebugStuff = false;
 
             if (printDebugStuff)
             {// Draw debug stuff:
@@ -638,8 +644,6 @@ namespace Nobody_Will_Hear_Them_Scream
                 _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), new Vector2(30, 30), Color.White);
                 _spriteBatch.DrawString(Arial14, $"Screen size: {_graphics.PreferredBackBufferWidth}, {_graphics.PreferredBackBufferHeight}", new Vector2(30, 10), Color.White);
                 _spriteBatch.DrawString(Arial14, $"Lives: {astronaut.Lives}", new Vector2(30, 110), Color.White);
-                _spriteBatch.DrawString(Arial14, $"Level: {displayLevel}", new Vector2(30, 130), Color.White);
-                _spriteBatch.DrawString(Arial14, $"Score: {astronaut.LevelScore}", new Vector2(30, 150), Color.White);
             }
         }
     }
