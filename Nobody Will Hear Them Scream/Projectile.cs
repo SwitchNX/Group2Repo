@@ -36,7 +36,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public Projectile(Texture2D objectTexture, Rectangle objectBounds, Vector2 velocity) : base(objectTexture, objectBounds)
         {
             this.velocity = velocity;
-            enemyThisCollidesWith = null;
+            projectileSize = new Point(20, 20);
         }
 
 

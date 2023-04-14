@@ -78,7 +78,6 @@ namespace Nobody_Will_Hear_Them_Scream
 
         // Texture for enemy
         private Texture2D textureEnemySprite;
-        private Enemy enemy;
 
         private List<int> scoreList = new List<int>();
 
@@ -100,8 +99,6 @@ namespace Nobody_Will_Hear_Them_Scream
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             _graphics.ApplyChanges();
-
-            projectileSize = 20;
 
             //Reads the top five scores from a text file if possible
             //Fills the list with 0s if no text file exits
@@ -386,7 +383,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         v.Normalize();
                         v *= 15;
                         // Create a projectile
-                        Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
+                        Projectile p = new Projectile(texturePlayerProjectile, new Rectangle(astronaut.rect.Center, Projectile.ProjectileSize), v);
                         projectileList.Add(p);
 
                     }
