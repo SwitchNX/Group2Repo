@@ -16,9 +16,14 @@ namespace Nobody_Will_Hear_Them_Scream
     {
         // Fields
 
-        Vector2 velocity;
+        private Vector2 velocity;
 
-        Enemy enemyThisCollidesWith;
+        private static Point projectileSize;
+
+        public static Point ProjectileSize
+        {
+            get { return projectileSize; }
+        }
 
 
         // Constructor
@@ -32,7 +37,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public Projectile(Texture2D objectTexture, Rectangle objectBounds, Vector2 velocity) : base(objectTexture, objectBounds)
         {
             this.velocity = velocity;
-            enemyThisCollidesWith = null;
+            projectileSize = new Point(20,20);
         }
 
 

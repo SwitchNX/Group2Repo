@@ -50,7 +50,6 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D placeHolderCircle;
 
         // Fields to manage projectiles
-        private int projectileSize;
         private List<Projectile> projectileList = new List<Projectile>();
 
         // Fields to set up HUD
@@ -90,8 +89,6 @@ namespace Nobody_Will_Hear_Them_Scream
             //_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             //_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
-
-            projectileSize = 20;
 
             base.Initialize();
         }
@@ -278,7 +275,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         v.Normalize();
                         v *= 15;
                         // Create a projectile
-                        Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
+                        Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.GetProjectileSpawnPoint(ms), Projectile.ProjectileSize), v);
                         projectileList.Add(p);
 
                     }
