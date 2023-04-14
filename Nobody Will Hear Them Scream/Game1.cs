@@ -78,7 +78,6 @@ namespace Nobody_Will_Hear_Them_Scream
 
         // Texture for enemy
         private Texture2D textureEnemySprite;
-        private Enemy enemy;
 
         private List<int> scoreList = new List<int>();
 
@@ -100,8 +99,6 @@ namespace Nobody_Will_Hear_Them_Scream
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             _graphics.ApplyChanges();
-
-            projectileSize = 20;
 
             //Reads the top five scores from a text file if possible
             //Fills the list with 0s if no text file exits
@@ -143,7 +140,7 @@ namespace Nobody_Will_Hear_Them_Scream
             textureAstronautBody = Content.Load<Texture2D>("astronaut body");
             texturePlayerProjectile = Content.Load<Texture2D>("projectile");
 
-            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 35, 50);
+            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 42, 60);
             astronaut = new Player(textureAstronautBody, astronautBounds);
 
             // Set up the enemy
@@ -386,7 +383,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         v.Normalize();
                         v *= 15;
                         // Create a projectile
-                        Projectile p = new Projectile(placeHolderCircle, new Rectangle(astronaut.CenterX, astronaut.CenterY, projectileSize, projectileSize), v);
+                        Projectile p = new Projectile(texturePlayerProjectile, new Rectangle(astronaut.rect.Center, Projectile.ProjectileSize), v);
                         projectileList.Add(p);
 
                     }
@@ -590,9 +587,11 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw the placeholder astronaut & placeholder enemy
             astronaut.Draw(_spriteBatch, colorToDrawSprites);
 
+            // Draw the crates
+            crateList.Draw(_spriteBatch, Color.Beige);
+
             //Draw Enemies
             enemyManager.Draw(_spriteBatch, colorToDrawSprites);
-            crateList.Draw(_spriteBatch, Color.Beige);
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)

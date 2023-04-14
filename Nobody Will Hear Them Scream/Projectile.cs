@@ -25,7 +25,6 @@ namespace Nobody_Will_Hear_Them_Scream
             get { return projectileSize; }
         }
 
-
         // Constructor
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public Projectile(Texture2D objectTexture, Rectangle objectBounds, Vector2 velocity) : base(objectTexture, objectBounds)
         {
             this.velocity = velocity;
-            projectileSize = new Point(20,20);
+            projectileSize = new Point(20, 20);
         }
 
 
