@@ -22,8 +22,12 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             enemyList = new List<Enemy>(enemyNum);
 
+            Random rng = new Random();
+
             for (int i = 0; i < enemyNum; i++)
             {
+                objectBounds = new Rectangle(rng.Next(40, 1560), rng.Next(40, 860), 50, 50);
+
                 enemyList.Add(new Enemy(objectTexture, objectBounds));
             }
         }
