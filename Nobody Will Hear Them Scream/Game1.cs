@@ -44,6 +44,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button closeGameButton;
         private Button resumeGameButton;
         private Button quitGameButton;
+        private Button instructionsButton;
 
         // Fields to set up astronaut character
         private Texture2D textureAstronautBody;
@@ -176,8 +177,11 @@ namespace Nobody_Will_Hear_Them_Scream
             highScoresButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("High Scores").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 150), "High Scores", Arial14);
 
+            instructionsButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Instructions").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 200), "Instructions", Arial14);
+
             closeGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Close").X / 2,
-                _graphics.PreferredBackBufferHeight / 4 + 200), "Close", Arial14);
+                _graphics.PreferredBackBufferHeight / 4 + 250), "Close", Arial14);
 
             // Initializes the button used to get from high scores to title
 
@@ -286,6 +290,10 @@ namespace Nobody_Will_Hear_Them_Scream
                         //Closes the application
                         Exit();
                     }
+                    else if (SingleLeftClick() && instructionsButton.Rect.Contains(ms.Position))
+                    {
+                        gameState = GameState.instructions;
+                    }
 
                     break;
 
@@ -297,6 +305,10 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.instructions:
+                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position))
+                    {
+                        gameState = GameState.mainMenu;
+                    }
                     break;
 
                 case GameState.gameplay:
@@ -469,6 +481,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     highScoresButton.Draw(_spriteBatch, Color.White);
 
+                    instructionsButton.Draw(_spriteBatch, Color.White);
+
                     closeGameButton.Draw(_spriteBatch, Color.White);
                     break;
 
@@ -483,7 +497,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     foreach(int score in scoreList)
                     {
                         _spriteBatch.DrawString(Arial14, $"{score}",
-                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString($"Score").X / 2,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString($"{score}").X / 2,
                         // Puts it in the middle of the screen
                         height),
                         Color.White);
@@ -493,6 +507,36 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.instructions:
+                    //Write in the instructions
+                    string stringOne = "How to play:";
+                    string stringTwo = "Click the screen to blast the astronaut in the opposite direction.";
+                    string stringThree = "Avoid enemies, and blast them with projectiles.";
+                    string stringFour = "Run into crates to build up a high score.";
+                    string stringFive = "Each level has a set time, so act fast!";
+                    _spriteBatch.DrawString(Arial14, stringOne,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringOne).X / 2,
+                        175),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringTwo,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringTwo).X / 2,
+                        200),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringThree,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringThree).X / 2,
+                        225),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringFour,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringFour).X / 2,
+                        250),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringFive,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringFive).X / 2,
+                        275),
+                        Color.White);
+
+                    //Make sure the player can get back to the Title Screen
+                    backToMainMenuButton.Draw(_spriteBatch, Color.White);
+
                     break;
 
                 case GameState.gameplay:
