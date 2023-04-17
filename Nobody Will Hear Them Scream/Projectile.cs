@@ -53,7 +53,6 @@ namespace Nobody_Will_Hear_Them_Scream
             // Add the new speeds
             X += (int)velocity.X;
             Y += (int)velocity.Y;
-
         }
     }
 }
