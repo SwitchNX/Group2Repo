@@ -57,7 +57,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 e.Update(gametime);
                 e.HandleScreenCollisions(screenWidth, screenHeight);
                 e.EnemyIntersection(astronaut);
-				//e.HandleEnemyCollisions(enemyList); needs some work on the position changing math
+				e.HandleEnemyCollisions(enemyList);
                 foreach (Projectile p in projectileList)
                 {
                     if (e.rect.Intersects(p.rect))
