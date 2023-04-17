@@ -18,7 +18,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private Vector2 velocity;
 
-        private static Point projectileSize;
+        private static Point projectileSize = new Point(20, 20);
 
         public static Point ProjectileSize
         {
@@ -37,7 +37,6 @@ namespace Nobody_Will_Hear_Them_Scream
         public Projectile(Texture2D objectTexture, Rectangle objectBounds, Vector2 velocity) : base(objectTexture, objectBounds)
         {
             this.velocity = velocity;
-            projectileSize = new Point(20, 20);
         }
 
 
