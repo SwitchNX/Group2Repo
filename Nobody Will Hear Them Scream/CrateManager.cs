@@ -9,39 +9,21 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Nobody_Will_Hear_Them_Scream
 {
-    internal class CrateManager : Crate
+    internal class CrateManager
     {
         private List<Crate> crateList;
+        private Texture2D objectTexture;
+        private static Point crateSize = new Point(50, 50); 
 
-        public CrateManager(int crateNum, Texture2D objectTexture1, Texture2D objectTexture2, Texture2D objectTexture3, Rectangle objectBounds) :
-            base(objectTexture1, objectBounds)
+        public CrateManager(Texture2D objectTexture)
         {
-            crateList = new List<Crate>(crateNum);
+            crateList = new List<Crate>();
+            this.objectTexture = objectTexture;
+        }
 
-            Random rng = new Random();
-            Random rand = new Random();
-
-            for (int i = 0; i < crateNum; i++)
-            {
-                int randTextureNum = rng.Next(3);
-
-                switch (randTextureNum)
-                {
-                    case 0:
-                        objectBounds = new Rectangle(rand.Next(40, 1560), rand.Next(40, 860), 50, 50);
-                        crateList.Add(new Crate(objectTexture1, objectBounds));
-                        break;
-                    case 1:
-                        objectBounds = new Rectangle(rand.Next(40, 1560), rand.Next(40, 860), 50, 100);
-                        crateList.Add(new Crate(objectTexture2, objectBounds));
-                        break;
-                    case 2:
-                        objectBounds = new Rectangle(rand.Next(40, 1560), rand.Next(40, 860), 100, 50);
-                        crateList.Add(new Crate(objectTexture3, objectBounds));
-                        break;
-                }
-
-            }
+        public void CreateNewCrate(Point spawnPoint)
+        {
+            crateList.Add(new Crate(objectTexture, new Rectangle(spawnPoint, crateSize)));
         }
 
         /// <summary>
@@ -64,13 +46,13 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws a Crate to the screen if it is active
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public override void Draw(SpriteBatch sb, Color C)
+        public void Draw(SpriteBatch sb, Color C)
         {
             for (int i = 0; i < crateList.Count; i++)
             {
                 if (crateList[i].Active)
                 {
-                    sb.Draw(Texture, crateList[i].CratePos, C);
+                    sb.Draw(objectTexture, crateList[i].CratePos, C);
                 }
             }
         }
@@ -82,6 +64,19 @@ namespace Nobody_Will_Hear_Them_Scream
         public void RemoveCrate(Crate toRemove)
         {
             crateList.Remove(toRemove);
+        }
+
+        /// <summary>
+        /// Adds a crate ot the list at a random position on screen
+        /// </summary>
+        /// <param name="objectTexture">crate's texture</param>
+        /// <param name="objectBounds">size and location of the crate</param>
+        public void AddCrateAtRandomPos(Texture2D objectTexture, Rectangle objectBounds)
+        {
+            Random rng = new Random();
+
+            objectBounds = new Rectangle(rng.Next(40, 1560), rng.Next(40, 860), 50, 50);
+            crateList.Add(new Crate(objectTexture, objectBounds));
         }
 
         /// <summary>

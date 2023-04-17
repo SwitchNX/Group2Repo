@@ -10,26 +10,30 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Nobody_Will_Hear_Them_Scream
 {
-    internal class EnemyManager : GameObject
+    internal class EnemyManager
     {
         private List<Enemy> enemyList;
+        private Texture2D objectTexture;
+        public static Point enemySize = new Point(30, 30);
 
-        //TEMP
-        public int enemyListCount;
+        /// <summary>
+        /// How many enenies there are
+        /// </summary>
+        public int EnemyCount { get { return enemyList.Count; } }
 
-        public EnemyManager(int enemyNum, Texture2D objectTexture, Rectangle objectBounds) :
-            base(objectTexture, objectBounds)
+        public EnemyManager (Texture2D objectTexture)
         {
-            enemyList = new List<Enemy>(enemyNum);
+            this.objectTexture = objectTexture;
+            enemyList = new List<Enemy>();
+        }
 
-            Random rng = new Random();
-
-            for (int i = 0; i < enemyNum; i++)
-            {
-                objectBounds = new Rectangle(rng.Next(40, 1560), rng.Next(40, 860), 50, 50);
-
-                enemyList.Add(new Enemy(objectTexture, objectBounds));
-            }
+        /// <summary>
+        /// Creates a new enemy to the enemy manager
+        /// </summary>
+        /// <param name="spawnPoint">The point at which the enemy (top left corner) will spawn at</param>
+        public void CreateEnemy(Point spawnPoint)
+        {
+            enemyList.Add(new Enemy(objectTexture, new Rectangle(spawnPoint, enemySize)));
         }
 
         /// <summary>
@@ -52,7 +56,6 @@ namespace Nobody_Will_Hear_Them_Scream
                 e.Update(gametime);
                 e.HandleScreenCollisions(screenWidth, screenHeight);
                 e.EnemyIntersection(astronaut);
-                //e.HandleEnemyCollisions(enemyList); needs some work on the position changing math
                 foreach (Projectile p in projectileList)
                 {
                     if (e.rect.Intersects(p.rect))
@@ -75,15 +78,18 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws in objects from other classes
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public override void Draw(SpriteBatch sb, Color C)
+        public void Draw(SpriteBatch sb, Color C)
         {
             foreach(Enemy enemy in enemyList)
             {
-                sb.Draw(Texture, enemy.rect, C);
+                sb.Draw(objectTexture, enemy.rect, C);
             }
         }
 
-        // Remove
+        /// <summary>
+        /// Removes an enemy from the enemy list
+        /// </summary>
+        /// <param name="enemy"></param>
         public void Remove(Enemy enemy)
         {
             enemyList.Remove(enemy);

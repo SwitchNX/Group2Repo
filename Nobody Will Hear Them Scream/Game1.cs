@@ -78,6 +78,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
         // Texture for enemy
         private Texture2D textureEnemySprite;
+        private Enemy enemy;
 
         private List<int> scoreList = new List<int>();
 
@@ -104,7 +105,7 @@ namespace Nobody_Will_Hear_Them_Scream
             //Fills the list with 0s if no text file exits
             try
             {
-                using(StreamReader scoreReader = new StreamReader("HighScores.txt"))
+                using(StreamReader scoreReader = new StreamReader("../../../HighScores.txt"))
                 {
                     int score;
                     while ((score = int.Parse(scoreReader.ReadLine())) != null)
@@ -140,7 +141,7 @@ namespace Nobody_Will_Hear_Them_Scream
             textureAstronautBody = Content.Load<Texture2D>("astronaut body");
             texturePlayerProjectile = Content.Load<Texture2D>("projectile");
 
-            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 42, 60);
+            astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 35, 50);
             astronaut = new Player(textureAstronautBody, astronautBounds);
 
             // Set up the enemy
@@ -158,8 +159,8 @@ namespace Nobody_Will_Hear_Them_Scream
             textureSpaceBackground = Content.Load<Texture2D>("SpaceWalk background");
 
             // Default items for the enemy and crate managers
-            enemyManager = new EnemyManager(1, textureEnemySprite, new Rectangle(200, 200, 100, 100));
-            crateList = new CrateManager(0, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(0, 0, 50, 50));
+            enemyManager = new EnemyManager(textureEnemySprite);
+            crateList = new CrateManager(textureSquareCrate);
 
             // Set up fonts
             Arial14 = Content.Load<SpriteFont>("Arial14");
@@ -204,8 +205,8 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
-            crateList = new CrateManager(5, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(0, 0, 50, 50));
-            enemyManager = new EnemyManager(3, textureEnemySprite, new Rectangle(200, 200, 50, 50));
+            crateList = new CrateManager(textureSquareCrate);
+            enemyManager = new EnemyManager(textureEnemySprite);
         }
 
         /// <summary>
@@ -216,13 +217,67 @@ namespace Nobody_Will_Hear_Them_Scream
             levelNum++;
             displayLevel++;
             astronaut.LevelScore = 0;
-            time = 30;
             projectileList.Clear();
             crateList.ClearCrates();
-            crateList = new CrateManager(5, textureSquareCrate, textureTallCrate, textureWideCrate, new Rectangle(300, 300, 50, 50));
-            enemyManager = new EnemyManager(3, textureEnemySprite, new Rectangle(200, 200, 50, 50));
+            LoadLevel();
             //Remember to change this in post
             astronaut.rect = astronautBounds;
+        }
+
+        /// <summary>
+        /// Loads the data from a .level file and sets up the new level
+        /// </summary>
+        /// <param name="level">Which level number is being loaded (level 1, etc)</param>
+        private void LoadLevel()
+        {
+            string filename = $"Content/level{levelNum}.level";
+            if (!File.Exists(filename))
+            {
+                //Do whatever happens when you run out of levels
+                return;
+            }
+
+            FileStream inputStream = File.OpenRead(filename);
+            BinaryReader input = new BinaryReader(inputStream);
+
+            int w = input.ReadInt32();
+            int h = input.ReadInt32();
+
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    int id = input.ReadInt32();
+
+                    if (id != 0)
+                    {
+                        int x = (int)((double)i / w * _graphics.PreferredBackBufferWidth);
+                        int y = (int)((double)j / h * _graphics.PreferredBackBufferHeight);
+                        Point spawnPoint = new Point(x, y);
+
+                        if (id == 1)
+                        {
+                            astronaut.X = x;
+                            astronaut.Y = y;
+                        }
+                        /* else if (id == 2)
+                         * {
+                         *      //Add obstacle
+                         * }
+                         */
+                        else if (id == 10)
+                        {
+                            enemyManager.CreateEnemy(spawnPoint);
+                        }
+                        else if (id == 20)
+                        {
+                            crateList.CreateNewCrate(spawnPoint);
+                        }
+                    }
+                }
+            }
+
+            time = input.ReadInt32();
         }
 
         /// <summary>
@@ -341,7 +396,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         //Records the high scores to a text file, creating a new one if necessary
                         try
                         {
-                            string path = new string("HighScores.txt");
+                            string path = new string("../../../HighScores.txt");
                             
                             if (!File.Exists(path))
                             {
@@ -396,7 +451,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     }
 
                     // Moves to the next level if time runs out
-                    if(time == 0)
+                    if(enemyManager.EnemyCount == 0)
                     {
                         if(levelNum != 4)
                         {
@@ -406,6 +461,10 @@ namespace Nobody_Will_Hear_Them_Scream
                             levelNum = 0;
                             NewLevel();
                         }
+                    }
+                    else if (time == 0)
+                    {
+                        gameState = GameState.gameOver;
                     }
 
                     break;
@@ -453,7 +512,7 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw space background
             _spriteBatch.Draw(textureSpaceBackground,
                 new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
-                Color.White);
+                Color.Gray);
 
             // State machine
             switch (gameState)
@@ -551,18 +610,15 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.gameOver:
-                    //Game Over Title
-                    _spriteBatch.DrawString(Arial32, "GAME OVER",
-                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("GAME OVER").X / 2, // Puts it in the middle of the screen
-                        _graphics.PreferredBackBufferHeight / 4),
-                        Color.White);
 
-                    //Presents access to the High Scores
                     highScoresButton.Draw(_spriteBatch, Color.White);
 
                     break;
             }
 
+            // Draw the state
+            _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), new Vector2(30, 30), Color.White);
+            _spriteBatch.DrawString(Arial14, $"Screen size: {_graphics.PreferredBackBufferWidth}, {_graphics.PreferredBackBufferHeight}", new Vector2(30,10), Color.White);
             // End the sprite batch
             _spriteBatch.End();
 
@@ -576,33 +632,23 @@ namespace Nobody_Will_Hear_Them_Scream
         public void DrawGameplay(bool isPaused)
         {
             Color colorToDrawSprites = Color.White;
-            Color colorToDrawIntSprites = Color.White;
             if (isPaused)
             {
                 colorToDrawSprites = Color.DarkGray;
-                colorToDrawIntSprites = Color.DarkGray;
             }
-
-            // Draw space background
-            _spriteBatch.Draw(textureSpaceBackground,
-                new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
-                colorToDrawSprites);
 
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
             {
-                colorToDrawIntSprites = Color.Red;
+                colorToDrawSprites = Color.Red;
             }
 
             // Draw the placeholder astronaut & placeholder enemy
-            astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
+            astronaut.Draw(_spriteBatch, colorToDrawSprites);
 
             //Draw Enemies
-            enemyManager.Draw(_spriteBatch, colorToDrawIntSprites);
-
-            // Draw the crates
-            crateList.Draw(_spriteBatch, colorToDrawSprites);
-
+            enemyManager.Draw(_spriteBatch, colorToDrawSprites);
+            crateList.Draw(_spriteBatch, Color.Beige);
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)
@@ -610,49 +656,23 @@ namespace Nobody_Will_Hear_Them_Scream
                 p.Draw(_spriteBatch, Color.White);
             }
 
-            // === PRINT UI ===
+            // Draw debug stuff:
 
-            // Draw as many hearts as the player has lives
-            for (int i = 0; i < astronaut.Lives; i++)
-            {
-                _spriteBatch.Draw(textureHeart,
-                    new Rectangle(10 + i * (48 + 10), 10,
-                        48, 48),
-                    colorToDrawSprites);
-            }
+            // Center of astronaut
+            _spriteBatch.DrawString(Arial14, $"Center of astronaut: {astronaut.CenterX}, {astronaut.CenterY}",
+                new Vector2(30, 50),
+                Color.White);
 
-            // Print the time
-            _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(15, 70), Color.White);
+            // Mouse position
+            _spriteBatch.DrawString(Arial14, $"Mouse pos: {ms.X}, {ms.Y}",
+                new Vector2(30, 70),
+                Color.White);
 
-            // Print the current level
-            _spriteBatch.DrawString(Arial32, $"Level: {displayLevel}", new Vector2(15, 110), Color.White);
-
-            // Print the current score
-            _spriteBatch.DrawString(Arial32, $"Score: {astronaut.LevelScore}", new Vector2(15, 150), Color.White);
-
-
-
-            // WHETHER TO PRINT DEBUG STUFF OR NOT
-            bool printDebugStuff = false;
-
-            if (printDebugStuff)
-            {// Draw debug stuff:
-
-                // Center of astronaut
-                _spriteBatch.DrawString(Arial14, $"Center of astronaut: {astronaut.CenterX}, {astronaut.CenterY}",
-                    new Vector2(30, 50),
-                    Color.White);
-
-                // Mouse position
-                _spriteBatch.DrawString(Arial14, $"Mouse pos: {ms.X}, {ms.Y}",
-                    new Vector2(30, 70),
-                    Color.White);
-
-                // State, Screen size, lives, level, and level score
-                _spriteBatch.DrawString(Arial14, "State: " + gameState.ToString(), new Vector2(30, 30), Color.White);
-                _spriteBatch.DrawString(Arial14, $"Screen size: {_graphics.PreferredBackBufferWidth}, {_graphics.PreferredBackBufferHeight}", new Vector2(30, 10), Color.White);
-                _spriteBatch.DrawString(Arial14, $"Lives: {astronaut.Lives}", new Vector2(30, 110), Color.White);
-            }
+            // Time, lives, level, and level score
+            _spriteBatch.DrawString(Arial14, $"Time: {time}", new Vector2(30, 90), Color.White);
+            _spriteBatch.DrawString(Arial14, $"Lives: {astronaut.Lives}", new Vector2(30, 110), Color.White);
+            _spriteBatch.DrawString(Arial14, $"Level: {displayLevel}", new Vector2(30, 130), Color.White);
+            _spriteBatch.DrawString(Arial14, $"Score: {astronaut.LevelScore}", new Vector2(30, 150), Color.White);
         }
     }
 }
