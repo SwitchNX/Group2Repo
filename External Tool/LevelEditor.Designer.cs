@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.crateColorButton = new System.Windows.Forms.Button();
-            this.obstacleColorButton = new System.Windows.Forms.Button();
-            this.enemyColorButton = new System.Windows.Forms.Button();
-            this.playerColorButton = new System.Windows.Forms.Button();
+            this.crateButton = new System.Windows.Forms.Button();
+            this.obstacleButton = new System.Windows.Forms.Button();
+            this.enemySmallButton = new System.Windows.Forms.Button();
+            this.playerButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.backgroundColorButton = new System.Windows.Forms.Button();
+            this.enemyFastButton = new System.Windows.Forms.Button();
+            this.enemyLargeButton = new System.Windows.Forms.Button();
+            this.crateTallButton = new System.Windows.Forms.Button();
+            this.crateWideButton = new System.Windows.Forms.Button();
+            this.backgroundButton = new System.Windows.Forms.Button();
             this.currentColorSelection = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.saveButton = new System.Windows.Forms.Button();
@@ -45,84 +49,138 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // crateColorButton
+            // crateButton
             // 
-            this.crateColorButton.BackColor = System.Drawing.Color.LimeGreen;
-            this.crateColorButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.crateColorButton.Location = new System.Drawing.Point(11, 109);
-            this.crateColorButton.Name = "crateColorButton";
-            this.crateColorButton.Size = new System.Drawing.Size(80, 80);
-            this.crateColorButton.TabIndex = 0;
-            this.crateColorButton.Text = "CRATE\r\n";
-            this.crateColorButton.UseVisualStyleBackColor = false;
-            this.crateColorButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            this.crateButton.BackColor = System.Drawing.Color.LimeGreen;
+            this.crateButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.crateButton.Location = new System.Drawing.Point(11, 79);
+            this.crateButton.Name = "crateButton";
+            this.crateButton.Size = new System.Drawing.Size(50, 50);
+            this.crateButton.TabIndex = 0;
+            this.crateButton.Text = "CR";
+            this.crateButton.UseVisualStyleBackColor = false;
+            this.crateButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
             // 
-            // obstacleColorButton
+            // obstacleButton
             // 
-            this.obstacleColorButton.BackColor = System.Drawing.Color.Gray;
-            this.obstacleColorButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.obstacleColorButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.obstacleColorButton.Location = new System.Drawing.Point(95, 109);
-            this.obstacleColorButton.Name = "obstacleColorButton";
-            this.obstacleColorButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.obstacleColorButton.Size = new System.Drawing.Size(80, 80);
-            this.obstacleColorButton.TabIndex = 1;
-            this.obstacleColorButton.Text = "OBSTACLE";
-            this.obstacleColorButton.UseVisualStyleBackColor = false;
-            this.obstacleColorButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            this.obstacleButton.BackColor = System.Drawing.Color.Gray;
+            this.obstacleButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.obstacleButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.obstacleButton.Location = new System.Drawing.Point(67, 22);
+            this.obstacleButton.Name = "obstacleButton";
+            this.obstacleButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.obstacleButton.Size = new System.Drawing.Size(50, 50);
+            this.obstacleButton.TabIndex = 1;
+            this.obstacleButton.Text = "OBS";
+            this.obstacleButton.UseVisualStyleBackColor = false;
+            this.obstacleButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
             // 
-            // enemyColorButton
+            // enemySmallButton
             // 
-            this.enemyColorButton.BackColor = System.Drawing.Color.DarkViolet;
-            this.enemyColorButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.enemyColorButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.enemyColorButton.Location = new System.Drawing.Point(95, 23);
-            this.enemyColorButton.Name = "enemyColorButton";
-            this.enemyColorButton.Size = new System.Drawing.Size(80, 80);
-            this.enemyColorButton.TabIndex = 2;
-            this.enemyColorButton.Text = "ENEMY";
-            this.enemyColorButton.UseVisualStyleBackColor = false;
-            this.enemyColorButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            this.enemySmallButton.BackColor = System.Drawing.Color.DarkViolet;
+            this.enemySmallButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.enemySmallButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.enemySmallButton.Location = new System.Drawing.Point(11, 135);
+            this.enemySmallButton.Name = "enemySmallButton";
+            this.enemySmallButton.Size = new System.Drawing.Size(50, 50);
+            this.enemySmallButton.TabIndex = 2;
+            this.enemySmallButton.Text = "E-SM";
+            this.enemySmallButton.UseVisualStyleBackColor = false;
+            this.enemySmallButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
             // 
-            // playerColorButton
+            // playerButton
             // 
-            this.playerColorButton.BackColor = System.Drawing.Color.LightGray;
-            this.playerColorButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.playerColorButton.Location = new System.Drawing.Point(11, 23);
-            this.playerColorButton.Name = "playerColorButton";
-            this.playerColorButton.Size = new System.Drawing.Size(80, 80);
-            this.playerColorButton.TabIndex = 5;
-            this.playerColorButton.Text = "PLAYER";
-            this.playerColorButton.UseVisualStyleBackColor = false;
-            this.playerColorButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            this.playerButton.BackColor = System.Drawing.Color.LightGray;
+            this.playerButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.playerButton.Location = new System.Drawing.Point(11, 23);
+            this.playerButton.Name = "playerButton";
+            this.playerButton.Size = new System.Drawing.Size(50, 50);
+            this.playerButton.TabIndex = 5;
+            this.playerButton.Text = "PLA";
+            this.playerButton.UseVisualStyleBackColor = false;
+            this.playerButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.backgroundColorButton);
-            this.groupBox1.Controls.Add(this.playerColorButton);
-            this.groupBox1.Controls.Add(this.crateColorButton);
-            this.groupBox1.Controls.Add(this.obstacleColorButton);
-            this.groupBox1.Controls.Add(this.enemyColorButton);
+            this.groupBox1.Controls.Add(this.enemyFastButton);
+            this.groupBox1.Controls.Add(this.enemyLargeButton);
+            this.groupBox1.Controls.Add(this.crateTallButton);
+            this.groupBox1.Controls.Add(this.crateWideButton);
+            this.groupBox1.Controls.Add(this.backgroundButton);
+            this.groupBox1.Controls.Add(this.enemySmallButton);
+            this.groupBox1.Controls.Add(this.playerButton);
+            this.groupBox1.Controls.Add(this.crateButton);
+            this.groupBox1.Controls.Add(this.obstacleButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 72);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(187, 284);
+            this.groupBox1.Size = new System.Drawing.Size(187, 239);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Object Selector";
             // 
-            // backgroundColorButton
+            // enemyFastButton
             // 
-            this.backgroundColorButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.backgroundColorButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.backgroundColorButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.backgroundColorButton.Location = new System.Drawing.Point(11, 195);
-            this.backgroundColorButton.Name = "backgroundColorButton";
-            this.backgroundColorButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.backgroundColorButton.Size = new System.Drawing.Size(164, 80);
-            this.backgroundColorButton.TabIndex = 6;
-            this.backgroundColorButton.Text = "BACKGROUND";
-            this.backgroundColorButton.UseVisualStyleBackColor = false;
-            this.backgroundColorButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            this.enemyFastButton.BackColor = System.Drawing.Color.MediumPurple;
+            this.enemyFastButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.enemyFastButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.enemyFastButton.Location = new System.Drawing.Point(125, 135);
+            this.enemyFastButton.Name = "enemyFastButton";
+            this.enemyFastButton.Size = new System.Drawing.Size(50, 50);
+            this.enemyFastButton.TabIndex = 10;
+            this.enemyFastButton.Text = "E-FS";
+            this.enemyFastButton.UseVisualStyleBackColor = false;
+            this.enemyFastButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            // 
+            // enemyLargeButton
+            // 
+            this.enemyLargeButton.BackColor = System.Drawing.Color.Indigo;
+            this.enemyLargeButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.enemyLargeButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.enemyLargeButton.Location = new System.Drawing.Point(67, 135);
+            this.enemyLargeButton.Name = "enemyLargeButton";
+            this.enemyLargeButton.Size = new System.Drawing.Size(50, 50);
+            this.enemyLargeButton.TabIndex = 9;
+            this.enemyLargeButton.Text = "E-LG";
+            this.enemyLargeButton.UseVisualStyleBackColor = false;
+            this.enemyLargeButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            // 
+            // crateTallButton
+            // 
+            this.crateTallButton.BackColor = System.Drawing.Color.Lime;
+            this.crateTallButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.crateTallButton.Location = new System.Drawing.Point(134, 79);
+            this.crateTallButton.Name = "crateTallButton";
+            this.crateTallButton.Size = new System.Drawing.Size(30, 50);
+            this.crateTallButton.TabIndex = 8;
+            this.crateTallButton.Text = "CR-T";
+            this.crateTallButton.UseVisualStyleBackColor = false;
+            this.crateTallButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            // 
+            // crateWideButton
+            // 
+            this.crateWideButton.BackColor = System.Drawing.Color.GreenYellow;
+            this.crateWideButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.crateWideButton.Location = new System.Drawing.Point(67, 89);
+            this.crateWideButton.Name = "crateWideButton";
+            this.crateWideButton.Size = new System.Drawing.Size(50, 30);
+            this.crateWideButton.TabIndex = 7;
+            this.crateWideButton.Text = "CR-W";
+            this.crateWideButton.UseVisualStyleBackColor = false;
+            this.crateWideButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            // 
+            // backgroundButton
+            // 
+            this.backgroundButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.backgroundButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.backgroundButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.backgroundButton.Location = new System.Drawing.Point(125, 22);
+            this.backgroundButton.Name = "backgroundButton";
+            this.backgroundButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.backgroundButton.Size = new System.Drawing.Size(50, 50);
+            this.backgroundButton.TabIndex = 6;
+            this.backgroundButton.Text = "BCK";
+            this.backgroundButton.UseVisualStyleBackColor = false;
+            this.backgroundButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
             // 
             // currentColorSelection
             // 
@@ -136,7 +194,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.currentColorSelection);
-            this.groupBox2.Location = new System.Drawing.Point(52, 362);
+            this.groupBox2.Location = new System.Drawing.Point(32, 344);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(108, 100);
             this.groupBox2.TabIndex = 7;
@@ -195,12 +253,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1180, 566);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.timeTextBox);
             this.Controls.Add(this.mapGroupBox);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "LevelEditor";
             this.Text = "LevelEditor";
@@ -214,10 +272,10 @@
 
         #endregion
 
-        private Button crateColorButton;
-        private Button obstacleColorButton;
-        private Button enemyColorButton;
-        private Button playerColorButton;
+        private Button crateButton;
+        private Button obstacleButton;
+        private Button enemySmallButton;
+        private Button playerButton;
         private GroupBox groupBox1;
         private Button currentColorSelection;
         private GroupBox groupBox2;
@@ -225,8 +283,12 @@
         private Button loadButton;
         private GroupBox mapGroupBox;
         private PictureBox pictureBox1;
-        private Button backgroundColorButton;
+        private Button backgroundButton;
         private TextBox timeTextBox;
         private Label label1;
+        private Button crateTallButton;
+        private Button crateWideButton;
+        private Button enemyFastButton;
+        private Button enemyLargeButton;
     }
 }

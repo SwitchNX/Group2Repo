@@ -72,7 +72,7 @@ namespace Homework_2
                 }
             }
 
-            backgroundColorButton.BackColor = mapGroupBox.BackColor;
+            backgroundButton.BackColor = mapGroupBox.BackColor;
             currentColorSelection.BackColor = Color.LightGray;
         }
 
@@ -188,25 +188,45 @@ namespace Homework_2
                              * 0 is background
                              * 1 is player
                              * 2 is obstacle
-                             * 10 is enemy
-                             * 20 is crate
+                             * 10 is enemy - basic
+                             * 11 is enemy - large
+                             * 12 is enemy - fast
+                             * 20 is crate - normal
+                             * 21 is crate - tall
+                             * 22 is crate - wide
                              */
 
-                            if (map[i,j].BackColor == playerColorButton.BackColor)
+                            if (map[i,j].BackColor == playerButton.BackColor)
                             {
                                 output.Write(1);
                             }
-                            else if (map[i, j].BackColor == obstacleColorButton.BackColor)
+                            else if (map[i, j].BackColor == obstacleButton.BackColor)
                             {
                                 output.Write(2);
                             }
-                            else if (map[i, j].BackColor == enemyColorButton.BackColor)
+                            else if (map[i, j].BackColor == enemySmallButton.BackColor)
                             {
                                 output.Write(10);
                             }
-                            else if (map[i, j].BackColor == crateColorButton.BackColor)
+                            else if (map[i, j].BackColor == enemyLargeButton.BackColor)
+                            {
+                                output.Write(11);
+                            }
+                            else if (map[i, j].BackColor == enemyFastButton.BackColor)
+                            {
+                                output.Write(12);
+                            }
+                            else if (map[i, j].BackColor == crateButton.BackColor)
                             {
                                 output.Write(20);
+                            }
+                            else if (map[i, j].BackColor == crateTallButton.BackColor)
+                            {
+                                output.Write(21);
+                            }
+                            else if (map[i, j].BackColor == crateWideButton.BackColor)
+                            {
+                                output.Write(22);
                             }
                             else
                             {
@@ -290,19 +310,19 @@ namespace Homework_2
                         switch (id)
                         {
                             case 1:
-                                thisButtonColor = playerColorButton.BackColor;
+                                thisButtonColor = playerButton.BackColor;
                                 break;
                             case 2:
-                                thisButtonColor = obstacleColorButton.BackColor;
+                                thisButtonColor = obstacleButton.BackColor;
                                 break;
                             case 10:
-                                thisButtonColor = enemyColorButton.BackColor;
+                                thisButtonColor = enemySmallButton.BackColor;
                                 break;
                             case 20:
-                                thisButtonColor = crateColorButton.BackColor;
+                                thisButtonColor = crateButton.BackColor;
                                 break;
                             default:
-                                thisButtonColor = backgroundColorButton.BackColor;
+                                thisButtonColor = backgroundButton.BackColor;
                                 break;
                         }
 
