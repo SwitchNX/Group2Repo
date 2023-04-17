@@ -100,7 +100,7 @@ namespace Nobody_Will_Hear_Them_Scream
             {
                 if(newIntersection == true)
                 {
-                    //astronaut.Lives--;
+                    astronaut.Lives--;
                     newIntersection = false;
                 }
             } else
