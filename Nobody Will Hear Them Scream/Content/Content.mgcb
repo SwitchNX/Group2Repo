@@ -75,6 +75,12 @@
 /processorParam:TextureFormat=Color
 /build:heart.png
 
+#begin level1.level
+/copy:level1.level
+
+#begin level2.level
+/copy:level2.level
+
 #begin projectile.png
 /importer:TextureImporter
 /processor:TextureProcessor
