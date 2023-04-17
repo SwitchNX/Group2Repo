@@ -47,9 +47,10 @@ namespace Nobody_Will_Hear_Them_Scream
 
         // Fields to set up astronaut character
         private Texture2D textureAstronautBody;
+        private Texture2D texturePlayerProjectile;
+        private Texture2D textureAstronautArm;
         private Rectangle astronautBounds;
         private Player astronaut;
-        private Texture2D texturePlayerProjectile;
 
         // Fields to manage projectiles
         private List<Projectile> projectileList = new List<Projectile>();
@@ -138,9 +139,10 @@ namespace Nobody_Will_Hear_Them_Scream
             // Set up the astronaut
             textureAstronautBody = Content.Load<Texture2D>("astronaut body");
             texturePlayerProjectile = Content.Load<Texture2D>("projectile");
+            textureAstronautArm = Content.Load<Texture2D>("astronaut arm");
 
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 42, 60);
-            astronaut = new Player(textureAstronautBody, astronautBounds);
+            astronaut = new Player(textureAstronautBody, textureAstronautArm, astronautBounds);
 
             // Set up the enemy
             textureEnemySprite = Content.Load<Texture2D>("enemy sprite");
@@ -267,10 +269,19 @@ namespace Nobody_Will_Hear_Them_Scream
                         {
                             enemyManager.CreateEnemy(spawnPoint);
                         }
-                        else if (id == 20)
+                        /*else if (id == 20)
                         {
                             crateList.CreateNewCrate(spawnPoint);
                         }
+                        else if (id == 21)
+                        {
+                            crateList.CreateNewCrate(spawnPoint);
+                        }
+                        else if (id == 22)
+                        {
+                            crateList.CreateNewCrate(spawnPoint);
+                        }*/
+
                     }
                 }
             }
@@ -365,19 +376,22 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.Update(gameTime);
                     astronaut.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-                    enemyManager.Update(gameTime, astronaut, projectileList, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    astronaut.GameScore += enemyManager.Update(gameTime, astronaut, projectileList, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
                     crateList.Update(gameTime, astronaut);
 
+                    // Update projectiles
                     foreach(Projectile p in projectileList)
                     {
                         p.Update(gameTime);
                     }
 
+                    // Transfer to pause screen
                     if (SinglePress(Keys.Escape))
                     {
                         gameState = GameState.pauseScreen;
                     }
 
+                    // Game over
                     if (astronaut.Lives == 0)
                     {
                         //Updates the high scores if necessary

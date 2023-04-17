@@ -9,20 +9,48 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Nobody_Will_Hear_Them_Scream
 {
+    public enum CrateTexutre
+    {
+        square, tall, wide
+    }
+
     internal class CrateManager
     {
         private List<Crate> crateList;
-        private Texture2D objectTexture;
-        private static Point crateSize = new Point(50, 50); 
+        private Texture2D squareTexture;
+        private Texture2D wideTexture;
+        private Texture2D tallTexture;
+        private Point crateSize; 
 
-        public CrateManager(Texture2D objectTexture)
+        public CrateManager(Texture2D squareTexture, Texture2D wideTexture, Texture2D tallTexture)
         {
             crateList = new List<Crate>();
-            this.objectTexture = objectTexture;
+            this.squareTexture = squareTexture;
+            this.wideTexture = wideTexture;
+            this.tallTexture = tallTexture;
+
         }
 
-        public void CreateNewCrate(Point spawnPoint)
+        public void CreateNewCrate(Point spawnPoint, CrateTexutre ct)
         {
+            crateSize = new Point(50, 50);
+
+            Texture2D objectTexture;
+            switch(ct)
+            {
+                case CrateTexutre.square:
+                    objectTexture = squareTexture;
+                    break;
+                case CrateTexutre.wide:
+                    crateSize.X *= 2;
+                    objectTexture = wideTexture;
+                    break;
+                default:
+                    crateSize.Y *= 2;
+                    objectTexture = tallTexture;
+                    break;
+            }
+
             crateList.Add(new Crate(objectTexture, new Rectangle(spawnPoint, crateSize)));
         }
 

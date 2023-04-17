@@ -43,11 +43,13 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <param name="projectileList"></param>
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
-        public void Update(GameTime gametime, Player astronaut, List<Projectile> projectileList, int screenWidth, int screenHeight) 
+        /// <returns> The total amount of score gained by killing enemies this frame</returns>
+        public int Update(GameTime gametime, Player astronaut, List<Projectile> projectileList, int screenWidth, int screenHeight) 
         {
             List<Enemy> enemiesToBeRemoved = new List<Enemy>();
             List<Projectile> projectilesToBeRemoved = new List<Projectile>();
 
+            int scoreGained = 0;
 
             foreach (Enemy e in enemyList)
             {
@@ -72,6 +74,8 @@ namespace Nobody_Will_Hear_Them_Scream
                 Remove(enemiesToBeRemoved[i]);
                 projectileList.Remove(projectilesToBeRemoved[i]);
             }
+
+            return scoreGained;
         }
 
         /// <summary>

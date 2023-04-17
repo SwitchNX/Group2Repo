@@ -80,8 +80,8 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         /// <param name="objectTexture">The texture of the player</param>
         /// <param name="objectBounds">The rectangle of the player</param>
-        public Player (Texture2D objectTexture, Rectangle objectBounds) :
-            base (objectTexture, objectBounds)
+        public Player (Texture2D objectTexture1, Texture2D objectTexture2, Rectangle objectBounds) :
+            base (objectTexture1, objectBounds)
         {
             this.lives = 3;
 
@@ -108,6 +108,9 @@ namespace Nobody_Will_Hear_Them_Scream
             // Dampen the player's velocity
             playerVelocity.X /= dampenAmount;
             playerVelocity.Y /= dampenAmount;
+
+            // Update arm position
+
         }
 
         /// <summary>
