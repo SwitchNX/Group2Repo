@@ -269,10 +269,19 @@ namespace Nobody_Will_Hear_Them_Scream
                         {
                             enemyManager.CreateEnemy(spawnPoint);
                         }
-                        else if (id == 20)
+                        /*else if (id == 20)
                         {
                             crateList.CreateNewCrate(spawnPoint);
                         }
+                        else if (id == 21)
+                        {
+                            crateList.CreateNewCrate(spawnPoint);
+                        }
+                        else if (id == 22)
+                        {
+                            crateList.CreateNewCrate(spawnPoint);
+                        }*/
+
                     }
                 }
             }
@@ -367,7 +376,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.Update(gameTime);
                     astronaut.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-                    enemyManager.Update(gameTime, astronaut, projectileList, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    astronaut.GameScore += enemyManager.Update(gameTime, astronaut, projectileList, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
                     crateList.Update(gameTime, astronaut);
 
                     // Update projectiles
