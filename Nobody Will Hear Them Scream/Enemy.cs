@@ -100,7 +100,7 @@ namespace Nobody_Will_Hear_Them_Scream
             {
                 if(newIntersection == true)
                 {
-                    astronaut.Lives--;
+                    //astronaut.Lives--;
                     newIntersection = false;
                 }
             } else
@@ -110,37 +110,17 @@ namespace Nobody_Will_Hear_Them_Scream
         }
         
 		/// <summary>
-        /// 
+        /// Makes enemies bounce off each other when they hit each other
         /// </summary>
-        /// <param name="enemyList"></param>
+        /// <param name="enemyList">the list of enemies</param>
         public void HandleEnemyCollisions(List<Enemy> enemyList)
         {
             foreach (Enemy e in enemyList)
             {
-                if (rect.Intersects(e.rect))
+                //Handles collisions with other enemies
+                if (rect.Intersects(e.rect) && e.rect != rect)
                 {
-                    //Handles collisions with other enemies
-                    if (X < 0)
-                    {
-                        X = 0;
-                        velocity.X *= -1;
-                    }
-                    else if (X + Width > e.X + e.Width)
-                    {
-                        X -= Width;
-                        velocity.X *= -1;
-                    }
-
-                    if (Y < 0)
-                    {
-                        Y = 0;
-                        velocity.Y *= -1;
-                    }
-                    else if (Y + Height > e.Y + e.Height)
-                    {
-                        Y -= Height;
-                        velocity.Y *= -1;
-                    }
+                    velocity *= -1;
                 }
             }
         }
