@@ -205,7 +205,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
-            crateList = new CrateManager(textureSquareCrate);
+            crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
             enemyManager = new EnemyManager(textureEnemySprite);
         }
 
