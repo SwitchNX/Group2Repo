@@ -160,7 +160,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // Default items for the enemy and crate managers
             enemyManager = new EnemyManager(textureEnemySprite);
-            crateList = new CrateManager(textureSquareCrate);
+            crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
 
             // Set up fonts
             Arial14 = Content.Load<SpriteFont>("Arial14");
