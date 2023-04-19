@@ -269,18 +269,19 @@ namespace Nobody_Will_Hear_Them_Scream
                         {
                             enemyManager.CreateEnemy(spawnPoint);
                         }
-                        /*else if (id == 20)
+                        else if (id == 20)
                         {
-                            crateList.CreateNewCrate(spawnPoint);
+                            crateList.CreateNewCrate(spawnPoint, CrateTexutre.square);
                         }
+                        
                         else if (id == 21)
                         {
-                            crateList.CreateNewCrate(spawnPoint);
+                            crateList.CreateNewCrate(spawnPoint, CrateTexutre.wide);
                         }
                         else if (id == 22)
                         {
-                            crateList.CreateNewCrate(spawnPoint);
-                        }*/
+                            crateList.CreateNewCrate(spawnPoint, CrateTexutre.tall);
+                        }
 
                     }
                 }
