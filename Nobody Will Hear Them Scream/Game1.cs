@@ -40,6 +40,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button startGameButton;
         private Button highScoresButton;
         private Button backToMainMenuButton;
+        private Button backToMainMenuButtonTwo;
         private Button closeGameButton;
         private Button resumeGameButton;
         private Button quitGameButton;
@@ -152,7 +153,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // Set up the enemies
             textureBaseEnemySprite = Content.Load<Texture2D>("enemy sprite");
-            textureSlowEnemySprite = Content.Load<Texture2D>("Bug Enemy sprite");
+            textureSlowEnemySprite = Content.Load<Texture2D>("Big Enemy sprite");
             textureFastEnemySprite = Content.Load<Texture2D>("Fast Enemy sprite");
 
             // Set up the boxes
@@ -195,6 +196,9 @@ namespace Nobody_Will_Hear_Them_Scream
 
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
+
+            backToMainMenuButtonTwo = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 300), "Back", Arial14);
 
             // Initializes buttons to resume or quit game from the pause screen
 
@@ -377,7 +381,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.instructions:
-                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position))
+                    if (SingleLeftClick() && backToMainMenuButtonTwo.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.mainMenu;
                     }
@@ -591,6 +595,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     string stringThree = "Avoid enemies, and blast them with projectiles.";
                     string stringFour = "Run into crates to build up a high score.";
                     string stringFive = "Each level has a set time, so act fast!";
+                    string stringSix = "Enemies will orbit around you.";
+                    string stringSeven = "Pointy enemies move faster.";
+                    string stringEight = "Flat enemies move slower, but take 2 hits.";
                     _spriteBatch.DrawString(Arial14, stringOne,
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringOne).X / 2,
                         175),
@@ -611,9 +618,26 @@ namespace Nobody_Will_Hear_Them_Scream
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringFive).X / 2,
                         275),
                         Color.White);
+                    _spriteBatch.DrawString(Arial14, stringSix,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringSix).X / 2,
+                        362),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringSeven,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringSeven).X / 2,
+                        412),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringEight,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringEight).X / 2,
+                        462),
+                        Color.White);
+
+                    //Draw the enemies to show what they look like
+                    _spriteBatch.Draw(textureBaseEnemySprite, new Rectangle(710, 350, 30, 30), Color.White);
+                    _spriteBatch.Draw(textureFastEnemySprite, new Rectangle(710, 400, 30, 30), Color.White);
+                    _spriteBatch.Draw(textureSlowEnemySprite, new Rectangle(700, 450, 50, 50), Color.White);
 
                     //Make sure the player can get back to the Title Screen
-                    backToMainMenuButton.Draw(_spriteBatch, Color.White);
+                    backToMainMenuButtonTwo.Draw(_spriteBatch, Color.White);
 
                     break;
 
