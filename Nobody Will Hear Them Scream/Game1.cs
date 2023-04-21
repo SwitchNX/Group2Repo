@@ -152,7 +152,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // Set up the enemies
             textureBaseEnemySprite = Content.Load<Texture2D>("enemy sprite");
-            textureSlowEnemySprite = Content.Load<Texture2D>("Bug Enemy sprite");
+            textureSlowEnemySprite = Content.Load<Texture2D>("Big Enemy sprite");
             textureFastEnemySprite = Content.Load<Texture2D>("Fast Enemy sprite");
 
             // Set up the boxes
