@@ -40,6 +40,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Button startGameButton;
         private Button highScoresButton;
         private Button backToMainMenuButton;
+        private Button backToMainMenuButtonTwo;
         private Button closeGameButton;
         private Button resumeGameButton;
         private Button quitGameButton;
@@ -76,8 +77,14 @@ namespace Nobody_Will_Hear_Them_Scream
         // Texture for background
         private Texture2D textureSpaceBackground;
 
-        // Texture for enemy
-        private Texture2D textureEnemySprite;
+        // Texture for title
+        private Texture2D textureLogo;
+
+        // Texture for enemies
+        private Texture2D textureBaseEnemySprite;
+        private Texture2D textureSlowEnemySprite;
+        private Texture2D textureFastEnemySprite;
+
 
         private List<int> scoreList = new List<int>();
 
@@ -144,8 +151,10 @@ namespace Nobody_Will_Hear_Them_Scream
             astronautBounds = new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50, _graphics.PreferredBackBufferHeight / 2 - 50, 42, 60);
             astronaut = new Player(textureAstronautBody, textureAstronautArm, astronautBounds);
 
-            // Set up the enemy
-            textureEnemySprite = Content.Load<Texture2D>("enemy sprite");
+            // Set up the enemies
+            textureBaseEnemySprite = Content.Load<Texture2D>("enemy sprite");
+            textureSlowEnemySprite = Content.Load<Texture2D>("Big Enemy sprite");
+            textureFastEnemySprite = Content.Load<Texture2D>("Fast Enemy sprite");
 
             // Set up the boxes
             textureSquareCrate = Content.Load<Texture2D>("square box");
@@ -158,8 +167,11 @@ namespace Nobody_Will_Hear_Them_Scream
             // Set up space background
             textureSpaceBackground = Content.Load<Texture2D>("SpaceWalk background");
 
+            // Set up title
+            textureLogo = Content.Load<Texture2D>("SpaceWalk logo");
+
             // Default items for the enemy and crate managers
-            enemyManager = new EnemyManager(textureEnemySprite);
+            enemyManager = new EnemyManager(textureBaseEnemySprite);
             crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
 
             // Set up fonts
@@ -169,21 +181,24 @@ namespace Nobody_Will_Hear_Them_Scream
             // Initializes the buttons present on the start screen.
 
             startGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth/2 - Arial14.MeasureString("Start Game").X/2,
-                _graphics.PreferredBackBufferHeight/4 + 100), "Start Game", Arial14);
+                _graphics.PreferredBackBufferHeight/4 + 175), "Start Game", Arial14);
 
             highScoresButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("High Scores").X / 2,
-                _graphics.PreferredBackBufferHeight / 4 + 150), "High Scores", Arial14);
+                _graphics.PreferredBackBufferHeight / 4 + 225), "High Scores", Arial14);
 
             instructionsButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Instructions").X / 2,
-                _graphics.PreferredBackBufferHeight / 4 + 200), "Instructions", Arial14);
+                _graphics.PreferredBackBufferHeight / 4 + 275), "Instructions", Arial14);
 
             closeGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Close").X / 2,
-                _graphics.PreferredBackBufferHeight / 4 + 250), "Close", Arial14);
+                _graphics.PreferredBackBufferHeight / 4 + 325), "Close", Arial14);
 
             // Initializes the button used to get from high scores to title
 
             backToMainMenuButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
+
+            backToMainMenuButtonTwo = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
+                _graphics.PreferredBackBufferHeight / 4 + 300), "Back", Arial14);
 
             // Initializes buttons to resume or quit game from the pause screen
 
@@ -206,7 +221,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
-            enemyManager = new EnemyManager(textureEnemySprite);
+            enemyManager = new EnemyManager(textureBaseEnemySprite);
         }
 
         /// <summary>
@@ -269,18 +284,19 @@ namespace Nobody_Will_Hear_Them_Scream
                         {
                             enemyManager.CreateEnemy(spawnPoint);
                         }
-                        /*else if (id == 20)
+                        else if (id == 20)
                         {
-                            crateList.CreateNewCrate(spawnPoint);
+                            crateList.CreateNewCrate(spawnPoint, CrateTexutre.square);
                         }
+                        
                         else if (id == 21)
                         {
-                            crateList.CreateNewCrate(spawnPoint);
+                            crateList.CreateNewCrate(spawnPoint, CrateTexutre.wide);
                         }
                         else if (id == 22)
                         {
-                            crateList.CreateNewCrate(spawnPoint);
-                        }*/
+                            crateList.CreateNewCrate(spawnPoint, CrateTexutre.tall);
+                        }
 
                     }
                 }
@@ -365,7 +381,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.instructions:
-                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position))
+                    if (SingleLeftClick() && backToMainMenuButtonTwo.Rect.Contains(ms.Position))
                     {
                         gameState = GameState.mainMenu;
                     }
@@ -532,13 +548,12 @@ namespace Nobody_Will_Hear_Them_Scream
                 case GameState.mainMenu:
                     //Draw the title and buttons
 
-                    // Measures the size of the string
-                    Vector2 titleSize = Arial32.MeasureString("SPACEWALK");
 
                     // Draws the title
-                    _spriteBatch.DrawString(Arial32, "SPACEWALK",
-                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - titleSize.X / 2, // Puts it in the middle of the screen
-                        _graphics.PreferredBackBufferHeight / 4),
+                    _spriteBatch.Draw(textureLogo,
+                        new Rectangle(_graphics.PreferredBackBufferWidth / 2 - textureLogo.Width / 2 / 2,
+                        _graphics.PreferredBackBufferHeight / 6,
+                        (int)(textureLogo.Width / 2.5f), (int)(textureLogo.Height / 2.5f)),
                         Color.White);
 
 
@@ -580,6 +595,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     string stringThree = "Avoid enemies, and blast them with projectiles.";
                     string stringFour = "Run into crates to build up a high score.";
                     string stringFive = "Each level has a set time, so act fast!";
+                    string stringSix = "Enemies will orbit around you.";
+                    string stringSeven = "Pointy enemies move faster.";
+                    string stringEight = "Flat enemies move slower, but take 2 hits.";
                     _spriteBatch.DrawString(Arial14, stringOne,
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringOne).X / 2,
                         175),
@@ -600,9 +618,26 @@ namespace Nobody_Will_Hear_Them_Scream
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringFive).X / 2,
                         275),
                         Color.White);
+                    _spriteBatch.DrawString(Arial14, stringSix,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringSix).X / 2,
+                        362),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringSeven,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringSeven).X / 2,
+                        412),
+                        Color.White);
+                    _spriteBatch.DrawString(Arial14, stringEight,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringEight).X / 2,
+                        462),
+                        Color.White);
+
+                    //Draw the enemies to show what they look like
+                    _spriteBatch.Draw(textureBaseEnemySprite, new Rectangle(710, 350, 30, 30), Color.White);
+                    _spriteBatch.Draw(textureFastEnemySprite, new Rectangle(710, 400, 30, 30), Color.White);
+                    _spriteBatch.Draw(textureSlowEnemySprite, new Rectangle(700, 450, 50, 50), Color.White);
 
                     //Make sure the player can get back to the Title Screen
-                    backToMainMenuButton.Draw(_spriteBatch, Color.White);
+                    backToMainMenuButtonTwo.Draw(_spriteBatch, Color.White);
 
                     break;
 
