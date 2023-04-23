@@ -81,6 +81,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 if (crateList[i].Active)
                 {
                     sb.Draw(squareTexture, crateList[i].CratePos, C);
+                    //crateList[i].Draw(sb, C);
                 }
             }
         }
