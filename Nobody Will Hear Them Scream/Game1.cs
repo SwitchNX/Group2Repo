@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Runtime.ConstrainedExecution;
 
 public enum GameState
 {
@@ -85,6 +86,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D textureSlowEnemySprite;
         private Texture2D textureFastEnemySprite;
 
+        private int levelCount;
 
         private List<int> scoreList = new List<int>();
 
@@ -98,10 +100,12 @@ namespace Nobody_Will_Hear_Them_Scream
 
         protected override void Initialize()
         {
+            levelCount = 8;
+
             gameState = GameState.mainMenu;
 
-            _graphics.PreferredBackBufferWidth = 1600;
-            _graphics.PreferredBackBufferHeight = 900;
+            //_graphics.PreferredBackBufferWidth = 1600;
+            //_graphics.PreferredBackBufferHeight = 900;
 
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -171,7 +175,7 @@ namespace Nobody_Will_Hear_Them_Scream
             textureLogo = Content.Load<Texture2D>("SpaceWalk logo");
 
             // Default items for the enemy and crate managers
-            enemyManager = new EnemyManager(textureBaseEnemySprite);
+            enemyManager = new EnemyManager(textureBaseEnemySprite, textureSlowEnemySprite, textureFastEnemySprite);
             crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
 
             // Set up fonts
@@ -215,13 +219,13 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Reset()
         {
             displayLevel = 0;
-            levelNum = 0;
+            levelNum = 7;
             astronaut.Lives = 3;
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
-            enemyManager = new EnemyManager(textureBaseEnemySprite);
+            enemyManager = new EnemyManager(textureBaseEnemySprite, textureSlowEnemySprite, textureFastEnemySprite);
         }
 
         /// <summary>
@@ -232,6 +236,7 @@ namespace Nobody_Will_Hear_Them_Scream
             levelNum++;
             displayLevel++;
             astronaut.LevelScore = 0;
+            astronaut.PlayerVelocity = new Vector2(0,0);
             projectileList.Clear();
             crateList.ClearCrates();
             LoadLevel();
@@ -282,7 +287,15 @@ namespace Nobody_Will_Hear_Them_Scream
                          */
                         else if (id == 10)
                         {
-                            enemyManager.CreateEnemy(spawnPoint);
+                            enemyManager.CreateBasicEnemy(spawnPoint);
+                        }
+                        else if (id == 11)
+                        {
+                            enemyManager.CreateLargeEnemy(spawnPoint);
+                        }
+                        else if (id == 12)
+                        {
+                            enemyManager.CreateFastEnemy(spawnPoint);
                         }
                         else if (id == 20)
                         {
@@ -481,7 +494,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     // Moves to the next level if time runs out
                     if(enemyManager.EnemyCount == 0)
                     {
-                        if(levelNum != 4)
+                        if(levelNum != levelCount)
                         {
                             NewLevel();
                         } else

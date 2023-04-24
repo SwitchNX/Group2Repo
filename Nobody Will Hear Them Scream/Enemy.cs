@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
@@ -9,12 +10,21 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Nobody_Will_Hear_Them_Scream
 {
+
+    public enum EnemyType
+    {
+        basic, large, fast
+    }
+
     /// <summary>
     /// Aliens that chase the player
     /// </summary>
     internal class Enemy : GameObject
     {
         //Fields
+        private EnemyType enemyType;
+        private int health;
+
         private Vector2 velocity;
         private Vector2 acceleration;
 
@@ -39,13 +49,35 @@ namespace Nobody_Will_Hear_Them_Scream
             get { return newIntersection; }
         }
 
+        public int Health
+        {
+            get { return health; }
+            set { health = value; }
+        }
+
         //Constructor
-        public Enemy(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
+        public Enemy(EnemyType enemyType, Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
         {
             velocity = new Vector2();
             acceleration = new Vector2();
             velocityDampener = .979f;
             newIntersection = true;
+
+            switch (enemyType)
+            {
+                case EnemyType.basic:
+                    this.velocityDampener = .97f;
+                    health = 1;
+                    break;
+                case EnemyType.large:
+                    this.velocityDampener = .95f;
+                    health = 2;
+                    break;
+                case EnemyType.fast:
+                    this.velocityDampener = .985f;
+                    health = 1;
+                    break;
+            }
         }
 
         public void GetPlayerPosition(Rectangle playerRectangle)
@@ -65,6 +97,11 @@ namespace Nobody_Will_Hear_Them_Scream
             playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - X, playerPosition.Y - Y));
 
             acceleration = 0.35f * playerDirFromEnemy;
+
+            if (this.enemyType == EnemyType.fast)
+            {
+                acceleration *= 1.1f;
+            }
         }
 
         public void HandleScreenCollisions(int screenWidth, int screenHeight)

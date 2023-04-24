@@ -12,28 +12,53 @@ namespace Nobody_Will_Hear_Them_Scream
     internal class EnemyManager
     {
         private List<Enemy> enemyList;
-        private Texture2D objectTexture;
-        public static Point enemySize = new Point(30, 30);
+        private Texture2D basicTexture;
+        private Texture2D largeTexture;
+        private Texture2D fastTexture;
+        private static Point enemyNormalSize = new Point(30, 30);
+        private static Point enemyLargeSize = new Point(50, 50);
 
         /// <summary>
         /// How many enenies there are
         /// </summary>
         public int EnemyCount { get { return enemyList.Count; } }
 
-        public EnemyManager (Texture2D objectTexture)
+        public EnemyManager (Texture2D basicTexture, Texture2D largeTexture, Texture2D fastTexture)
         {
-            this.objectTexture = objectTexture;
+            this.basicTexture = basicTexture;
+            this.largeTexture = largeTexture;
+            this.fastTexture = fastTexture;
             enemyList = new List<Enemy>();
         }
 
         /// <summary>
-        /// Creates a new enemy to the enemy manager
+        /// Creates a new basic enemy to the enemy manager
         /// </summary>
         /// <param name="spawnPoint">The point at which the enemy (top left corner) will spawn at</param>
-        public void CreateEnemy(Point spawnPoint)
+        public void CreateBasicEnemy(Point spawnPoint)
         {
-            enemyList.Add(new Enemy(objectTexture, new Rectangle(spawnPoint, enemySize)));
+            enemyList.Add(new Enemy(EnemyType.basic, basicTexture, new Rectangle(spawnPoint, enemyNormalSize)));
         }
+
+        /// <summary>
+        /// Creates a new large enemy to the enemy manager
+        /// </summary>
+        /// <param name="spawnPoint">The point at which the enemy (top left corner) will spawn at</param>
+        public void CreateLargeEnemy(Point spawnPoint)
+        {
+            enemyList.Add(new Enemy(EnemyType.large, largeTexture, new Rectangle(spawnPoint, enemyLargeSize)));
+        }
+
+
+        /// <summary>
+        /// Creates a new fast enemy to the enemy manager
+        /// </summary>
+        /// <param name="spawnPoint">The point at which the enemy (top left corner) will spawn at</param>
+        public void CreateFastEnemy(Point spawnPoint)
+        {
+            enemyList.Add(new Enemy(EnemyType.fast, fastTexture, new Rectangle(spawnPoint, enemyNormalSize)));
+        }
+
 
         /// <summary>
         /// Updates all of the enemies postions, handles screen, player, and projectile collisions
@@ -62,17 +87,24 @@ namespace Nobody_Will_Hear_Them_Scream
                 {
                     if (e.rect.Intersects(p.rect))
                     {
-                        enemiesToBeRemoved.Add(e);
                         projectilesToBeRemoved.Add(p);
+                        e.Health--;
+                        if (e.Health == 0)
+                        {
+                            enemiesToBeRemoved.Add(e);
+                        }
                     }
                 }
             }
 
             // Removes all of the enemies and projectiles that need to be removed
-            for (int i = 0; i < enemiesToBeRemoved.Count; i++)
+            for (int i = 0; i < projectilesToBeRemoved.Count; i++)
             {
-                Remove(enemiesToBeRemoved[i]);
                 projectileList.Remove(projectilesToBeRemoved[i]);
+                if (i < enemiesToBeRemoved.Count)
+                {
+                    Remove(enemiesToBeRemoved[i]);
+                }
             }
 
             return scoreGained;
@@ -86,7 +118,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             foreach(Enemy enemy in enemyList)
             {
-                sb.Draw(objectTexture, enemy.rect, C);
+                sb.Draw(enemy.Texture, enemy.rect, C);
             }
         }
 

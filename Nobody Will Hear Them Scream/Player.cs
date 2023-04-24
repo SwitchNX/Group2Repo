@@ -70,6 +70,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public Vector2 PlayerVelocity
         {
             get { return playerVelocity; }
+            set { playerVelocity = value; }
         }
 
 

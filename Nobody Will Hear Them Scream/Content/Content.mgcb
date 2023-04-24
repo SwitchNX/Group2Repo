@@ -111,6 +111,18 @@
 #begin level4.level
 /copy:level4.level
 
+#begin level5.level
+/copy:level5.level
+
+#begin level6.level
+/copy:level6.level
+
+#begin level7.level
+/copy:level7.level
+
+#begin level8.level
+/copy:level8.level
+
 #begin projectile.png
 /importer:TextureImporter
 /processor:TextureProcessor

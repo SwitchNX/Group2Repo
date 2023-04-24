@@ -311,6 +311,7 @@ namespace Homework_2
                         {
                             case 1:
                                 thisButtonColor = playerButton.BackColor;
+                                playerBox = map[i, j];
                                 break;
                             case 2:
                                 thisButtonColor = obstacleButton.BackColor;
@@ -318,8 +319,20 @@ namespace Homework_2
                             case 10:
                                 thisButtonColor = enemySmallButton.BackColor;
                                 break;
+                            case 11:
+                                thisButtonColor = enemyLargeButton.BackColor;
+                                break;
+                            case 12:
+                                thisButtonColor = enemyFastButton.BackColor;
+                                break;
                             case 20:
                                 thisButtonColor = crateButton.BackColor;
+                                break;
+                            case 21:
+                                thisButtonColor = crateTallButton.BackColor;
+                                break;
+                            case 22:
+                                thisButtonColor = crateWideButton.BackColor;
                                 break;
                             default:
                                 thisButtonColor = backgroundButton.BackColor;
