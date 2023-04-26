@@ -762,12 +762,6 @@ namespace Nobody_Will_Hear_Them_Scream
                 colorToDrawIntSprites = Color.Red;
             }
 
-            //Causes flash when big enemy takes damage
-            if (enemyManager.GreenFlash)
-            {
-                colorToDrawIntSprites = Color.Green;
-            }
-
             // Draw the player
             astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
 

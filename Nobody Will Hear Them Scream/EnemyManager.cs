@@ -17,10 +17,12 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D fastTexture;
         private static Point enemyNormalSize = new Point(30, 30);
         private static Point enemyLargeSize = new Point(50, 50);
-        private bool greenFlash = false;
+        private bool redFlash = false;
         private bool smallPrint = false;
         private List<Enemy> enemiesToScore;
-        int smallTimer = 5;
+        private List<Enemy> enemiesToFlash;
+        int smallTimer = 10;
+        int flashTimer = 5;
 
         /// <summary>
         /// How many enenies there are
@@ -34,6 +36,7 @@ namespace Nobody_Will_Hear_Them_Scream
             this.fastTexture = fastTexture;
             enemyList = new List<Enemy>();
             enemiesToScore = new List<Enemy>();
+            enemiesToFlash = new List<Enemy>();
         }
 
         /// <summary>
@@ -65,14 +68,6 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         /// <summary>
-        /// Causes flash when big enemy takes damage
-        /// </summary>
-        public bool GreenFlash
-        {
-            get { return greenFlash; }
-        }
-
-        /// <summary>
         /// Checks if an enemy score needs to be printed
         /// </summary>
         public bool SmallPrint
@@ -96,12 +91,17 @@ namespace Nobody_Will_Hear_Them_Scream
             List<Projectile> projectilesToBeRemoved = new List<Projectile>();
 
             int scoreGained = 0;
-            greenFlash = false;
+            flashTimer++;
             smallTimer++;
             if(smallTimer >= 10)
             {
                 smallPrint = false;
                 enemiesToScore.Clear();
+            }
+            if (flashTimer >= 10)
+            {
+                redFlash = false;
+                enemiesToFlash.Clear();
             }
 
             foreach (Enemy e in enemyList)
@@ -122,7 +122,9 @@ namespace Nobody_Will_Hear_Them_Scream
                             enemiesToBeRemoved.Add(e);
                         } else
                         {
-                            greenFlash = true;
+                            flashTimer = 0;
+                            redFlash = true;
+                            enemiesToFlash.Add(e);
                         }
                     }
                 }
@@ -167,7 +169,13 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             foreach (Enemy enemy in enemyList)
             {
-                sb.Draw(enemy.Texture, enemy.rect, C);
+                if (enemiesToFlash.Contains(enemy))
+                {
+                    sb.Draw(enemy.Texture, enemy.rect, Color.Red);
+                } else
+                {
+                    sb.Draw(enemy.Texture, enemy.rect, C);
+                }
             }
             foreach (Enemy enemy in enemiesToScore)
             {
