@@ -407,7 +407,11 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.Update(gameTime);
                     astronaut.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-                    astronaut.GameScore += enemyManager.Update(gameTime, astronaut, projectileList, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    // Update the score
+                    int scoreToAdd = enemyManager.Update(gameTime, astronaut, projectileList, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    astronaut.GameScore += scoreToAdd;
+                    astronaut.LevelScore += scoreToAdd;
+
                     crateList.Update(gameTime, astronaut);
 
                     // Update projectiles
@@ -778,7 +782,7 @@ namespace Nobody_Will_Hear_Them_Scream
             _spriteBatch.DrawString(Arial32, $"Level: {displayLevel}", new Vector2(15, 110), Color.White);
 
             // Print the current score
-            _spriteBatch.DrawString(Arial32, $"Score: {astronaut.LevelScore}", new Vector2(15, 150), Color.White);
+            _spriteBatch.DrawString(Arial32, $"Score: {astronaut.GameScore}", new Vector2(15, 150), Color.White);
 
 
 

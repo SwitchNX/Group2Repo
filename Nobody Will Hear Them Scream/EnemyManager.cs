@@ -119,16 +119,13 @@ namespace Nobody_Will_Hear_Them_Scream
                     switch (enemiesToBeRemoved[i].VelocityDampener)
                     {
                         case .97f:
-                            astronaut.LevelScore += 2;
-                            astronaut.GameScore += 2;
+                            scoreGained+=2;
                             break;
                         case .985f:
-                            astronaut.LevelScore += 3;
-                            astronaut.GameScore += 3;
+                            scoreGained += 3;
                             break;
                         case .95f:
-                            astronaut.LevelScore += 4;
-                            astronaut.GameScore += 4;
+                            scoreGained += 4;
                             break;
                     }
                     Remove(enemiesToBeRemoved[i]);
