@@ -412,7 +412,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
                 case GameState.gameplay:
 
-                    astronaut.Update(gameTime);
+                    astronaut.Update(gameTime, ms);
                     astronaut.HandleScreenCollisions(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
                     // Update the score

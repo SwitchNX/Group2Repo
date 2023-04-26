@@ -109,7 +109,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 e.GetPlayerPosition(astronaut.rect);
                 e.Update(gametime);
                 e.HandleScreenCollisions(screenWidth, screenHeight);
-                e.EnemyIntersection(astronaut);
+               // e.EnemyIntersection(astronaut);
 				e.HandleEnemyCollisions(enemyList);
                 foreach (Projectile p in projectileList)
                 {
