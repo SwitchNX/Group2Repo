@@ -25,7 +25,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private float boostAmount;
         private Texture2D body;
         private Texture2D arm;
-        private Rectangle astronautBounds;
+        private Rectangle armBounds;
+        private float armAngle;
 
 
         // Properties
@@ -91,7 +92,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             body = objectTexture1;
             arm = objectTexture2;
-            astronautBounds = objectBounds;
+            armBounds = objectBounds;
 
             // For default weapon
             dampenAmount = 1.03f;
@@ -105,10 +106,14 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Update the player
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, MouseState direction)
         {
-            base.Update(gameTime);
-            
+            // Get mouse position from the player and normalize it
+            mouseDirFromPlayer = Vector2.Normalize(new Vector2(direction.X - CenterX, direction.Y - CenterY));
+
+            // update the angle of the arm based on the mouse position
+            armAngle = (float)Math.Atan(mouseDirFromPlayer.X / mouseDirFromPlayer.Y); // this math is the only problem
+
             // Add the new speeds
             X += (int)playerVelocity.X;
             Y += (int)playerVelocity.Y;
@@ -127,8 +132,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             base.Draw(sb, c);
 
-            //sb.Draw(body, astronautBounds, c);
-            sb.Draw(arm, mouseDirFromPlayer, c);
+            sb.Draw(arm, new Vector2(X, Y), null, c, armAngle, new Vector2(arm.Width/2, arm.Height/2), 0.3f, SpriteEffects.None, 0f);
         }
 
         /// <summary>
