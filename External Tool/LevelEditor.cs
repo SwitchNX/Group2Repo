@@ -200,7 +200,7 @@ namespace Homework_2
                             {
                                 output.Write(1);
                             }
-                            else if (map[i, j].BackColor == obstacleButton.BackColor)
+                            else if (map[i, j].BackColor == healthButton.BackColor)
                             {
                                 output.Write(2);
                             }
@@ -314,7 +314,7 @@ namespace Homework_2
                                 playerBox = map[i, j];
                                 break;
                             case 2:
-                                thisButtonColor = obstacleButton.BackColor;
+                                thisButtonColor = healthButton.BackColor;
                                 break;
                             case 10:
                                 thisButtonColor = enemySmallButton.BackColor;
