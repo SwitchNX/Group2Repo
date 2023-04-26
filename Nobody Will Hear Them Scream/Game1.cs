@@ -723,7 +723,7 @@ namespace Nobody_Will_Hear_Them_Scream
             if (isPaused)
             {
                 colorToDrawSprites = Color.DarkGray;
-                colorToDrawPlayer = Color.DarkGray;
+                colorToDrawIntSprites = Color.DarkGray;
             }
 
             // Draw space background
@@ -734,7 +734,7 @@ namespace Nobody_Will_Hear_Them_Scream
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
             {
-                colorToDrawPlayer = Color.Red;
+                colorToDrawIntSprites = Color.Red;
             }
 
             //Causes flash when big enemy takes damage
@@ -744,10 +744,10 @@ namespace Nobody_Will_Hear_Them_Scream
             }
 
             // Draw the placeholder astronaut & placeholder enemy
-            astronaut.Draw(_spriteBatch, colorToDrawPlayer);
+            astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
 
             //Draw Enemies
-            enemyManager.Draw(_spriteBatch, colorToDrawPlayer);
+            enemyManager.Draw(_spriteBatch, colorToDrawIntSprites);
 
             // Draw the crates
             crateList.Draw(_spriteBatch, colorToDrawSprites);
