@@ -712,8 +712,15 @@ namespace Nobody_Will_Hear_Them_Scream
         public void DrawGameplay(bool isPaused)
         {
             Color colorToDrawSprites = Color.White;
-            Color colorToDrawPlayer = Color.White;
-            Color colorToDrawEnemies = Color.White;
+            Color colorToDrawIntSprites = Color.White;
+            Color colorToDrawTime = Color.White;
+
+            //Make timer red at 10 seconds left
+            if(time <= 10)
+            {
+                colorToDrawTime = Color.Red;
+            }
+
             if (isPaused)
             {
                 colorToDrawSprites = Color.DarkGray;
@@ -729,6 +736,12 @@ namespace Nobody_Will_Hear_Them_Scream
             if (enemyManager.DetectPlayerIntersection(astronaut))
             {
                 colorToDrawPlayer = Color.Red;
+            }
+
+            //Causes flash when big enemy takes damage
+            if (enemyManager.GreenFlash)
+            {
+                colorToDrawIntSprites = Color.Green;
             }
 
             // Draw the placeholder astronaut & placeholder enemy
@@ -759,7 +772,7 @@ namespace Nobody_Will_Hear_Them_Scream
             }
 
             // Print the time
-            _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(15, 70), Color.White);
+            _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(15, 70), colorToDrawTime);
 
             // Print the current level
             _spriteBatch.DrawString(Arial32, $"Level: {displayLevel}", new Vector2(15, 110), Color.White);
