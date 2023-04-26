@@ -765,6 +765,17 @@ namespace Nobody_Will_Hear_Them_Scream
                 colorToDrawIntSprites = Color.Green;
             }
 
+            /*
+            //Prints score aquired by small enemy
+            if (enemyManager.SmallPrint)
+            {
+                _spriteBatch.DrawString(Arial14, "+2pts",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("+2pts").X / 2,
+                        _graphics.PreferredBackBufferHeight / 2 - Arial14.MeasureString("+2pts").Y / 2),
+                        Color.White);
+            }
+            */
+
             // Draw the player
             astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
 

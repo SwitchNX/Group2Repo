@@ -18,6 +18,10 @@ namespace Nobody_Will_Hear_Them_Scream
         private static Point enemyNormalSize = new Point(30, 30);
         private static Point enemyLargeSize = new Point(50, 50);
         private bool greenFlash = false;
+        private bool smallPrint = false;
+        private bool fastPrint = false;
+        private bool bigPrint = false;
+        int smallTimer = 5;
 
         /// <summary>
         /// How many enenies there are
@@ -68,6 +72,11 @@ namespace Nobody_Will_Hear_Them_Scream
             get { return greenFlash; }
         }
 
+        public bool SmallPrint
+        {
+            get { return smallPrint; }
+        }
+
         /// <summary>
         /// Updates all of the enemies postions, handles screen, player, and projectile collisions
         /// </summary>
@@ -84,6 +93,14 @@ namespace Nobody_Will_Hear_Them_Scream
 
             int scoreGained = 0;
             greenFlash = false;
+            smallTimer++;
+            if(smallTimer >= 5)
+            {
+                smallPrint = false;
+            }
+            
+            fastPrint = false;
+            bigPrint = false;
 
             foreach (Enemy e in enemyList)
             {
@@ -120,6 +137,8 @@ namespace Nobody_Will_Hear_Them_Scream
                     {
                         case .97f:
                             scoreGained+=2;
+                            smallTimer = 0;
+                            smallPrint = true;
                             break;
                         case .985f:
                             scoreGained += 3;
