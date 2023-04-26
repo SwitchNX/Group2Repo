@@ -23,6 +23,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private Vector2 playerVelocity;
         private float dampenAmount;
         private float boostAmount;
+        private Texture2D body;
+        private Texture2D arm;
+        private Rectangle astronautBounds;
 
 
         // Properties
@@ -86,6 +89,10 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             this.lives = 3;
 
+            body = objectTexture1;
+            arm = objectTexture2;
+            astronautBounds = objectBounds;
+
             // For default weapon
             dampenAmount = 1.03f;
             boostAmount = 15f;
@@ -109,9 +116,19 @@ namespace Nobody_Will_Hear_Them_Scream
             // Dampen the player's velocity
             playerVelocity.X /= dampenAmount;
             playerVelocity.Y /= dampenAmount;
+        }
 
-            // Update arm position
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="c"></param>
+        public override void Draw(SpriteBatch sb, Color c)
+        {
+            base.Draw(sb, c);
 
+            //sb.Draw(body, astronautBounds, c);
+            sb.Draw(arm, mouseDirFromPlayer, c);
         }
 
         /// <summary>
