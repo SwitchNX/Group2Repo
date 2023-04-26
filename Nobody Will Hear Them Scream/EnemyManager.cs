@@ -18,6 +18,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private static Point enemyNormalSize = new Point(30, 30);
         private static Point enemyLargeSize = new Point(50, 50);
         private bool greenFlash = false;
+        private bool smallPrint = false;
+        private List<Enemy> enemiesToScore;
+        int smallTimer = 5;
 
         /// <summary>
         /// How many enenies there are
@@ -30,6 +33,7 @@ namespace Nobody_Will_Hear_Them_Scream
             this.largeTexture = largeTexture;
             this.fastTexture = fastTexture;
             enemyList = new List<Enemy>();
+            enemiesToScore = new List<Enemy>();
         }
 
         /// <summary>
@@ -69,6 +73,15 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         /// <summary>
+        /// Checks if an enemy score needs to be printed
+        /// </summary>
+        public bool SmallPrint
+        {
+            get { return smallPrint; }
+            set { smallPrint = value; }
+        }
+
+        /// <summary>
         /// Updates all of the enemies postions, handles screen, player, and projectile collisions
         /// </summary>
         /// <param name="gametime"></param>
@@ -84,6 +97,12 @@ namespace Nobody_Will_Hear_Them_Scream
 
             int scoreGained = 0;
             greenFlash = false;
+            smallTimer++;
+            if(smallTimer >= 10)
+            {
+                smallPrint = false;
+                enemiesToScore.Clear();
+            }
 
             foreach (Enemy e in enemyList)
             {
@@ -128,6 +147,9 @@ namespace Nobody_Will_Hear_Them_Scream
                             scoreGained += 4;
                             break;
                     }
+                    smallTimer = 0;
+                    smallPrint = true;
+                    enemiesToScore.Add(enemiesToBeRemoved[i]);
                     Remove(enemiesToBeRemoved[i]);
                 }
             }
@@ -139,11 +161,17 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws in objects from other classes
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public void Draw(SpriteBatch sb, Color C)
+        /// <param name="C">the color of the enemy</param>
+        /// <param name="font">the font used to display the scores each enemy provides</param>
+        public void Draw(SpriteBatch sb, Color C, SpriteFont font)
         {
-            foreach(Enemy enemy in enemyList)
+            foreach (Enemy enemy in enemyList)
             {
                 sb.Draw(enemy.Texture, enemy.rect, C);
+            }
+            foreach (Enemy enemy in enemiesToScore)
+            {
+                enemy.DrawScore(sb, font, this);
             }
         }
 

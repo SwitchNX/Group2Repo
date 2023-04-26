@@ -112,7 +112,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            _graphics.ToggleFullScreen();
+            //_graphics.ToggleFullScreen();
             _graphics.ApplyChanges();
 
             //Reads the top five scores from a text file if possible
@@ -209,7 +209,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 _graphics.PreferredBackBufferHeight / 4 + 100), "Back", Arial14);
 
             backToMainMenuButtonTwo = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Back").X / 2,
-                _graphics.PreferredBackBufferHeight / 4 + 300), "Back", Arial14);
+                _graphics.PreferredBackBufferHeight / 4 + 500), "Back", Arial14);
 
             // Initializes buttons to resume or quit game from the pause screen
 
@@ -271,6 +271,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
             int w = input.ReadInt32();
             int h = input.ReadInt32();
+
+            //enemyManager.SmallPrint = false;
 
             for (int i = 0; i < w; i++)
             {
@@ -506,6 +508,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     // Moves to the next level if time runs out
                     if(enemyManager.EnemyCount == 0)
                     {
+                        framesSinceLevelEnd = 0;
                         gameState = GameState.levelTransitions;
                     }
                     else if (time == 0)
@@ -527,23 +530,23 @@ namespace Nobody_Will_Hear_Them_Scream
                     }
                     break;
                 case GameState.levelTransitions:
-                    if (framesSinceLevelEnd == 20)
+                    if (framesSinceLevelEnd == 0)
                     {
                         if (levelNum != levelCount)
                         {
                             NewLevel();
-                        } 
+                        }
                         else
                         {
                             levelNum = 0;
                             NewLevel();
                         }
+                    }
+                    else if (framesSinceLevelEnd == 20)
+                    {
                         gameState = GameState.gameplay;
                     }
-                    else
-                    {
-                        framesSinceLevelEnd++;
-                    }
+                    framesSinceLevelEnd++;
                     break;
                 case GameState.gameOver:
 
@@ -630,11 +633,12 @@ namespace Nobody_Will_Hear_Them_Scream
                     string stringOne = "How to play:";
                     string stringTwo = "Click the screen to blast the astronaut in the opposite direction.";
                     string stringThree = "Avoid enemies, and blast them with projectiles.";
-                    string stringFour = "Run into crates to build up a high score.";
+                    string stringFour = "Run into crates to build up a high score, and grab health pickups to stay alive.";
                     string stringFive = "Each level has a set time, so act fast!";
-                    string stringSix = "Enemies will orbit around you.";
-                    string stringSeven = "Pointy enemies move faster.";
-                    string stringEight = "Flat enemies move slower, but take 2 hits.";
+                    string stringSix = "Enemies will home in on you. (2pts)";
+                    string stringSeven = "Pointy enemies move faster. (3 pts)";
+                    string stringEight = "Flat enemies move slower, but take 2 hits. (4 pts)";
+                    string stringNine = "(10 pts)               (20 pts)                (20 pts)               (1 HP)";
                     _spriteBatch.DrawString(Arial14, stringOne,
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringOne).X / 2,
                         175),
@@ -667,11 +671,21 @@ namespace Nobody_Will_Hear_Them_Scream
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringEight).X / 2,
                         462),
                         Color.White);
+                    
+                    _spriteBatch.DrawString(Arial14, stringNine,
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringNine).X / 2,
+                        600),
+                        Color.White);
+                    
 
-                    //Draw the enemies to show what they look like
+                    //Draw the enemies and crates to show what they look like
                     _spriteBatch.Draw(textureBaseEnemySprite, new Rectangle(710, 350, 30, 30), Color.White);
                     _spriteBatch.Draw(textureFastEnemySprite, new Rectangle(710, 400, 30, 30), Color.White);
                     _spriteBatch.Draw(textureSlowEnemySprite, new Rectangle(700, 450, 50, 50), Color.White);
+                    _spriteBatch.Draw(textureSquareCrate, new Rectangle(740, 550, 30, 30), Color.White);
+                    _spriteBatch.Draw(textureWideCrate, new Rectangle(880, 525, 30, 60), Color.White);
+                    _spriteBatch.Draw(textureTallCrate, new Rectangle(1010, 550, 60, 30), Color.White);
+                    _spriteBatch.Draw(textureHealthPickup, new Rectangle(1160, 550, 30, 30), Color.White);
 
                     //Make sure the player can get back to the Title Screen
                     backToMainMenuButtonTwo.Draw(_spriteBatch, Color.White);
@@ -758,10 +772,10 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
 
             //Draw Enemies
-            enemyManager.Draw(_spriteBatch, colorToDrawIntSprites);
+            enemyManager.Draw(_spriteBatch, colorToDrawIntSprites, Arial32);
 
             // Draw the crates
-            crateList.Draw(_spriteBatch, colorToDrawSprites);
+            crateList.Draw(_spriteBatch, colorToDrawSprites, Arial32);
 
 
             // Draw Projectiles
