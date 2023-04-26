@@ -17,6 +17,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D fastTexture;
         private static Point enemyNormalSize = new Point(30, 30);
         private static Point enemyLargeSize = new Point(50, 50);
+        private bool greenFlash = false;
 
         /// <summary>
         /// How many enenies there are
@@ -59,6 +60,13 @@ namespace Nobody_Will_Hear_Them_Scream
             enemyList.Add(new Enemy(EnemyType.fast, fastTexture, new Rectangle(spawnPoint, enemyNormalSize)));
         }
 
+        /// <summary>
+        /// Causes flash when big enemy takes damage
+        /// </summary>
+        public bool GreenFlash
+        {
+            get { return greenFlash; }
+        }
 
         /// <summary>
         /// Updates all of the enemies postions, handles screen, player, and projectile collisions
@@ -75,6 +83,7 @@ namespace Nobody_Will_Hear_Them_Scream
             List<Projectile> projectilesToBeRemoved = new List<Projectile>();
 
             int scoreGained = 0;
+            greenFlash = false;
 
             foreach (Enemy e in enemyList)
             {
@@ -92,6 +101,9 @@ namespace Nobody_Will_Hear_Them_Scream
                         if (e.Health == 0)
                         {
                             enemiesToBeRemoved.Add(e);
+                        } else
+                        {
+                            greenFlash = true;
                         }
                     }
                 }
