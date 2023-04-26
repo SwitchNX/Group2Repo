@@ -719,7 +719,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 colorToDrawIntSprites = Color.Green;
             }
 
-            // Draw the placeholder astronaut & placeholder enemy
+            // Draw the player
             astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
 
             //Draw Enemies
