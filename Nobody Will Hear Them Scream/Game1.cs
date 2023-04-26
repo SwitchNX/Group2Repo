@@ -543,10 +543,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     {
                         gameState = GameState.gameplay;
                     }
-                    else
-                    {
-                        framesSinceLevelEnd++;
-                    }
+                    framesSinceLevelEnd++;
                     break;
                 case GameState.gameOver:
 
