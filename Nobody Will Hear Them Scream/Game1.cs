@@ -283,11 +283,10 @@ namespace Nobody_Will_Hear_Them_Scream
                             astronaut.X = x;
                             astronaut.Y = y;
                         }
-                        /* else if (id == 2)
-                         * {
-                         *      //Add obstacle
-                         * }
-                         */
+                        else if (id == 2)
+                        { 
+                            // Add health pickup
+                        }
                         else if (id == 10)
                         {
                             enemyManager.CreateBasicEnemy(spawnPoint);
