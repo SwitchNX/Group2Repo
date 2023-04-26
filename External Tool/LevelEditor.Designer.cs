@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.crateButton = new System.Windows.Forms.Button();
-            this.obstacleButton = new System.Windows.Forms.Button();
+            this.healthButton = new System.Windows.Forms.Button();
             this.enemySmallButton = new System.Windows.Forms.Button();
             this.playerButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -61,19 +61,19 @@
             this.crateButton.UseVisualStyleBackColor = false;
             this.crateButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
             // 
-            // obstacleButton
+            // healthButton
             // 
-            this.obstacleButton.BackColor = System.Drawing.Color.Gray;
-            this.obstacleButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.obstacleButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.obstacleButton.Location = new System.Drawing.Point(67, 22);
-            this.obstacleButton.Name = "obstacleButton";
-            this.obstacleButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.obstacleButton.Size = new System.Drawing.Size(50, 50);
-            this.obstacleButton.TabIndex = 1;
-            this.obstacleButton.Text = "OBS";
-            this.obstacleButton.UseVisualStyleBackColor = false;
-            this.obstacleButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
+            this.healthButton.BackColor = System.Drawing.Color.Red;
+            this.healthButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.healthButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.healthButton.Location = new System.Drawing.Point(67, 22);
+            this.healthButton.Name = "healthButton";
+            this.healthButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.healthButton.Size = new System.Drawing.Size(50, 50);
+            this.healthButton.TabIndex = 1;
+            this.healthButton.Text = "HEL";
+            this.healthButton.UseVisualStyleBackColor = false;
+            this.healthButton.Click += new System.EventHandler(this.colorChangeButtonClicked);
             // 
             // enemySmallButton
             // 
@@ -110,7 +110,7 @@
             this.groupBox1.Controls.Add(this.enemySmallButton);
             this.groupBox1.Controls.Add(this.playerButton);
             this.groupBox1.Controls.Add(this.crateButton);
-            this.groupBox1.Controls.Add(this.obstacleButton);
+            this.groupBox1.Controls.Add(this.healthButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 72);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(187, 239);
@@ -194,7 +194,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.currentColorSelection);
-            this.groupBox2.Location = new System.Drawing.Point(32, 344);
+            this.groupBox2.Location = new System.Drawing.Point(52, 358);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(108, 100);
             this.groupBox2.TabIndex = 7;
@@ -273,7 +273,7 @@
         #endregion
 
         private Button crateButton;
-        private Button obstacleButton;
+        private Button healthButton;
         private Button enemySmallButton;
         private Button playerButton;
         private GroupBox groupBox1;

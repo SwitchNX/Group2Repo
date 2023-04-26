@@ -16,7 +16,8 @@ public enum GameState
     gameOver,
     pauseScreen,
     instructions,
-    gameplay
+    gameplay,
+    levelTransitions
 }
 
 namespace Nobody_Will_Hear_Them_Scream
@@ -88,6 +89,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private int levelCount;
 
+        private int framesSinceLevelEnd; 
+
         private List<int> scoreList = new List<int>();
 
         public Game1()
@@ -104,11 +107,9 @@ namespace Nobody_Will_Hear_Them_Scream
 
             gameState = GameState.mainMenu;
 
-            //_graphics.PreferredBackBufferWidth = 1600;
-            //_graphics.PreferredBackBufferHeight = 900;
-
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            _graphics.ToggleFullScreen();
             _graphics.ApplyChanges();
 
             //Reads the top five scores from a text file if possible
@@ -219,13 +220,14 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Reset()
         {
             displayLevel = 0;
-            levelNum = 7;
+            levelNum = 0;
             astronaut.Lives = 3;
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
             enemyManager = new EnemyManager(textureBaseEnemySprite, textureSlowEnemySprite, textureFastEnemySprite);
+            framesSinceLevelEnd = 0;
         }
 
         /// <summary>
@@ -233,6 +235,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         public void NewLevel()
         {
+            framesSinceLevelEnd = 0;
             levelNum++;
             displayLevel++;
             astronaut.LevelScore = 0;
@@ -280,11 +283,10 @@ namespace Nobody_Will_Hear_Them_Scream
                             astronaut.X = x;
                             astronaut.Y = y;
                         }
-                        /* else if (id == 2)
-                         * {
-                         *      //Add obstacle
-                         * }
-                         */
+                        else if (id == 2)
+                        { 
+                            // Add health pickup
+                        }
                         else if (id == 10)
                         {
                             enemyManager.CreateBasicEnemy(spawnPoint);
@@ -361,14 +363,12 @@ namespace Nobody_Will_Hear_Them_Scream
             switch (gameState)
             {
                 case GameState.mainMenu:
+                    // Brings user to a screen when pressing it's respective button
                     if (SingleLeftClick() && startGameButton.Rect.Contains(ms.Position))
                     {
                         Reset();
                         NewLevel();
                         gameState = GameState.gameplay;
-
-                        //TEMPORARY adding an enemy
-                        
                     }
                     else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))
                     {
@@ -387,14 +387,16 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.highScores:
-                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position))
+                    // Brings player to main menu if they press the button or if they press escape
+                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position) || SinglePress(Keys.Escape))
                     {
                         gameState = GameState.mainMenu;
                     }
                     break;
 
                 case GameState.instructions:
-                    if (SingleLeftClick() && backToMainMenuButtonTwo.Rect.Contains(ms.Position))
+                    // Brings player to main menu if they press the button or if they press escape
+                    if (SingleLeftClick() && backToMainMenuButtonTwo.Rect.Contains(ms.Position) || SinglePress(Keys.Escape))
                     {
                         gameState = GameState.mainMenu;
                     }
@@ -494,14 +496,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     // Moves to the next level if time runs out
                     if(enemyManager.EnemyCount == 0)
                     {
-                        if(levelNum != levelCount)
-                        {
-                            NewLevel();
-                        } else
-                        {
-                            levelNum = 0;
-                            NewLevel();
-                        }
+                        gameState = GameState.levelTransitions;
                     }
                     else if (time == 0)
                     {
@@ -511,7 +506,8 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.pauseScreen:
-                    if (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position))
+                    // Brings the player back to the game if they press the button or if they press escape
+                    if (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position) || SinglePress(Keys.Escape))
                     {
                         gameState = GameState.gameplay;
                     }
@@ -520,7 +516,25 @@ namespace Nobody_Will_Hear_Them_Scream
                         gameState = GameState.mainMenu;
                     }
                     break;
-
+                case GameState.levelTransitions:
+                    if (framesSinceLevelEnd == 20)
+                    {
+                        if (levelNum != levelCount)
+                        {
+                            NewLevel();
+                        } 
+                        else
+                        {
+                            levelNum = 0;
+                            NewLevel();
+                        }
+                        gameState = GameState.gameplay;
+                    }
+                    else
+                    {
+                        framesSinceLevelEnd++;
+                    }
+                    break;
                 case GameState.gameOver:
 
                     //Handles Button Presses
@@ -668,6 +682,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     quitGameButton.Draw(_spriteBatch, Color.White);
 
                     break;
+                case GameState.levelTransitions:
+                    DrawGameplay(false);
+                    break;
 
                 case GameState.gameOver:
                     //Game Over Title
@@ -696,6 +713,14 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             Color colorToDrawSprites = Color.White;
             Color colorToDrawIntSprites = Color.White;
+            Color colorToDrawTime = Color.White;
+
+            //Make timer red at 10 seconds left
+            if(time <= 10)
+            {
+                colorToDrawTime = Color.Red;
+            }
+
             if (isPaused)
             {
                 colorToDrawSprites = Color.DarkGray;
@@ -747,7 +772,7 @@ namespace Nobody_Will_Hear_Them_Scream
             }
 
             // Print the time
-            _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(15, 70), Color.White);
+            _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(15, 70), colorToDrawTime);
 
             // Print the current level
             _spriteBatch.DrawString(Arial32, $"Level: {displayLevel}", new Vector2(15, 110), Color.White);
