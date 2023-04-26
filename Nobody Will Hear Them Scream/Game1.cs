@@ -527,17 +527,20 @@ namespace Nobody_Will_Hear_Them_Scream
                     }
                     break;
                 case GameState.levelTransitions:
-                    if (framesSinceLevelEnd == 20)
+                    if (framesSinceLevelEnd == 0)
                     {
                         if (levelNum != levelCount)
                         {
                             NewLevel();
-                        } 
+                        }
                         else
                         {
                             levelNum = 0;
                             NewLevel();
                         }
+                    }
+                    else if (framesSinceLevelEnd == 20)
+                    {
                         gameState = GameState.gameplay;
                     }
                     else
