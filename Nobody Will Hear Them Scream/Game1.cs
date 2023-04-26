@@ -361,14 +361,12 @@ namespace Nobody_Will_Hear_Them_Scream
             switch (gameState)
             {
                 case GameState.mainMenu:
+                    // Brings user to a screen when pressing it's respective button
                     if (SingleLeftClick() && startGameButton.Rect.Contains(ms.Position))
                     {
                         Reset();
                         NewLevel();
                         gameState = GameState.gameplay;
-
-                        //TEMPORARY adding an enemy
-                        
                     }
                     else if (SingleLeftClick() && highScoresButton.Rect.Contains(ms.Position))
                     {
@@ -387,14 +385,16 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.highScores:
-                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position))
+                    // Brings player to main menu if they press the button or if they press escape
+                    if (SingleLeftClick() && backToMainMenuButton.Rect.Contains(ms.Position) || SinglePress(Keys.Escape))
                     {
                         gameState = GameState.mainMenu;
                     }
                     break;
 
                 case GameState.instructions:
-                    if (SingleLeftClick() && backToMainMenuButtonTwo.Rect.Contains(ms.Position))
+                    // Brings player to main menu if they press the button or if they press escape
+                    if (SingleLeftClick() && backToMainMenuButtonTwo.Rect.Contains(ms.Position) || SinglePress(Keys.Escape))
                     {
                         gameState = GameState.mainMenu;
                     }
@@ -511,7 +511,8 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.pauseScreen:
-                    if (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position))
+                    // Brings the player back to the game if they press the button or if they press escape
+                    if (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position) || SinglePress(Keys.Escape))
                     {
                         gameState = GameState.gameplay;
                     }
