@@ -168,6 +168,33 @@ namespace Nobody_Will_Hear_Them_Scream
                 }
             }
         }
+
+        public void DrawScore(SpriteBatch sb, SpriteFont font, EnemyManager e)
+        {
+            int typeScore = 0;
+            switch (VelocityDampener)
+            {
+                case .97f:
+                    typeScore = 2;
+                    break;
+                case .985f:
+                    typeScore = 3;
+                    break;
+                case .95f:
+                    typeScore = 4;
+                    break;
+            }
+            //Prints score aquired by small enemy
+            if (e.SmallPrint)
+            {
+                sb.DrawString(font, $"+{typeScore}pts",
+                        new Vector2(X,
+                        Y),
+                        Color.Green);
+            }
+            
+
+        }
     }
 }
 

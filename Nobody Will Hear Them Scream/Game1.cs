@@ -272,6 +272,8 @@ namespace Nobody_Will_Hear_Them_Scream
             int w = input.ReadInt32();
             int h = input.ReadInt32();
 
+            //enemyManager.SmallPrint = false;
+
             for (int i = 0; i < w; i++)
             {
                 for (int j = 0; j < h; j++)
@@ -766,22 +768,11 @@ namespace Nobody_Will_Hear_Them_Scream
                 colorToDrawIntSprites = Color.Green;
             }
 
-            /*
-            //Prints score aquired by small enemy
-            if (enemyManager.SmallPrint)
-            {
-                _spriteBatch.DrawString(Arial14, "+2pts",
-                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("+2pts").X / 2,
-                        _graphics.PreferredBackBufferHeight / 2 - Arial14.MeasureString("+2pts").Y / 2),
-                        Color.White);
-            }
-            */
-
             // Draw the player
             astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
 
             //Draw Enemies
-            enemyManager.Draw(_spriteBatch, colorToDrawIntSprites);
+            enemyManager.Draw(_spriteBatch, colorToDrawIntSprites, Arial32);
 
             // Draw the crates
             crateList.Draw(_spriteBatch, colorToDrawSprites);

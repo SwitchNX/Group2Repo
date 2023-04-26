@@ -19,8 +19,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private static Point enemyLargeSize = new Point(50, 50);
         private bool greenFlash = false;
         private bool smallPrint = false;
-        private bool fastPrint = false;
-        private bool bigPrint = false;
+        private List<Enemy> enemiesToScore;
         int smallTimer = 5;
 
         /// <summary>
@@ -34,6 +33,7 @@ namespace Nobody_Will_Hear_Them_Scream
             this.largeTexture = largeTexture;
             this.fastTexture = fastTexture;
             enemyList = new List<Enemy>();
+            enemiesToScore = new List<Enemy>();
         }
 
         /// <summary>
@@ -75,6 +75,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public bool SmallPrint
         {
             get { return smallPrint; }
+            set { smallPrint = value; }
         }
 
         /// <summary>
@@ -94,13 +95,11 @@ namespace Nobody_Will_Hear_Them_Scream
             int scoreGained = 0;
             greenFlash = false;
             smallTimer++;
-            if(smallTimer >= 5)
+            if(smallTimer >= 10)
             {
                 smallPrint = false;
+                enemiesToScore.Clear();
             }
-            
-            fastPrint = false;
-            bigPrint = false;
 
             foreach (Enemy e in enemyList)
             {
@@ -142,11 +141,17 @@ namespace Nobody_Will_Hear_Them_Scream
                             break;
                         case .985f:
                             scoreGained += 3;
+                            smallTimer = 0;
+                            smallPrint = true;
                             break;
                         case .95f:
                             scoreGained += 4;
+                            smallTimer = 0;
+                            smallPrint = true;
                             break;
                     }
+                    
+                    enemiesToScore.Add(enemiesToBeRemoved[i]);
                     Remove(enemiesToBeRemoved[i]);
                 }
             }
@@ -158,11 +163,17 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws in objects from other classes
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public void Draw(SpriteBatch sb, Color C)
+        /// <param name="C">the color of the enemy</param>
+        /// <param name="font">the font used to display the scores each enemy provides</param>
+        public void Draw(SpriteBatch sb, Color C, SpriteFont font)
         {
-            foreach(Enemy enemy in enemyList)
+            foreach (Enemy enemy in enemyList)
             {
                 sb.Draw(enemy.Texture, enemy.rect, C);
+            }
+            foreach (Enemy enemy in enemiesToScore)
+            {
+                enemy.DrawScore(sb, font, this);
             }
         }
 
