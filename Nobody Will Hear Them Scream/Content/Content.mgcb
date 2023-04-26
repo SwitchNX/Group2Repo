@@ -87,6 +87,18 @@
 /processorParam:TextureFormat=Color
 /build:Fast Enemy sprite.png
 
+#begin health box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:health box.png
+
 #begin heart.png
 /importer:TextureImporter
 /processor:TextureProcessor

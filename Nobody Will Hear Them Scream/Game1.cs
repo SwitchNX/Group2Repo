@@ -73,6 +73,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D textureWideCrate;
         private Texture2D textureTallCrate;
 
+        // Texture for health pickup
+        private Texture2D textureHealthPickup;
+
         // Texture for hearts
         private Texture2D textureHeart;
 
@@ -165,6 +168,9 @@ namespace Nobody_Will_Hear_Them_Scream
             textureSquareCrate = Content.Load<Texture2D>("square box");
             textureWideCrate = Content.Load<Texture2D>("wide box");
             textureTallCrate = Content.Load<Texture2D>("tall box");
+
+            // Set up the health pickup
+            textureHealthPickup = Content.Load<Texture2D>("health box");
 
             // Set up the heart
             textureHeart = Content.Load<Texture2D>("heart");
