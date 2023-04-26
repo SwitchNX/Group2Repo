@@ -60,5 +60,29 @@ namespace Nobody_Will_Hear_Them_Scream
 
             return false;
         }
+
+        public void DrawScore(SpriteBatch sb, SpriteFont font, CrateManager c)
+        {
+            int typeScore = 0;
+            switch (Width * Height)
+            {
+                case 2500:
+                    typeScore = 10;
+                    break;
+                case 5000:
+                    typeScore = 20;
+                    break;
+            }
+            //Prints score aquired by small enemy
+            if (c.SmallPrint)
+            {
+                sb.DrawString(font, $"+{typeScore}pts",
+                        new Vector2(X,
+                        Y),
+                        Color.Green);
+            }
+
+
+        }
     }
 }

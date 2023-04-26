@@ -775,7 +775,7 @@ namespace Nobody_Will_Hear_Them_Scream
             enemyManager.Draw(_spriteBatch, colorToDrawIntSprites, Arial32);
 
             // Draw the crates
-            crateList.Draw(_spriteBatch, colorToDrawSprites);
+            crateList.Draw(_spriteBatch, colorToDrawSprites, Arial32);
 
 
             // Draw Projectiles

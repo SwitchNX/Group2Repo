@@ -72,6 +72,9 @@ namespace Nobody_Will_Hear_Them_Scream
             get { return greenFlash; }
         }
 
+        /// <summary>
+        /// Checks if an enemy score needs to be printed
+        /// </summary>
         public bool SmallPrint
         {
             get { return smallPrint; }
@@ -136,21 +139,16 @@ namespace Nobody_Will_Hear_Them_Scream
                     {
                         case .97f:
                             scoreGained+=2;
-                            smallTimer = 0;
-                            smallPrint = true;
                             break;
                         case .985f:
                             scoreGained += 3;
-                            smallTimer = 0;
-                            smallPrint = true;
                             break;
                         case .95f:
                             scoreGained += 4;
-                            smallTimer = 0;
-                            smallPrint = true;
                             break;
                     }
-                    
+                    smallTimer = 0;
+                    smallPrint = true;
                     enemiesToScore.Add(enemiesToBeRemoved[i]);
                     Remove(enemiesToBeRemoved[i]);
                 }

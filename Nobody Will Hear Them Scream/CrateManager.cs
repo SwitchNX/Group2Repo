@@ -20,7 +20,19 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D squareTexture;
         private Texture2D wideTexture;
         private Texture2D tallTexture;
-        private Point crateSize; 
+        private Point crateSize;
+        private bool smallPrint = false;
+        private List<Crate> cratesToScore;
+        int smallTimer = 5;
+
+        /// <summary>
+        /// Checks if an crate score needs to be printed
+        /// </summary>
+        public bool SmallPrint
+        {
+            get { return smallPrint; }
+            set { smallPrint = value; }
+        }
 
         public CrateManager(Texture2D squareTexture, Texture2D wideTexture, Texture2D tallTexture)
         {
@@ -28,6 +40,7 @@ namespace Nobody_Will_Hear_Them_Scream
             this.squareTexture = squareTexture;
             this.wideTexture = wideTexture;
             this.tallTexture = tallTexture;
+            cratesToScore = new List<Crate>();
 
         }
 
@@ -59,6 +72,12 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         public void Update(GameTime gameTime, Player astronaut) 
         {
+            smallTimer++;
+            if (smallTimer >= 10)
+            {
+                smallPrint = false;
+                cratesToScore.Clear();
+            }
             // Update the score if there is a collision with a crate
             for (int i = 0; i < crateList.Count; i++)
             {
@@ -76,7 +95,9 @@ namespace Nobody_Will_Hear_Them_Scream
                             astronaut.GameScore += 20;
                             break;
                     }
-
+                    smallTimer = 0;
+                    smallPrint = true;
+                    cratesToScore.Add(crateList[i]);
                 }
             }
         }
@@ -85,7 +106,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws a Crate to the screen if it is active
         /// </summary>
         /// <param name="sb">allows for the call of the Draw method</param>
-        public void Draw(SpriteBatch sb, Color C)
+        public void Draw(SpriteBatch sb, Color C, SpriteFont font)
         {
             for (int i = 0; i < crateList.Count; i++)
             {
@@ -94,6 +115,10 @@ namespace Nobody_Will_Hear_Them_Scream
                     sb.Draw(squareTexture, crateList[i].CratePos, C);
                     //crateList[i].Draw(sb, C);
                 }
+            }
+            foreach (Crate c in cratesToScore)
+            {
+                c.DrawScore(sb, font, this);
             }
         }
 
