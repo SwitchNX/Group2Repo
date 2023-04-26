@@ -16,7 +16,8 @@ public enum GameState
     gameOver,
     pauseScreen,
     instructions,
-    gameplay
+    gameplay,
+    levelTransitions
 }
 
 namespace Nobody_Will_Hear_Them_Scream
@@ -88,6 +89,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private int levelCount;
 
+        private int framesSinceLevelEnd; 
+
         private List<int> scoreList = new List<int>();
 
         public Game1()
@@ -104,11 +107,9 @@ namespace Nobody_Will_Hear_Them_Scream
 
             gameState = GameState.mainMenu;
 
-            //_graphics.PreferredBackBufferWidth = 1600;
-            //_graphics.PreferredBackBufferHeight = 900;
-
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            _graphics.ToggleFullScreen();
             _graphics.ApplyChanges();
 
             //Reads the top five scores from a text file if possible
@@ -219,13 +220,14 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Reset()
         {
             displayLevel = 0;
-            levelNum = 7;
+            levelNum = 0;
             astronaut.Lives = 3;
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
             crateList.ClearCrates();
             crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
             enemyManager = new EnemyManager(textureBaseEnemySprite, textureSlowEnemySprite, textureFastEnemySprite);
+            framesSinceLevelEnd = 0;
         }
 
         /// <summary>
@@ -233,6 +235,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         public void NewLevel()
         {
+            framesSinceLevelEnd = 0;
             levelNum++;
             displayLevel++;
             astronaut.LevelScore = 0;
@@ -494,14 +497,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     // Moves to the next level if time runs out
                     if(enemyManager.EnemyCount == 0)
                     {
-                        if(levelNum != levelCount)
-                        {
-                            NewLevel();
-                        } else
-                        {
-                            levelNum = 0;
-                            NewLevel();
-                        }
+                        gameState = GameState.levelTransitions;
                     }
                     else if (time == 0)
                     {
@@ -520,7 +516,25 @@ namespace Nobody_Will_Hear_Them_Scream
                         gameState = GameState.mainMenu;
                     }
                     break;
-
+                case GameState.levelTransitions:
+                    if (framesSinceLevelEnd == 20)
+                    {
+                        if (levelNum != levelCount)
+                        {
+                            NewLevel();
+                        } 
+                        else
+                        {
+                            levelNum = 0;
+                            NewLevel();
+                        }
+                        gameState = GameState.gameplay;
+                    }
+                    else
+                    {
+                        framesSinceLevelEnd++;
+                    }
+                    break;
                 case GameState.gameOver:
 
                     //Handles Button Presses
@@ -668,6 +682,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     quitGameButton.Draw(_spriteBatch, Color.White);
 
                     break;
+                case GameState.levelTransitions:
+                    DrawGameplay(false);
+                    break;
 
                 case GameState.gameOver:
                     //Game Over Title
@@ -695,11 +712,12 @@ namespace Nobody_Will_Hear_Them_Scream
         public void DrawGameplay(bool isPaused)
         {
             Color colorToDrawSprites = Color.White;
-            Color colorToDrawIntSprites = Color.White;
+            Color colorToDrawPlayer = Color.White;
+            Color colorToDrawEnemies = Color.White;
             if (isPaused)
             {
                 colorToDrawSprites = Color.DarkGray;
-                colorToDrawIntSprites = Color.DarkGray;
+                colorToDrawPlayer = Color.DarkGray;
             }
 
             // Draw space background
@@ -710,14 +728,14 @@ namespace Nobody_Will_Hear_Them_Scream
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
             {
-                colorToDrawIntSprites = Color.Red;
+                colorToDrawPlayer = Color.Red;
             }
 
             // Draw the placeholder astronaut & placeholder enemy
-            astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
+            astronaut.Draw(_spriteBatch, colorToDrawPlayer);
 
             //Draw Enemies
-            enemyManager.Draw(_spriteBatch, colorToDrawIntSprites);
+            enemyManager.Draw(_spriteBatch, colorToDrawPlayer);
 
             // Draw the crates
             crateList.Draw(_spriteBatch, colorToDrawSprites);

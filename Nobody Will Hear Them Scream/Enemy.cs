@@ -37,6 +37,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private bool newIntersection;
 
+        private bool isDamaged;
+
         //Properties
         public Vector2 Velocity
         {
