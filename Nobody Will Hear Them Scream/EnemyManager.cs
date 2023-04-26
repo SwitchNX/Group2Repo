@@ -103,6 +103,22 @@ namespace Nobody_Will_Hear_Them_Scream
                 projectileList.Remove(projectilesToBeRemoved[i]);
                 if (i < enemiesToBeRemoved.Count)
                 {
+                    //Check the size of the enemy to determine how much to add to the score
+                    switch (enemiesToBeRemoved[i].VelocityDampener)
+                    {
+                        case .97f:
+                            astronaut.LevelScore += 2;
+                            astronaut.GameScore += 2;
+                            break;
+                        case .985f:
+                            astronaut.LevelScore += 3;
+                            astronaut.GameScore += 3;
+                            break;
+                        case .95f:
+                            astronaut.LevelScore += 4;
+                            astronaut.GameScore += 4;
+                            break;
+                    }
                     Remove(enemiesToBeRemoved[i]);
                 }
             }

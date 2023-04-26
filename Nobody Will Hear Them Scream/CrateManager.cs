@@ -64,8 +64,19 @@ namespace Nobody_Will_Hear_Them_Scream
             {
                 if (crateList[i].CheckCollision(astronaut))
                 {
-                    astronaut.LevelScore += 10;
-                    astronaut.GameScore += 10;
+                    //Check the size of the crate to determine how much to add to the score
+                    switch (crateList[i].Width * crateList[i].Height)
+                    {
+                        case 2500:
+                            astronaut.LevelScore += 10;
+                            astronaut.GameScore += 10;
+                            break;
+                        case 5000:
+                            astronaut.LevelScore += 20;
+                            astronaut.GameScore += 20;
+                            break;
+                    }
+
                 }
             }
         }

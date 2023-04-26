@@ -55,6 +55,11 @@ namespace Nobody_Will_Hear_Them_Scream
             set { health = value; }
         }
 
+        public float VelocityDampener
+        {
+            get { return velocityDampener; }
+        }
+
         //Constructor
         public Enemy(EnemyType enemyType, Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
         {
