@@ -93,7 +93,7 @@ namespace Nobody_Will_Hear_Them_Scream
             int scoreGained = 0;
             flashTimer++;
             smallTimer++;
-            if(smallTimer >= 10)
+            if(smallTimer >= 30)
             {
                 smallPrint = false;
                 enemiesToScore.Clear();

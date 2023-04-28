@@ -73,7 +73,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Update(GameTime gameTime, Player astronaut) 
         {
             smallTimer++;
-            if (smallTimer >= 10)
+            if (smallTimer >= 30)
             {
                 smallPrint = false;
                 cratesToScore.Clear();
