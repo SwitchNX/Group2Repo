@@ -112,7 +112,14 @@ namespace Nobody_Will_Hear_Them_Scream
             mouseDirFromPlayer = Vector2.Normalize(new Vector2(direction.X - CenterX, direction.Y - CenterY));
 
             // update the angle of the arm based on the mouse position
-            armAngle = (float)Math.Atan(mouseDirFromPlayer.X / mouseDirFromPlayer.Y); // this math is the only problem
+            if (mouseDirFromPlayer.Y > 0)
+            {
+                armAngle = (float)Math.Acos(mouseDirFromPlayer.X);
+            }
+            else
+            {
+                armAngle = -(float)Math.Acos(mouseDirFromPlayer.X);
+            }
 
             // Add the new speeds
             X += (int)playerVelocity.X;
@@ -132,7 +139,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             base.Draw(sb, c);
 
-            sb.Draw(arm, new Vector2(X, Y), null, c, armAngle, new Vector2(arm.Width/2, arm.Height/2), 0.3f, SpriteEffects.None, 0f);
+            sb.Draw(arm, new Vector2(X + 27, Y + 37), null, c, armAngle, new Vector2(0, arm.Height/2), 0.18f, SpriteEffects.FlipHorizontally, 0f);
         }
 
         /// <summary>
