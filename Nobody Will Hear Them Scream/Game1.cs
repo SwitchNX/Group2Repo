@@ -119,7 +119,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            //_graphics.ToggleFullScreen();
+            _graphics.ToggleFullScreen();
             _graphics.ApplyChanges();
 
             //Reads the top five scores from a text file if possible
@@ -226,6 +226,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
             quitGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Quit").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 150), "Quit", Arial14);
+
+            IsMouseVisible = false;
         }
 
         /// <summary>
@@ -234,7 +236,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Reset()
         {
             displayLevel = 0;
-            levelNum = 0;
+            levelNum = 6;
             astronaut.Lives = 3;
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
@@ -572,7 +574,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         astronaut.ArmPosition = new Vector2(astronaut.X + 30, astronaut.Y + 37);
                               
                     } 
-                    else if (framesSinceLevelEnd == 20)
+                    else if (framesSinceLevelEnd == 30)
                     {
                         gameState = GameState.gameplay;
                     }
@@ -764,11 +766,27 @@ namespace Nobody_Will_Hear_Them_Scream
                         _graphics.PreferredBackBufferHeight / 4),
                         Color.White);
 
+                    string levelCountString = $"YOU SURVIVED FOR {displayLevel} LEVELS";
+                    if (displayLevel == 1)
+                    {
+                        levelCountString = "YOU SURVIVED FOR 1 LEVEL";
+                    }
+
+                    _spriteBatch.DrawString(Arial14, levelCountString,
+                        new Vector2(_graphics.PreferredBackBufferWidth/2 - Arial14.MeasureString(levelCountString).X / 2, _graphics.PreferredBackBufferHeight / 4 + 100),
+                        Color.White);                
+
                     //Presents access to the High Scores
                     highScoresButton.Draw(_spriteBatch, Color.White);
 
                     break;
             }
+
+            ms = Mouse.GetState();
+            _spriteBatch.Draw(textureHeart,
+                    new Rectangle(ms.X - 12, ms.Y - 12,
+                        25, 25),
+                    Color.White);
 
             // End the sprite batch
             _spriteBatch.End();
