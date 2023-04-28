@@ -53,7 +53,6 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D texturePlayerProjectile;
         private Texture2D textureAstronautArm;
         private Rectangle astronautBounds;
-        private Vector2 armVector;
         private Player astronaut;
 
         // Fields to manage projectiles
@@ -130,7 +129,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 using(StreamReader scoreReader = new StreamReader("HighScores.txt"))
                 {
                     int score;
-                    while ((score = int.Parse(scoreReader.ReadLine())) != null)
+                    while ((score = int.Parse(scoreReader.ReadLine())) != 0)
                     {
                         scoreList.Add(score);
                     }
@@ -646,7 +645,6 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     //Draws in each high score in the list
                     int height = 175;
-                    int i = 0;
                     foreach(int score in scoreList)
                     {
                         _spriteBatch.DrawString(Arial14, $"{score}",
@@ -742,6 +740,10 @@ namespace Nobody_Will_Hear_Them_Scream
                         _spriteBatch.DrawString(Arial32, "you'll blast off in the opposite direction!",
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("you'll blast off in the opposite direction!").X / 2,
                         300),
+                        Color.White);
+                        _spriteBatch.DrawString(Arial32, "(Press Esc to pause/unpause during gameplay)",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("(Press Esc to pause/unpause during gameplay)").X / 2,
+                        800),
                         Color.White);
                     } else
                     {
