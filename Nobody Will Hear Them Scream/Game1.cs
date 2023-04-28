@@ -799,7 +799,13 @@ namespace Nobody_Will_Hear_Them_Scream
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
             {
-                colorToDrawPlayer = Color.Red;
+                if (isPaused)
+                {
+                    colorToDrawPlayer = Color.DarkRed;
+                } else
+                {
+                    colorToDrawPlayer = Color.Red;
+                }
             } else
             {
                 colorToDrawPlayer = colorToDrawIntSprites;
