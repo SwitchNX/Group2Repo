@@ -234,7 +234,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Reset()
         {
             displayLevel = 0;
-            levelNum = 3;
+            levelNum = 0;
             astronaut.Lives = 3;
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
@@ -429,7 +429,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.LevelScore += scoreToAdd;
 
                     crateList.Update(gameTime, astronaut);
-                    healthPickupManager.CheckPlayerCollisions(astronaut);
+                    healthPickupManager.Update(astronaut);
 
                     //For initial tutorial
                     if(firstTimePlaying == true)

@@ -15,8 +15,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private static List<Rectangle> healthPickupList = new List<Rectangle>();
         private static Texture2D healthPickupTexture;
         
-        private static List<Vector2> positionsOfStringsToDraw;
-        private static List<int> framesStringsHaveBeenOnFrame;
+        private static List<Vector2> positionsOfStringsToDraw = new List<Vector2>();
+        private static List<int> framesStringsHaveBeenOnFrame = new List<int>();
 
         public HealthPickupManager(Texture2D texture)
         {
