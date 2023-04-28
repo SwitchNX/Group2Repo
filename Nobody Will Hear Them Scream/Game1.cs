@@ -255,7 +255,6 @@ namespace Nobody_Will_Hear_Them_Scream
             projectileList.Clear();
             crateList.ClearCrates();
             LoadLevel();
-            //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
 
