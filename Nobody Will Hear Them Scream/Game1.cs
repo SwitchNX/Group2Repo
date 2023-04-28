@@ -570,8 +570,9 @@ namespace Nobody_Will_Hear_Them_Scream
                             levelNum = 0;
                             NewLevel();
                         }
-                        astronaut.Update(gameTime);
-                    }
+                        astronaut.ArmPosition = new Vector2(astronaut.X + 30, astronaut.Y + 37);
+                              
+                    } 
                     else if (framesSinceLevelEnd == 20)
                     {
                         gameState = GameState.gameplay;
