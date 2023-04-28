@@ -33,11 +33,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private float velocityDampener;
 
-        private static Rectangle screenBounds;
-
         private bool newIntersection;
 
-        private bool isDamaged;
 
         //Properties
         public Vector2 Velocity
@@ -92,7 +89,7 @@ namespace Nobody_Will_Hear_Them_Scream
             this.playerPosition = new Vector2(playerRectangle.X + playerRectangle.Width / 2, playerRectangle.Y + playerRectangle.Height / 2);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             X += (int)velocity.X;
             Y += (int)velocity.Y;
@@ -146,6 +143,21 @@ namespace Nobody_Will_Hear_Them_Scream
                 {
                     astronaut.Lives--;
                     newIntersection = false;
+
+                    // Physics for collisions
+                    Vector2 vnew = astronaut.PlayerVelocity + this.velocity;
+                    if (vnew.X < 0)
+                    {
+                        vnew.X *= 1;
+                    }
+                    if (vnew.Y < 0)
+                    {
+                        vnew.Y *= 1;
+                    }
+
+                    astronaut.PlayerVelocity *= 1;
+                    this.velocity *= 1;
+
                 }
             } else
             {

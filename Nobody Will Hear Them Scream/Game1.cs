@@ -53,7 +53,6 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D texturePlayerProjectile;
         private Texture2D textureAstronautArm;
         private Rectangle astronautBounds;
-        private Vector2 armVector;
         private Player astronaut;
 
         // Fields to manage projectiles
@@ -120,7 +119,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            //_graphics.ToggleFullScreen();
+            _graphics.ToggleFullScreen();
             _graphics.ApplyChanges();
 
             //Reads the top five scores from a text file if possible
@@ -130,7 +129,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 using(StreamReader scoreReader = new StreamReader("HighScores.txt"))
                 {
                     int score;
-                    while ((score = int.Parse(scoreReader.ReadLine())) != null)
+                    while ((score = int.Parse(scoreReader.ReadLine())) != 0)
                     {
                         scoreList.Add(score);
                     }
@@ -237,7 +236,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Reset()
         {
             displayLevel = 0;
-            levelNum = 0;
+            levelNum = 6;
             astronaut.Lives = 3;
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
@@ -575,7 +574,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         astronaut.ArmPosition = new Vector2(astronaut.X + 30, astronaut.Y + 37);
                               
                     } 
-                    else if (framesSinceLevelEnd == 20)
+                    else if (framesSinceLevelEnd == 30)
                     {
                         gameState = GameState.gameplay;
                     }
@@ -648,7 +647,6 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     //Draws in each high score in the list
                     int height = 175;
-                    int i = 0;
                     foreach(int score in scoreList)
                     {
                         _spriteBatch.DrawString(Arial14, $"{score}",
@@ -767,6 +765,16 @@ namespace Nobody_Will_Hear_Them_Scream
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("GAME OVER").X / 2, // Puts it in the middle of the screen
                         _graphics.PreferredBackBufferHeight / 4),
                         Color.White);
+
+                    string levelCountString = $"YOU SURVIVED FOR {displayLevel} LEVELS";
+                    if (displayLevel == 1)
+                    {
+                        levelCountString = "YOU SURVIVED FOR 1 LEVEL";
+                    }
+
+                    _spriteBatch.DrawString(Arial14, levelCountString,
+                        new Vector2(_graphics.PreferredBackBufferWidth/2 - Arial14.MeasureString(levelCountString).X / 2, _graphics.PreferredBackBufferHeight / 4 + 100),
+                        Color.White);                
 
                     //Presents access to the High Scores
                     highScoresButton.Draw(_spriteBatch, Color.White);
