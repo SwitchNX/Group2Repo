@@ -771,6 +771,7 @@ namespace Nobody_Will_Hear_Them_Scream
             Color colorToDrawSprites = Color.White;
             Color colorToDrawIntSprites = Color.White;
             Color colorToDrawTime = Color.White;
+            Color colorToDrawPlayer = colorToDrawIntSprites;
 
             // Change sprites to gray when paused
             if (isPaused)
@@ -798,11 +799,14 @@ namespace Nobody_Will_Hear_Them_Scream
             //Makes sprites flash red when astronaut is damaged
             if (enemyManager.DetectPlayerIntersection(astronaut))
             {
-                colorToDrawIntSprites = Color.Red;
+                colorToDrawPlayer = Color.Red;
+            } else
+            {
+                colorToDrawPlayer = colorToDrawIntSprites;
             }
 
             // Draw the player
-            astronaut.Draw(_spriteBatch, colorToDrawIntSprites);
+            astronaut.Draw(_spriteBatch, colorToDrawPlayer);
 
             //Draw Enemies
             enemyManager.Draw(_spriteBatch, colorToDrawIntSprites, Arial32);
