@@ -569,6 +569,7 @@ namespace Nobody_Will_Hear_Them_Scream
                             levelNum = 0;
                             NewLevel();
                         }
+                        astronaut.Update(gameTime);
                     }
                     else if (framesSinceLevelEnd == 20)
                     {
