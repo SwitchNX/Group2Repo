@@ -25,9 +25,10 @@ namespace Nobody_Will_Hear_Them_Scream
         private float boostAmount;
         private Texture2D body;
         private Texture2D arm;
-        private Rectangle armBounds;
         private float armAngle;
-        private SpriteEffects effect;
+        private SpriteEffects effectArm;
+        private SpriteEffects effectBody;
+        private Vector2 armPosition;
 
 
         // Properties
@@ -78,6 +79,14 @@ namespace Nobody_Will_Hear_Them_Scream
             set { playerVelocity = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the arm's position
+        /// </summary>
+        public Vector2 ArmPosition
+        {
+            get { return armPosition; }
+            set { armPosition = value; }
+        }
 
         // Constructor
 
@@ -93,7 +102,6 @@ namespace Nobody_Will_Hear_Them_Scream
 
             body = objectTexture1;
             arm = objectTexture2;
-            armBounds = objectBounds;
 
             // For default weapon
             dampenAmount = 1.03f;
@@ -122,18 +130,24 @@ namespace Nobody_Will_Hear_Them_Scream
                 armAngle = -(float)Math.Acos(mouseDirFromPlayer.X);
             }
 
-            // flip arm
+            // flip player
             if (mouseDirFromPlayer.X > 0)
             {
-                effect = SpriteEffects.FlipVertically;
+                armPosition.X = X + 15;
+                armPosition.Y = Y + 37;
+                effectArm = SpriteEffects.FlipVertically;
+                effectBody = SpriteEffects.FlipHorizontally;
             }
             else
             {
-                effect = SpriteEffects.None;
+                armPosition.X = X + 30;
+                armPosition.Y = Y + 37;
+                effectArm = SpriteEffects.None;
+                effectBody = SpriteEffects.None;
             }
 
-                // Add the new speeds
-                X += (int)playerVelocity.X;
+            // Add the new speeds
+            X += (int)playerVelocity.X;
             Y += (int)playerVelocity.Y;
 
             // Dampen the player's velocity
@@ -146,11 +160,13 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="c"></param>
-        public override void Draw(SpriteBatch sb, Color c)
+        public void Draw(SpriteBatch sb, Color c, Rectangle playerbounds)
         {
-            base.Draw(sb, c);
+            //base.Draw(sb, c);
 
-            sb.Draw(arm, new Vector2(X + 27, Y + 37), null, c, armAngle, new Vector2(0, arm.Height / 2), 0.18f, effect, 0f);
+            sb.Draw(body, new Vector2(X, Y), null, c, 0f, new Vector2(0, 0), 0.16f, effectBody, 0f);
+
+            sb.Draw(arm, armPosition, null, c, armAngle, new Vector2(0, arm.Height / 2), 0.25f, effectArm, 0f);
         }
 
         /// <summary>
