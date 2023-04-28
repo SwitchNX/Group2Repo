@@ -64,9 +64,10 @@ namespace Nobody_Will_Hear_Them_Scream
         private int displayLevel;
         private int frames;
 
-        // Managers to hold crates and enemies for levels
+        // Managers to hold crates, enemies, and health pickups for levels
         private EnemyManager enemyManager;
         private CrateManager crateList;
+        private HealthPickupManager healthPickupManager;
 
         // Textures for crates
         private Texture2D textureSquareCrate;
@@ -184,6 +185,7 @@ namespace Nobody_Will_Hear_Them_Scream
             // Default items for the enemy and crate managers
             enemyManager = new EnemyManager(textureBaseEnemySprite, textureSlowEnemySprite, textureFastEnemySprite);
             crateList = new CrateManager(textureSquareCrate, textureWideCrate, textureTallCrate);
+            healthPickupManager = new HealthPickupManager(textureHealthPickup);
 
             // Set up fonts
             Arial14 = Content.Load<SpriteFont>("Arial14");
@@ -226,7 +228,7 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Reset()
         {
             displayLevel = 0;
-            levelNum = 0;
+            levelNum = 3;
             astronaut.Lives = 3;
             astronaut.GameScore = 0;
             astronaut.LevelScore = 0;
@@ -248,6 +250,7 @@ namespace Nobody_Will_Hear_Them_Scream
             astronaut.PlayerVelocity = new Vector2(0,0);
             projectileList.Clear();
             crateList.ClearCrates();
+            healthPickupManager.Clear();
             LoadLevel();
             //Remember to change this in post
             astronaut.rect = astronautBounds;
@@ -292,8 +295,8 @@ namespace Nobody_Will_Hear_Them_Scream
                             astronaut.Y = y;
                         }
                         else if (id == 2)
-                        { 
-                            // Add health pickup
+                        {
+                            healthPickupManager.AddHealthPickup(spawnPoint);
                         }
                         else if (id == 10)
                         {
@@ -421,6 +424,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.LevelScore += scoreToAdd;
 
                     crateList.Update(gameTime, astronaut);
+                    healthPickupManager.CheckPlayerCollisions(astronaut);
 
                     // Update projectiles
                     foreach(Projectile p in projectileList)
@@ -771,6 +775,8 @@ namespace Nobody_Will_Hear_Them_Scream
             // Draw the crates
             crateList.Draw(_spriteBatch, colorToDrawSprites, Arial32);
 
+            // Draw the health pickups
+            healthPickupManager.Draw(_spriteBatch, colorToDrawSprites);
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)
