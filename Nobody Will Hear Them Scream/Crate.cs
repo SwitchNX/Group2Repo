@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+// Anthony Curtis & Hudson Ward
+// Class for crate objects
+
 namespace Nobody_Will_Hear_Them_Scream
 {
     /// <summary>
@@ -14,8 +17,13 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class Crate : GameObject
     {
+        // Fields
+
         private bool active;
         private Rectangle cratePos;
+
+
+        // Properties
 
         /// <summary>
         /// returns or changes the value of active
@@ -27,14 +35,22 @@ namespace Nobody_Will_Hear_Them_Scream
         /// </summary>
         public Rectangle CratePos { get { return cratePos; } set { cratePos = value; } }
 
+
+        // Constructor
+
         /// <summary>
         /// Initializes the fields of the Crate class
         /// </summary>
+        /// <param name="objectTexture">The texture of the object</param>
+        /// <param name="objectBounds">The rectuangle bounds of the object</param>
         public Crate(Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds)
         {
             cratePos = new Rectangle(X, Y, Width, Height);
             active = true;
         }
+
+
+        // Methods
 
         /// <summary>
         /// Determines if there is a collision between the
@@ -61,28 +77,34 @@ namespace Nobody_Will_Hear_Them_Scream
             return false;
         }
 
-        public void DrawScore(SpriteBatch sb, SpriteFont font, CrateManager c)
+        /// <summary>
+        /// Draws the score on the screen after collision
+        /// </summary>
+        /// <param name="sb">The sprite batch</param>
+        /// <param name="font">The sprite font</param>
+        /// <param name="crateManger">The crate manager</param>
+        public void DrawScore(SpriteBatch sb, SpriteFont font, CrateManager crateManger)
         {
+            // The score depending on the type of crate
             int typeScore = 0;
-            switch (Width * Height)
+            switch (Width * Height) // Determines the size of the crate using the area
             {
-                case 2500:
+                case 2500: // Box crate
                     typeScore = 10;
                     break;
-                case 5000:
+                case 5000: // Tall or wide crate
                     typeScore = 20;
                     break;
             }
-            //Prints score aquired by small enemy
-            if (c.SmallPrint)
+
+            // Prints score aquired
+            if (crateManger.SmallPrint)
             {
                 sb.DrawString(font, $"+{typeScore}pts",
                         new Vector2(X,
                         Y),
                         Color.Green);
             }
-
-
         }
     }
 }

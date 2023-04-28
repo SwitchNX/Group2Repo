@@ -8,9 +8,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+// Anthony Curtis, Ryan Fogarty, & Hudson Ward
+
 namespace Nobody_Will_Hear_Them_Scream
 {
-
+    /// <summary>
+    /// Enum for types of enemies
+    /// </summary>
     public enum EnemyType
     {
         basic, large, fast
@@ -21,52 +25,72 @@ namespace Nobody_Will_Hear_Them_Scream
     /// </summary>
     internal class Enemy : GameObject
     {
-        //Fields
+        // Fields
+
         private EnemyType enemyType;
         private int health;
-
         private Vector2 velocity;
         private Vector2 acceleration;
-
         private Vector2 playerPosition;
         private Vector2 playerDirFromEnemy;
-
         private float velocityDampener;
-
         private bool newIntersection;
 
 
-        //Properties
+        // Properties
+
+        /// <summary>
+        /// Get or set the velocity
+        /// </summary>
         public Vector2 Velocity
         {
             get { return velocity; }
             set { velocity = value; }
         }
 
+        /// <summary>
+        /// Get the new intersection
+        /// </summary>
         public bool NewIntersection
         {
             get { return newIntersection; }
         }
 
+        /// <summary>
+        /// Get or set the enemy health
+        /// </summary>
         public int Health
         {
             get { return health; }
             set { health = value; }
         }
 
+        /// <summary>
+        /// Get the velocity dampener
+        /// </summary>
         public float VelocityDampener
         {
             get { return velocityDampener; }
         }
 
-        //Constructor
+
+        // Constructor
+
+        /// <summary>
+        /// Create a new enemy object
+        /// </summary>
+        /// <param name="enemyType">The type of enemy</param>
+        /// <param name="objectTexture">The texture of the enemy</param>
+        /// <param name="objectBounds">The rectangle bounds of the enemy</param>
         public Enemy(EnemyType enemyType, Texture2D objectTexture, Rectangle objectBounds) : base(objectTexture, objectBounds) 
         {
+            // Initialize the velocity, acceleration, velocity dampener, and new intersection
             velocity = new Vector2();
             acceleration = new Vector2();
             velocityDampener = .979f;
             newIntersection = true;
 
+            // Change the dampener depending on the type of the enemy
             switch (enemyType)
             {
                 case EnemyType.basic:
@@ -84,29 +108,44 @@ namespace Nobody_Will_Hear_Them_Scream
             }
         }
 
+
+        // Methods
+
+        /// <summary>
+        /// Get the player rectangle
+        /// </summary>
+        /// <param name="playerRectangle">The player rectangle</param>
         public void GetPlayerPosition(Rectangle playerRectangle)
         {
             this.playerPosition = new Vector2(playerRectangle.X + playerRectangle.Width / 2, playerRectangle.Y + playerRectangle.Height / 2);
         }
 
+        /// <summary>
+        /// Update the enemy
+        /// </summary>
+        /// <param name="gameTime">The current game time</param>
         public override void Update(GameTime gameTime)
         {
+            // Update the coordinates
             X += (int)velocity.X;
             Y += (int)velocity.Y;
 
             velocity *= velocityDampener;
             velocity += acceleration;
 
-            //Vector2 playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - CenterX, playerPosition.Y - CenterY));
+            // Get the player direction from the enemy
             playerDirFromEnemy = Vector2.Normalize(new Vector2(playerPosition.X - X, playerPosition.Y - Y));
 
+            // Change acceleration so the enemy goes toward the player
             acceleration = 0.35f * playerDirFromEnemy;
 
+            // If the enemy is a fast enemy, move faster
             if (this.enemyType == EnemyType.fast)
             {
                 acceleration *= 1.1f;
             }
         }
+
 
         public void HandleScreenCollisions(int screenWidth, int screenHeight)
         {

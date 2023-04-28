@@ -90,7 +90,15 @@ namespace Nobody_Will_Hear_Them_Scream
             get { return rect; }
         }
 
-        //Incomplete
+
+        // Constructor
+
+        /// <summary>
+        /// Create a new button object
+        /// </summary>
+        /// <param name="position">The position of the button</param>
+        /// <param name="text">The text of the button</param>
+        /// <param name="font">The sprite font</param>
         public Button(Vector2 position, string text, SpriteFont font)
         {
             this.text = text;
@@ -100,10 +108,13 @@ namespace Nobody_Will_Hear_Them_Scream
             rect = new Rectangle(X, Y, Width, Height);
         }
 
+
+        // Methods
+
         /// <summary>
         /// Draws the text of the with the spritebatch and the color
         /// </summary>
-        /// <param name="sb"></param>
+        /// <param name="sb">The sprite batch</param>
         /// <param name="c">The color of the buttons text</param>
         public void Draw(SpriteBatch sb, Color c)
         {
