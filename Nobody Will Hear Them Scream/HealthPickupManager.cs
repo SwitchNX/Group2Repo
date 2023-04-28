@@ -14,6 +14,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private static Point HealthPickupSize = new Point(40, 40);
         private static List<Rectangle> healthPickupList = new List<Rectangle>();
         private static Texture2D healthPickupTexture;
+        
+        private static List<Vector2> positionsOfStringsToDraw;
+        private static List<int> framesStringsHaveBeenOnFrame;
 
         public HealthPickupManager(Texture2D texture)
         {
@@ -34,15 +37,29 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Checks if the player collides with any health pickup. If they do, increases the player's health and removes that pickup
         /// </summary>
         /// <param name="astronaut"></param>
-        public void CheckPlayerCollisions(Player astronaut)
+        public void Update(Player astronaut)
         {
             for (int i = 0; i < healthPickupList.Count; i++)
             {
                 if (astronaut.rect.Intersects(healthPickupList[i]))
                 {
                     astronaut.Lives++;
+
+                    positionsOfStringsToDraw.Add(new Vector2(healthPickupList[i].X, healthPickupList[i].Y));
+                    framesStringsHaveBeenOnFrame.Add(0);
+
                     healthPickupList.RemoveAt(i);
                     i--;
+                }
+            }
+
+            for (int i = 0; i < framesStringsHaveBeenOnFrame.Count; i++)
+            {
+                framesStringsHaveBeenOnFrame[i]++;
+                if (framesStringsHaveBeenOnFrame[i] > 30)
+                {
+                    framesStringsHaveBeenOnFrame.RemoveAt(0);
+                    positionsOfStringsToDraw.RemoveAt(0);
                 }
             }
         }
@@ -51,11 +68,16 @@ namespace Nobody_Will_Hear_Them_Scream
         /// Draws every health pickup onto the screen
         /// </summary>
         /// <param name="sb">The spritebatch to draw with</param>
-        public void Draw(SpriteBatch sb, Color c)
+        public void Draw(SpriteBatch sb, Color c, SpriteFont font)
         {
             foreach(Rectangle r in healthPickupList)
             {
                 sb.Draw(healthPickupTexture, r, c);
+            }
+
+            foreach(Vector2 v in positionsOfStringsToDraw)
+            {
+                sb.DrawString(font, "+1 hp", v, Color.Green);
             }
         }
 

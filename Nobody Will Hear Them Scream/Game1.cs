@@ -825,7 +825,7 @@ namespace Nobody_Will_Hear_Them_Scream
             crateList.Draw(_spriteBatch, colorToDrawSprites, Arial32);
 
             // Draw the health pickups
-            healthPickupManager.Draw(_spriteBatch, colorToDrawSprites);
+            healthPickupManager.Draw(_spriteBatch, colorToDrawSprites, Arial32);
 
             // Draw Projectiles
             foreach (Projectile p in projectileList)
