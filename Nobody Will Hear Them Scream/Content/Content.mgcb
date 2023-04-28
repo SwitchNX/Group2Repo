@@ -114,6 +114,24 @@
 #begin level1.level
 /copy:level1.level
 
+#begin level10.level
+/copy:level10.level
+
+#begin level11.level
+/copy:level11.level
+
+#begin level12.level
+/copy:level12.level
+
+#begin level13.level
+/copy:level13.level
+
+#begin level14.level
+/copy:level14.level
+
+#begin level15.level
+/copy:level15.level
+
 #begin level2.level
 /copy:level2.level
 
@@ -135,6 +153,9 @@
 #begin level8.level
 /copy:level8.level
 
+#begin level9.level
+/copy:level9.level
+
 #begin projectile.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -146,6 +167,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:projectile.png
+
+#begin secretLevel.level
+/copy:secretLevel.level
 
 #begin SpaceWalk Background.png
 /importer:TextureImporter
