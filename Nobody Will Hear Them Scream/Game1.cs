@@ -111,7 +111,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
         protected override void Initialize()
         {
-            levelCount = 8;
+            levelCount = 15;
 
             gameState = GameState.mainMenu;
 
@@ -268,11 +268,17 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <param name="level">Which level number is being loaded (level 1, etc)</param>
         private void LoadLevel()
         {
+
             string filename = $"Content/level{levelNum}.level";
             if (!File.Exists(filename))
             {
                 //Do whatever happens when you run out of levels
                 return;
+            }
+
+            if (displayLevel == 50)
+            {
+                filename = "secretLevel";
             }
 
             FileStream inputStream = File.OpenRead(filename);
