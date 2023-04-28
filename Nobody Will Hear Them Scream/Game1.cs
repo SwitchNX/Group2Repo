@@ -53,7 +53,6 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D texturePlayerProjectile;
         private Texture2D textureAstronautArm;
         private Rectangle astronautBounds;
-        private Vector2 armVector;
         private Player astronaut;
 
         // Fields to manage projectiles
@@ -130,7 +129,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 using(StreamReader scoreReader = new StreamReader("HighScores.txt"))
                 {
                     int score;
-                    while ((score = int.Parse(scoreReader.ReadLine())) != null)
+                    while ((score = int.Parse(scoreReader.ReadLine())) != 0)
                     {
                         scoreList.Add(score);
                     }
@@ -646,7 +645,6 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     //Draws in each high score in the list
                     int height = 175;
-                    int i = 0;
                     foreach(int score in scoreList)
                     {
                         _spriteBatch.DrawString(Arial14, $"{score}",
