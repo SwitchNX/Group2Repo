@@ -53,6 +53,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D texturePlayerProjectile;
         private Texture2D textureAstronautArm;
         private Rectangle astronautBounds;
+        private Vector2 armVector;
         private Player astronaut;
 
         // Fields to manage projectiles
@@ -822,7 +823,7 @@ namespace Nobody_Will_Hear_Them_Scream
             }
 
             // Draw the player
-            astronaut.Draw(_spriteBatch, colorToDrawPlayer);
+            astronaut.Draw(_spriteBatch, colorToDrawPlayer, astronautBounds);
 
             //Draw Enemies
             enemyManager.Draw(_spriteBatch, colorToDrawIntSprites, Arial32);
