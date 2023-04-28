@@ -146,6 +146,21 @@ namespace Nobody_Will_Hear_Them_Scream
                 {
                     astronaut.Lives--;
                     newIntersection = false;
+
+                    // Physics for collisions
+                    Vector2 vnew = astronaut.PlayerVelocity + this.velocity;
+                    if (vnew.X < 0)
+                    {
+                        vnew.X *= 1;
+                    }
+                    if (vnew.Y < 0)
+                    {
+                        vnew.Y *= 1;
+                    }
+
+                    astronaut.PlayerVelocity *= 1;
+                    this.velocity *= 1;
+
                 }
             } else
             {
