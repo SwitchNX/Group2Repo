@@ -164,7 +164,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 //Handles collisions with other enemies
                 if (rect.Intersects(e.rect) && e.rect != rect)
                 {
-                    velocity *= -1;
+                    velocity *= -1.2f;
                 }
             }
         }
