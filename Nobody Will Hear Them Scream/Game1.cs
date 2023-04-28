@@ -258,7 +258,6 @@ namespace Nobody_Will_Hear_Them_Scream
             crateList.ClearCrates();
             healthPickupManager.Clear();
             LoadLevel();
-            //Remember to change this in post
             astronaut.rect = astronautBounds;
         }
 

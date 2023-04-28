@@ -15,8 +15,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D basicTexture;
         private Texture2D largeTexture;
         private Texture2D fastTexture;
-        private static Point enemyNormalSize = new Point(30, 30);
-        private static Point enemyLargeSize = new Point(50, 50);
+        private static Point enemyNormalSize = new Point(40, 40);
+        private static Point enemySmallSize = new Point(30, 30);
+        private static Point enemyLargeSize = new Point(60, 60);
         private bool redFlash = false;
         private bool smallPrint = false;
         private List<Enemy> enemiesToScore;
@@ -64,7 +65,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <param name="spawnPoint">The point at which the enemy (top left corner) will spawn at</param>
         public void CreateFastEnemy(Point spawnPoint)
         {
-            enemyList.Add(new Enemy(EnemyType.fast, fastTexture, new Rectangle(spawnPoint, enemyNormalSize)));
+            enemyList.Add(new Enemy(EnemyType.fast, fastTexture, new Rectangle(spawnPoint, enemySmallSize)));
         }
 
         /// <summary>
