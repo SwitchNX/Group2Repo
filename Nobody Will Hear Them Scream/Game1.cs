@@ -741,6 +741,10 @@ namespace Nobody_Will_Hear_Them_Scream
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("you'll blast off in the opposite direction!").X / 2,
                         300),
                         Color.White);
+                        _spriteBatch.DrawString(Arial32, "(Press Esc to pause/unpause during gameplay)",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("(Press Esc to pause/unpause during gameplay)").X / 2,
+                        800),
+                        Color.White);
                     } else
                     {
                         // Draw resume and quit buttons
