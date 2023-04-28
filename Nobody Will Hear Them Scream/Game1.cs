@@ -227,6 +227,8 @@ namespace Nobody_Will_Hear_Them_Scream
 
             quitGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Quit").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 150), "Quit", Arial14);
+
+            IsMouseVisible = false;
         }
 
         /// <summary>
@@ -771,6 +773,12 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     break;
             }
+
+            ms = Mouse.GetState();
+            _spriteBatch.Draw(textureHeart,
+                    new Rectangle(ms.X - 12, ms.Y - 12,
+                        25, 25),
+                    Color.White);
 
             // End the sprite batch
             _spriteBatch.End();
