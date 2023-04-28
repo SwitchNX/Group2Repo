@@ -92,7 +92,10 @@ namespace Nobody_Will_Hear_Them_Scream
 
         private int levelCount;
 
-        private int framesSinceLevelEnd; 
+        private int framesSinceLevelEnd;
+
+        private bool firstTimePlaying;
+        private bool exitTutorial;
 
         private List<int> scoreList = new List<int>();
 
@@ -109,6 +112,9 @@ namespace Nobody_Will_Hear_Them_Scream
             levelCount = 8;
 
             gameState = GameState.mainMenu;
+
+            firstTimePlaying = true;
+            exitTutorial = false;
 
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -422,6 +428,12 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     crateList.Update(gameTime, astronaut);
 
+                    //For initial tutorial
+                    if(firstTimePlaying == true)
+                    {
+                        gameState = GameState.pauseScreen;
+                    }
+
                     // Update projectiles
                     foreach(Projectile p in projectileList)
                     {
@@ -483,7 +495,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     }
 
                     // If there was a left click on this frame, move the player
-                    if (SingleLeftClick())
+                    if (SingleLeftClick() || exitTutorial == true)
                     {
                         // Move the player
                         astronaut.MovePlayer(ms);
@@ -496,6 +508,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         Projectile p = new Projectile(texturePlayerProjectile, new Rectangle(astronaut.rect.Center, Projectile.ProjectileSize), v);
                         projectileList.Add(p);
 
+                        exitTutorial = false;
                     }
 
                     // Works the timer
@@ -520,6 +533,12 @@ namespace Nobody_Will_Hear_Them_Scream
 
                 case GameState.pauseScreen:
                     // Brings the player back to the game if they press the button or if they press escape
+                    if(firstTimePlaying == true && SingleLeftClick())
+                    {
+                        firstTimePlaying = false;
+                        exitTutorial = true;
+                        gameState = GameState.gameplay;
+                    }
                     if (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position) || SinglePress(Keys.Escape))
                     {
                         gameState = GameState.gameplay;
@@ -701,9 +720,23 @@ namespace Nobody_Will_Hear_Them_Scream
 
                     DrawGameplay(true);
 
-                    // Draw resume and quit buttons
-                    resumeGameButton.Draw(_spriteBatch, Color.White);
-                    quitGameButton.Draw(_spriteBatch, Color.White);
+                    //Provide Tutorial
+                    if(firstTimePlaying == true)
+                    {
+                        _spriteBatch.DrawString(Arial32, "Click at the alien to shoot it, and",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("Click at the alien to shoot it, and").X / 2,
+                        250),
+                        Color.White);
+                        _spriteBatch.DrawString(Arial32, "you'll blast off in the opposite direction!",
+                        new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial32.MeasureString("you'll blast off in the opposite direction!").X / 2,
+                        300),
+                        Color.White);
+                    } else
+                    {
+                        // Draw resume and quit buttons
+                        resumeGameButton.Draw(_spriteBatch, Color.White);
+                        quitGameButton.Draw(_spriteBatch, Color.White);
+                    }
 
                     break;
                 case GameState.levelTransitions:
