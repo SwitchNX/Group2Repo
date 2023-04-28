@@ -739,16 +739,22 @@ namespace Nobody_Will_Hear_Them_Scream
             Color colorToDrawIntSprites = Color.White;
             Color colorToDrawTime = Color.White;
 
-            //Make timer red at 10 seconds left
-            if(time <= 10)
-            {
-                colorToDrawTime = Color.Red;
-            }
-
+            // Change sprites to gray when paused
             if (isPaused)
             {
+                colorToDrawTime = Color.DarkGray;
                 colorToDrawSprites = Color.DarkGray;
                 colorToDrawIntSprites = Color.DarkGray;
+            }
+
+            // Make timer red at 10 seconds left and dark red if its paused
+            if (time <= 10 && isPaused)
+            {
+                colorToDrawTime = Color.DarkRed;
+            }
+            else if (time <= 10)
+            {
+                colorToDrawTime = Color.Red;
             }
 
             // Draw space background
@@ -780,23 +786,25 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // === PRINT UI ===
 
+            int heartSize = 96;
+
             // Draw as many hearts as the player has lives
             for (int i = 0; i < astronaut.Lives; i++)
             {
                 _spriteBatch.Draw(textureHeart,
-                    new Rectangle(10 + i * (48 + 10), 10,
-                        48, 48),
+                    new Rectangle(30 + i * (heartSize + 20), 30,
+                        heartSize, heartSize),
                     colorToDrawSprites);
             }
 
             // Print the time
-            _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(15, 70), colorToDrawTime);
+            _spriteBatch.DrawString(Arial32, $"Time Left: {time}", new Vector2(30, 140), colorToDrawTime);
 
             // Print the current level
-            _spriteBatch.DrawString(Arial32, $"Level: {displayLevel}", new Vector2(15, 110), Color.White);
+            _spriteBatch.DrawString(Arial32, $"Level: {displayLevel}", new Vector2(30, 180), colorToDrawSprites);
 
             // Print the current score
-            _spriteBatch.DrawString(Arial32, $"Score: {astronaut.GameScore}", new Vector2(15, 150), Color.White);
+            _spriteBatch.DrawString(Arial32, $"Score: {astronaut.GameScore}", new Vector2(30, 220), colorToDrawSprites);
 
 
 
