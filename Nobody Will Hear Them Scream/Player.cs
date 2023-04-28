@@ -27,6 +27,7 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D arm;
         private Rectangle armBounds;
         private float armAngle;
+        private SpriteEffects effect;
 
 
         // Properties
@@ -121,8 +122,18 @@ namespace Nobody_Will_Hear_Them_Scream
                 armAngle = -(float)Math.Acos(mouseDirFromPlayer.X);
             }
 
-            // Add the new speeds
-            X += (int)playerVelocity.X;
+            // flip arm
+            if (mouseDirFromPlayer.X > 0)
+            {
+                effect = SpriteEffects.FlipVertically;
+            }
+            else
+            {
+                effect = SpriteEffects.None;
+            }
+
+                // Add the new speeds
+                X += (int)playerVelocity.X;
             Y += (int)playerVelocity.Y;
 
             // Dampen the player's velocity
@@ -139,7 +150,7 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             base.Draw(sb, c);
 
-            sb.Draw(arm, new Vector2(X + 27, Y + 37), null, c, armAngle, new Vector2(0, arm.Height/2), 0.18f, SpriteEffects.FlipHorizontally, 0f);
+            sb.Draw(arm, new Vector2(X + 27, Y + 37), null, c, armAngle, new Vector2(0, arm.Height / 2), 0.18f, effect, 0f);
         }
 
         /// <summary>
