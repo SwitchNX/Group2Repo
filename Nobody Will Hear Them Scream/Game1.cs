@@ -91,6 +91,9 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D textureSlowEnemySprite;
         private Texture2D textureFastEnemySprite;
 
+        // Texture for cursor
+        private Texture2D textureCursor;
+
         private int levelCount;
 
         private int framesSinceLevelEnd;
@@ -187,6 +190,9 @@ namespace Nobody_Will_Hear_Them_Scream
 
             // Set up title
             textureLogo = Content.Load<Texture2D>("SpaceWalk logo");
+
+            //Set up cursor
+            textureCursor = Content.Load<Texture2D>("TextureCursor");
 
             // Default items for the enemy and crate managers
             enemyManager = new EnemyManager(textureBaseEnemySprite, textureSlowEnemySprite, textureFastEnemySprite);
@@ -783,7 +789,7 @@ namespace Nobody_Will_Hear_Them_Scream
             }
 
             ms = Mouse.GetState();
-            _spriteBatch.Draw(textureHeart,
+            _spriteBatch.Draw(textureCursor,
                     new Rectangle(ms.X - 12, ms.Y - 12,
                         25, 25),
                     Color.White);
