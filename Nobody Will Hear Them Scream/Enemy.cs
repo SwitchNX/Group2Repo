@@ -189,19 +189,32 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.Lives--;
                     newIntersection = false;
 
-                    // Physics for collisions
-                    Vector2 vnew = astronaut.PlayerVelocity + this.velocity;
-                    if (vnew.X < 0)
+                    Vector2 avgV = new Vector2();
+
+
+                    avgV.X = (Math.Abs(astronaut.PlayerVelocity.X) + Math.Abs(this.velocity.X)) / 2;
+                    avgV.Y = (Math.Abs(astronaut.PlayerVelocity.Y) + Math.Abs(this.velocity.Y)) / 2;
+                    
+                    astronaut.PlayerVelocity = avgV;
+                    this.velocity = avgV;
+
+                    if (astronaut.X < this.X)
                     {
-                        vnew.X *= 1;
+                        astronaut.PlayerVelocity = new Vector2(-astronaut.PlayerVelocity.X, astronaut.PlayerVelocity.Y);
                     }
-                    if (vnew.Y < 0)
+                    else
                     {
-                        vnew.Y *= 1;
+                        this.velocity = new Vector2(-velocity.X, velocity.Y);
                     }
 
-                    astronaut.PlayerVelocity *= 1;
-                    this.velocity *= 1;
+                    if (astronaut.Y < this.Y)
+                    {
+                        astronaut.PlayerVelocity = new Vector2(astronaut.PlayerVelocity.X, -astronaut.PlayerVelocity.Y);
+                    }
+                    else
+                    {
+                        this.velocity = new Vector2(velocity.X, -velocity.Y);
+                    }
 
                 }
             } else
