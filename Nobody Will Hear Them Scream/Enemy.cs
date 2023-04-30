@@ -146,34 +146,44 @@ namespace Nobody_Will_Hear_Them_Scream
             }
         }
 
-
+        /// <summary>
+        /// Handles collisions with the screen borders
+        /// </summary>
+        /// <param name="screenWidth">The width of the screen</param>
+        /// <param name="screenHeight">The height of the screen</param>
         public void HandleScreenCollisions(int screenWidth, int screenHeight)
         {
-            //Handles collisions with the boundaries of the screen
-            if (X < 0)
+            // Handles collisions with the boundaries of the screen
+
+            
+            if (X < 0) // Left edge
             {
                 X = 0;
                 velocity.X *= -1;
             }
-            else if (X + Width > screenWidth)
+            else if (X + Width > screenWidth) // Right edge
             {
                 X = screenWidth - Width;
                 velocity.X *= -1;
             }
 
-            if (Y < 0)
+            if (Y < 0) // Top edge
             {
                 Y = 0;
                 velocity.Y *= -1;
             }
-            else if (Y + Height > screenHeight)
+            else if (Y + Height > screenHeight) // Bottom edge
             {
                 Y = screenHeight - Height;
                 velocity.Y *= -1;
             }
         }
 
-        //Handles collisions with the player
+
+        /// <summary>
+        /// Handles collisions with the player
+        /// </summary>
+        /// <param name="astronaut"></param>
         public void EnemyIntersection(Player astronaut)
         {
             if (astronaut.rect.Intersects(rect))
