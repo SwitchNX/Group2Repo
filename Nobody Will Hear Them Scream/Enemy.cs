@@ -195,15 +195,15 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.Lives--;
                     newIntersection = false;
 
+                    // Avergages the players and enemys velocities
                     Vector2 avgV = new Vector2();
-
-
                     avgV.X = (Math.Abs(astronaut.PlayerVelocity.X) + Math.Abs(this.velocity.X)) / 2;
                     avgV.Y = (Math.Abs(astronaut.PlayerVelocity.Y) + Math.Abs(this.velocity.Y)) / 2;
-                    
+
                     astronaut.PlayerVelocity = avgV;
                     this.velocity = avgV;
 
+                    // Changes the direction of the players or enemys velocity depending on their relative position 
                     if (astronaut.X < this.X)
                     {
                         astronaut.PlayerVelocity = new Vector2(-astronaut.PlayerVelocity.X, astronaut.PlayerVelocity.Y);
