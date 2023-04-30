@@ -179,13 +179,19 @@ namespace Nobody_Will_Hear_Them_Scream
             }
         }
 
-        //Handles collisions with the player
+        /// <summary>
+        /// Handles collisions with the player
+        /// </summary>
+        /// <param name="astronaut">The player</param>
         public void EnemyIntersection(Player astronaut)
         {
+            // If the enemy and the player are intersecting
             if (astronaut.rect.Intersects(rect))
             {
+                // Makes sure not to double ding a collision
                 if(newIntersection == true)
                 {
+                    // Lower the player's health
                     astronaut.Lives--;
                     newIntersection = false;
 
@@ -239,10 +245,16 @@ namespace Nobody_Will_Hear_Them_Scream
             }
         }
 
+        /// <summary>
+        /// Draws the pop up score for killing an enemy
+        /// </summary>
+        /// <param name="sb">The sprite batch</param>
+        /// <param name="font">The sprite font</param>
+        /// <param name="e">The enemy manager</param>
         public void DrawScore(SpriteBatch sb, SpriteFont font, EnemyManager e)
         {
             int typeScore = 0;
-            switch (VelocityDampener)
+            switch (VelocityDampener) // Determines which enemy is which using their respective velocity dampeners
             {
                 case .97f:
                     typeScore = 2;
@@ -254,6 +266,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     typeScore = 4;
                     break;
             }
+
             //Prints score aquired by small enemy
             if (e.SmallPrint)
             {
