@@ -179,11 +179,7 @@ namespace Nobody_Will_Hear_Them_Scream
             }
         }
 
-
-        /// <summary>
-        /// Handles collisions with the player
-        /// </summary>
-        /// <param name="astronaut"></param>
+        //Handles collisions with the player
         public void EnemyIntersection(Player astronaut)
         {
             if (astronaut.rect.Intersects(rect))
