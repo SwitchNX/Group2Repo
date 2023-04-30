@@ -29,6 +29,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private SpriteEffects effectArm;
         private SpriteEffects effectBody;
         private Vector2 armPosition;
+        private int framesLeftToDrawRed;
+
 
 
         // Properties
@@ -86,6 +88,12 @@ namespace Nobody_Will_Hear_Them_Scream
         {
             get { return armPosition; }
             set { armPosition = value; }
+        }
+
+        public int FramesLeftToDrawRed
+        {
+            get { return framesLeftToDrawRed; }
+            set { framesLeftToDrawRed = value; }
         }
 
         // Constructor
@@ -153,6 +161,11 @@ namespace Nobody_Will_Hear_Them_Scream
             // Dampen the player's velocity
             playerVelocity.X /= dampenAmount;
             playerVelocity.Y /= dampenAmount;
+
+            if (framesLeftToDrawRed > 0)
+            {
+                framesLeftToDrawRed--;
+            }
         }
 
         /// <summary>
@@ -163,6 +176,11 @@ namespace Nobody_Will_Hear_Them_Scream
         public void Draw(SpriteBatch sb, Color c, Rectangle playerbounds)
         {
             //base.Draw(sb, c);
+
+            if (framesLeftToDrawRed > 0)
+            {
+                c = Color.Red;
+            }
 
             sb.Draw(body, new Vector2(X, Y), null, c, 0f, new Vector2(0, 0), 0.16f, effectBody, 0f);
 

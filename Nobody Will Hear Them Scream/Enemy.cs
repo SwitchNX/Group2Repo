@@ -195,6 +195,9 @@ namespace Nobody_Will_Hear_Them_Scream
                     astronaut.Lives--;
                     newIntersection = false;
 
+                    // Draws the player red for 10 frames
+                    astronaut.FramesLeftToDrawRed = 10;
+
                     // Avergages the players and enemys velocities
                     Vector2 avgV = new Vector2();
                     avgV.X = (Math.Abs(astronaut.PlayerVelocity.X) + Math.Abs(this.velocity.X)) / 2;
