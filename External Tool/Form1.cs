@@ -1,5 +1,8 @@
 namespace Homework_2
 {
+    // Ryan Fogarty
+    // Lets the user either create or load a level and begins the level editor
+
     public partial class Form1 : Form
     {
         public Form1()
