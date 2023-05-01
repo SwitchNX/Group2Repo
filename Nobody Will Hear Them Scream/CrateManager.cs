@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-// Ryan Fogarty & Anthony Curtis
+// Ryan Fogarty, Anthony Curtis & Hudson Ward
 // Class for managing crate objects
 
 namespace Nobody_Will_Hear_Them_Scream
@@ -29,6 +29,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private Texture2D wideTexture;
         private Texture2D tallTexture;
         private Point crateSize;
+
+        //Fields for printing scores when destroyed
         private bool smallPrint = false;
         private List<Crate> cratesToScore;
         int smallTimer = 5;
