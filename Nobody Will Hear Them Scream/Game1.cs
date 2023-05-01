@@ -110,7 +110,7 @@ namespace Nobody_Will_Hear_Them_Scream
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            //Window.IsBorderless = true;
+            Window.IsBorderless = true;
         }
 
         protected override void Initialize()
@@ -124,7 +124,7 @@ namespace Nobody_Will_Hear_Them_Scream
 
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            //_graphics.ToggleFullScreen();
+            _graphics.ToggleFullScreen();
             _graphics.ApplyChanges();
 
             //Reads the top five scores from a text file if possible
