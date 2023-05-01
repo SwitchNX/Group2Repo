@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-// [names here]
+// Anthony and Hudson
 // Parent class for game objects
 
 namespace Nobody_Will_Hear_Them_Scream

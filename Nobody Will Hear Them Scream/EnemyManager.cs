@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-// [names here]
+// Ryan Fogarty, Anthony Curtis & Hudson Ward
 // Manager for enemy objects
 
 namespace Nobody_Will_Hear_Them_Scream
@@ -21,6 +21,8 @@ namespace Nobody_Will_Hear_Them_Scream
         private static Point enemyNormalSize = new Point(40, 40);
         private static Point enemySmallSize = new Point(30, 30);
         private static Point enemyLargeSize = new Point(60, 60);
+
+        //Fields for printing scores when destroyed, and flashing when damaged
         private bool redFlash = false;
         private bool smallPrint = false;
         private List<Enemy> enemiesToScore;

@@ -235,6 +235,7 @@ namespace Nobody_Will_Hear_Them_Scream
             quitGameButton = new Button(new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString("Quit").X / 2,
                 _graphics.PreferredBackBufferHeight / 4 + 150), "Quit", Arial14);
 
+            // Set mouse visibility
             IsMouseVisible = false;
         }
 
@@ -527,6 +528,7 @@ namespace Nobody_Will_Hear_Them_Scream
                         Projectile p = new Projectile(texturePlayerProjectile, new Rectangle(astronaut.rect.Center, Projectile.ProjectileSize), v);
                         projectileList.Add(p);
 
+                        //Handles the tutorial at the start of the game
                         exitTutorial = false;
                     }
 
@@ -551,13 +553,15 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
 
                 case GameState.pauseScreen:
-                    // Brings the player back to the game if they press the button or if they press escape
+                    //Sets up the tutorial and allows the player to exit by firing.
                     if(firstTimePlaying == true && SingleLeftClick())
                     {
                         firstTimePlaying = false;
                         exitTutorial = true;
                         gameState = GameState.gameplay;
                     }
+
+                    // Brings the player back to the game if they press the button or if they press escape
                     if (SingleLeftClick() && resumeGameButton.Rect.Contains(ms.Position) || SinglePress(Keys.Escape))
                     {
                         gameState = GameState.gameplay;
@@ -568,6 +572,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     }
                     break;
                 case GameState.levelTransitions:
+                    //Allows the player a moment of reprieve between levels in order to adjust
                     if (framesSinceLevelEnd == 0)
                     {
                         if (levelNum != levelCount)
@@ -790,6 +795,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     break;
             }
 
+            //Draws the custom mouse cursor in place of the mouse
             ms = Mouse.GetState();
             _spriteBatch.Draw(textureCursor,
                     new Rectangle(ms.X - 12, ms.Y - 12,
