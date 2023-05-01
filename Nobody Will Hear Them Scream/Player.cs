@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-// Kai & [names here]
+// Kai & Anthony
 // Class for player object
 
 namespace Nobody_Will_Hear_Them_Scream
@@ -172,21 +172,21 @@ namespace Nobody_Will_Hear_Them_Scream
         }
 
         /// <summary>
-        /// 
+        /// Draws the player to the screen in the correct orientation
+        /// based on the mouse's position relative to the player
         /// </summary>
-        /// <param name="sb"></param>
-        /// <param name="c"></param>
-        public void Draw(SpriteBatch sb, Color c, Rectangle playerbounds)
+        /// <param name="c">color to draw the player</param>
+        public override void Draw(SpriteBatch sb, Color c)
         {
-            //base.Draw(sb, c);
-
             if (framesLeftToDrawRed > 0)
             {
                 c = Color.Red;
             }
 
+            // draw player's body
             sb.Draw(body, new Vector2(X, Y), null, c, 0f, new Vector2(0, 0), 0.16f, effectBody, 0f);
 
+            // draw player's arm
             sb.Draw(arm, armPosition, null, c, armAngle, new Vector2(0, arm.Height / 2), 0.25f, effectArm, 0f);
         }
 
@@ -204,9 +204,15 @@ namespace Nobody_Will_Hear_Them_Scream
             playerVelocity.Y -= (int)(boostAmount * mouseDirFromPlayer.Y);
         }
 
+        /// <summary>
+        ///Handles collisions with the boundaries of the screen
+        /// </summary>
+        /// <param name="screenWidth">width of the screen</param>
+        /// <param name="screenHeight">height of the screen</param>
         public void HandleScreenCollisions(int screenWidth, int screenHeight)
         {
-            //Handles collisions with the boundaries of the screen
+            // handles collisions with the left
+            // and right sides of the screen
             if (X < 0)
             {
                 X = 0;
@@ -218,6 +224,8 @@ namespace Nobody_Will_Hear_Them_Scream
                 playerVelocity.X *= -1;
             }
 
+            // handles collisions with the top
+            // and bottom of the screen
             if (Y < 0)
             {
                 Y = 0;

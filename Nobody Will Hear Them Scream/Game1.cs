@@ -860,7 +860,7 @@ namespace Nobody_Will_Hear_Them_Scream
             }
 
             // Draw the player
-            astronaut.Draw(_spriteBatch, colorToDrawPlayer, astronautBounds);
+            astronaut.Draw(_spriteBatch, colorToDrawPlayer);
 
             //Draw Enemies
             enemyManager.Draw(_spriteBatch, colorToDrawIntSprites, Arial32);
