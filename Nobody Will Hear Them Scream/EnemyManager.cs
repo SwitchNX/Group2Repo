@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-// [names here]
+// Hudson, Anthony, Kai
 // Manager for enemy objects
 
 namespace Nobody_Will_Hear_Them_Scream
 {
     internal class EnemyManager
     {
+        // Fields
+
         private List<Enemy> enemyList;
         private Texture2D basicTexture;
         private Texture2D largeTexture;
@@ -28,11 +30,23 @@ namespace Nobody_Will_Hear_Them_Scream
         int smallTimer = 10;
         int flashTimer = 5;
 
+
+        // Properties
+
         /// <summary>
         /// How many enenies there are
         /// </summary>
         public int EnemyCount { get { return enemyList.Count; } }
 
+
+        // Constructor
+
+        /// <summary>
+        /// Creates a new enemy manager object
+        /// </summary>
+        /// <param name="basicTexture">Texture for basic enemy</param>
+        /// <param name="largeTexture">Texture for large enemy</param>
+        /// <param name="fastTexture">Texture for fast enemy</param>
         public EnemyManager (Texture2D basicTexture, Texture2D largeTexture, Texture2D fastTexture)
         {
             this.basicTexture = basicTexture;
@@ -42,6 +56,9 @@ namespace Nobody_Will_Hear_Them_Scream
             enemiesToScore = new List<Enemy>();
             enemiesToFlash = new List<Enemy>();
         }
+
+
+        // Methods
 
         /// <summary>
         /// Creates a new basic enemy to the enemy manager
@@ -91,12 +108,14 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <returns> The total amount of score gained by killing enemies this frame</returns>
         public int Update(GameTime gametime, Player astronaut, List<Projectile> projectileList, int screenWidth, int screenHeight) 
         {
+            // Create a list for enemies and projectiles to be removed
             List<Enemy> enemiesToBeRemoved = new List<Enemy>();
             List<Projectile> projectilesToBeRemoved = new List<Projectile>();
 
             int scoreGained = 0;
             flashTimer++;
             smallTimer++;
+
             if(smallTimer >= 30)
             {
                 smallPrint = false;
@@ -108,6 +127,7 @@ namespace Nobody_Will_Hear_Them_Scream
                 enemiesToFlash.Clear();
             }
 
+            // Update each enemy
             foreach (Enemy e in enemyList)
             {
                 e.GetPlayerPosition(astronaut.rect);
@@ -115,6 +135,8 @@ namespace Nobody_Will_Hear_Them_Scream
                 e.HandleScreenCollisions(screenWidth, screenHeight);
                 e.EnemyIntersection(astronaut);
 				e.HandleEnemyCollisions(enemyList);
+
+                // Remove each projectile and hurt each enemy they touch if they intersect
                 foreach (Projectile p in projectileList)
                 {
                     if (e.rect.Intersects(p.rect))
@@ -171,6 +193,7 @@ namespace Nobody_Will_Hear_Them_Scream
         /// <param name="font">the font used to display the scores each enemy provides</param>
         public void Draw(SpriteBatch sb, Color C, SpriteFont font)
         {
+            // Draw every enemy
             foreach (Enemy enemy in enemyList)
             {
                 if (enemiesToFlash.Contains(enemy))
@@ -181,6 +204,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     sb.Draw(enemy.Texture, enemy.rect, C);
                 }
             }
+            // Draw each pop up score
             foreach (Enemy enemy in enemiesToScore)
             {
                 enemy.DrawScore(sb, font, this);
