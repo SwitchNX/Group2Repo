@@ -13,6 +13,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Homework_2
 {
+
+    // Ryan Fogarty
+    // Makes a new level editor
+
     public partial class LevelEditor : Form
     {
         PictureBox[,] map;

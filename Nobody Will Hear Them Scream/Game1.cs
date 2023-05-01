@@ -572,7 +572,7 @@ namespace Nobody_Will_Hear_Them_Scream
                     }
                     break;
                 case GameState.levelTransitions:
-                    //Allows the player a moment of reprieve between levels in order to adjust
+                    // Handles the transition time in between levels
                     if (framesSinceLevelEnd == 0)
                     {
                         if (levelNum != levelCount)
@@ -683,6 +683,8 @@ namespace Nobody_Will_Hear_Them_Scream
                     string stringSeven = "Pointy enemies move faster. (3 pts)";
                     string stringEight = "Flat enemies move slower, but take 2 hits. (4 pts)";
                     string stringNine = "(10 pts)               (20 pts)                (20 pts)               (1 HP)";
+
+                    // Draws all of the instruction strings to the screen
                     _spriteBatch.DrawString(Arial14, stringOne,
                         new Vector2(_graphics.PreferredBackBufferWidth / 2 - Arial14.MeasureString(stringOne).X / 2,
                         175),
