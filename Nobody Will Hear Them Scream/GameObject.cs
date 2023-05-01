@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+// [names here]
+// Parent class for game objects
+
 namespace Nobody_Will_Hear_Them_Scream
 {
     /// <summary>

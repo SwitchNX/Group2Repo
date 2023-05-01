@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+// [names here]
+// Manager for enemy objects
+
 namespace Nobody_Will_Hear_Them_Scream
 {
     internal class EnemyManager

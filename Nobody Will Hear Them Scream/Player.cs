@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+// Kai & [names here]
+// Class for player object
+
 namespace Nobody_Will_Hear_Them_Scream
 {
     /// <summary>
